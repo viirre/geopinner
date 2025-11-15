@@ -88,6 +88,8 @@ function getFilteredPlaces(difficulty, gameType) {
             return allPlaces.filter(p => p.type === 'land' || p.type === 'ö');
         case 'stader':
             return allPlaces.filter(p => p.type === 'stad');
+        case 'huvudstader':
+            return allPlaces.filter(p => p.type === 'stad' && p.capital === true);
         case 'vin':
             return allPlaces.filter(p => p.type === 'vin');
         case 'docg':
