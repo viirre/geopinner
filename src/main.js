@@ -59,20 +59,14 @@ document.querySelectorAll('[data-gametype]').forEach(btn => {
     });
 });
 
-document.querySelectorAll('[data-rounds]').forEach(btn => {
-    btn.addEventListener('click', function () {
-        document.querySelectorAll('[data-rounds]').forEach(b => b.classList.remove('selected'));
-        this.classList.add('selected');
-        gameSettings.rounds = parseInt(this.dataset.rounds);
-    });
+// Rounds select dropdown
+document.getElementById('roundsSelect').addEventListener('change', function () {
+    gameSettings.rounds = parseInt(this.value);
 });
 
-document.querySelectorAll('[data-zoom]').forEach(btn => {
-    btn.addEventListener('click', function () {
-        document.querySelectorAll('[data-zoom]').forEach(b => b.classList.remove('selected'));
-        this.classList.add('selected');
-        gameSettings.zoomEnabled = this.dataset.zoom === 'enabled';
-    });
+// Zoom toggle checkbox
+document.getElementById('zoomToggle').addEventListener('change', function () {
+    gameSettings.zoomEnabled = this.checked;
 });
 
 // Button event listeners

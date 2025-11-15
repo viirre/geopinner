@@ -78,21 +78,36 @@ h1 {
 }
 
 .option-group {
-    margin-bottom: 30px;
+    margin-bottom: 24px;
 }
 
 .option-group label {
     display: block;
-    font-size: 1.1em;
-    margin-bottom: 12px;
-    color: #1e293b;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+    color: #64748b;
     font-weight: 600;
-    letter-spacing: -0.01em;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
 }
 
-.button-group {
+.inline-control {
     display: flex;
-    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.inline-control > label:first-child {
+    margin-bottom: 0;
+}
+
+.inline-control .toggle-switch {
+    margin-bottom: 0;
+}
+
+.pill-group {
+    display: flex;
+    gap: 8px;
     flex-wrap: wrap;
 }
 
@@ -107,25 +122,52 @@ button {
     font-family: inherit;
 }
 
-.option-btn {
+.pill-btn {
     background: #f1f5f9;
     color: #475569;
-    flex: 1;
-    min-width: 120px;
-    border: 2px solid #e2e8f0;
+    padding: 8px 18px;
+    font-size: 0.9em;
+    border-radius: 20px;
+    border: 1.5px solid #e2e8f0;
+    font-weight: 500;
 }
 
-.option-btn:hover {
+.pill-btn:hover {
     background: #e2e8f0;
     border-color: #cbd5e1;
     transform: translateY(-1px);
 }
 
-.option-btn.selected {
+.pill-btn.selected {
     background: #1e293b;
     color: white;
     border-color: #1e293b;
-    box-shadow: 0 4px 12px rgba(30, 41, 59, 0.3);
+    box-shadow: 0 2px 8px rgba(30, 41, 59, 0.25);
+}
+
+.select-control {
+    padding: 10px 16px;
+    font-size: 0.95em;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    background: #f8fafc;
+    color: #1e293b;
+    cursor: pointer;
+    font-weight: 500;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    min-width: 140px;
+}
+
+.select-control:hover {
+    border-color: #cbd5e1;
+    background: #f1f5f9;
+}
+
+.select-control:focus {
+    outline: none;
+    border-color: #1e293b;
+    box-shadow: 0 0 0 3px rgba(30, 41, 59, 0.1);
 }
 
 .start-btn {
@@ -214,6 +256,7 @@ button {
 
 .toggle-slider {
     position: relative;
+    display: block;
     width: 48px;
     height: 24px;
     background: #cbd5e1;
