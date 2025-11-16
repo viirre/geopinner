@@ -79,7 +79,7 @@ function getFilteredPlaces(difficulty, gameType) {
 
     switch (gameType) {
         case 'lander':
-            return allPlaces.filter(p => p.type === 'land' || p.type === 'ö');
+            return allPlaces.filter(p => p.type === 'land');
         case 'stader':
             return allPlaces.filter(p => p.type === 'stad');
         case 'huvudstader':
