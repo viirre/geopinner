@@ -3,7 +3,7 @@
  * Handles filtering and random selection of places without duplicates
  */
 
-import places from '../places.js';
+import places from '../places/index.js';
 
 /**
  * Filter places by difficulty and game types

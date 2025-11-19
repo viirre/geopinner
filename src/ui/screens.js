@@ -118,14 +118,15 @@ export function addActionButton(isLastRound, onNext, onFinish) {
 export function showFinalResults(finalResults) {
     showResultScreen();
 
-    const { totalScore, maxPossibleScore, roundHistory, settings } = finalResults;
+    const { totalScore, totalBonus, maxPossibleScore, roundHistory, settings } = finalResults;
 
     // Calculate display score
-    const displayMax = settings.timerEnabled
-        ? `${maxPossibleScore} (+bonus)`
-        : maxPossibleScore;
+    let scoreDisplay = `${totalScore}/${maxPossibleScore}`;
+    if (settings.timerEnabled && totalBonus > 0) {
+        scoreDisplay += ` (+ ${totalBonus} bonus)`;
+    }
 
-    document.getElementById('finalScore').textContent = `${totalScore}/${displayMax}`;
+    document.getElementById('finalScore').textContent = scoreDisplay;
 
     // Get congratulatory message
     const message = getFinalMessage(totalScore, maxPossibleScore);

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Map pin shape with globe inside -->
+  <defs>
+    <linearGradient id="pinGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="globeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Pin shadow -->
+  <ellipse cx="100" cy="185" rx="30" ry="8" fill="#000000" opacity="0.2"/>
+
+  <!-- Pin body -->
+  <path d="M 100 30
+           C 65 30, 40 55, 40 90
+           C 40 125, 100 170, 100 170
+           C 100 170, 160 125, 160 90
+           C 160 55, 135 30, 100 30 Z"
+        fill="url(#pinGradient)"
+        stroke="#1e3a8a"
+        stroke-width="3"/>
+
+  <!-- Globe circle -->
+  <circle cx="100" cy="85" r="35" fill="url(#globeGradient)" stroke="#ffffff" stroke-width="2"/>
+
+  <!-- Globe meridians (vertical lines) -->
+  <ellipse cx="100" cy="85" rx="12" ry="35" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.6"/>
+  <ellipse cx="100" cy="85" rx="24" ry="35" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- Globe parallels (horizontal lines) -->
+  <line x1="65" y1="85" x2="135" y2="85" stroke="#ffffff" stroke-width="2" opacity="0.6"/>
+  <ellipse cx="100" cy="85" rx="35" ry="12" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- Highlight on pin -->
+  <ellipse cx="85" cy="65" rx="15" ry="20" fill="#ffffff" opacity="0.2"/>
+</svg>

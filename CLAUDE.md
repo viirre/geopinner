@@ -29,7 +29,7 @@ src/
   ui/
     screens.js        - UI rendering and screen transitions (180 lines)
   main.js             - Entry point, coordinates modules (270 lines, down from 453)
-  places.js           - Location database (~760 lines)
+  places/             - Location database (~760 lines)
   style.css           - Complete styling with animations and timer UI
 ```
 
@@ -45,7 +45,7 @@ src/
    - Difficulty (easy/medium/hard)
    - Game type (mixed/countries/cities/wine regions/DOCG/AOC)
    - Number of rounds (5/10/15/20)
-   - **NEW:** Timer mode (off/30s/60s/90s per round)
+   - Timer mode (off/30s/60s/90s per round)
 2. **Game Screen**: Shows question ("Var ligger X?"), interactive map, score tracking, optional countdown timer
 3. **Result Screen**: Shows final score, performance message, round-by-round breakdown with time bonuses if applicable
 

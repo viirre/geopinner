@@ -31,6 +31,7 @@ export class GameState {
         // Game progress
         this.currentRound = 0;
         this.totalScore = 0;
+        this.totalBonus = 0;
         this.currentPlace = null;
         this.hasGuessed = false;
         this.roundHistory = [];
@@ -62,6 +63,8 @@ export class GameState {
             this.settings.gameTypes
         );
 
+        console.log("Starting game with settings:", this.settings);
+
         // Validate enough places available
         if (!this.placeSelector.hasEnoughPlaces(this.settings.rounds)) {
             return {
@@ -73,6 +76,7 @@ export class GameState {
         // Reset game state
         this.currentRound = 0;
         this.totalScore = 0;
+        this.totalBonus = 0;
         this.roundHistory = [];
 
         return { success: true };
@@ -184,8 +188,10 @@ export class GameState {
             timeBonus = this.calculateTimeBonus(timeTaken, scoreResult.points);
         }
 
+        // Add base points to totalScore, bonuses to totalBonus
+        this.totalScore += scoreResult.points;
+        this.totalBonus += timeBonus;
         const totalPoints = scoreResult.points + timeBonus;
-        this.totalScore += totalPoints;
 
         // Record round history
         const roundResult = {
@@ -223,15 +229,10 @@ export class GameState {
     getFinalResults() {
         const maxPossibleScore = this.settings.rounds * 10;
 
-        // If timer enabled, max score is higher due to potential bonuses
-        const maxWithBonuses = this.settings.timerEnabled
-            ? this.settings.rounds * 13  // 10 base + 3 max bonus
-            : maxPossibleScore;
-
         return {
             totalScore: this.totalScore,
+            totalBonus: this.totalBonus,
             maxPossibleScore: maxPossibleScore,
-            maxWithBonuses: maxWithBonuses,
             percentage: (this.totalScore / maxPossibleScore) * 100,
             roundHistory: this.roundHistory,
             settings: this.settings
@@ -247,6 +248,7 @@ export class GameState {
             settings: this.settings,
             currentRound: this.currentRound,
             totalScore: this.totalScore,
+            totalBonus: this.totalBonus,
             roundHistory: this.roundHistory
         };
     }
@@ -259,6 +261,7 @@ export class GameState {
         this.settings = data.settings || this.settings;
         this.currentRound = data.currentRound || 0;
         this.totalScore = data.totalScore || 0;
+        this.totalBonus = data.totalBonus || 0;
         this.roundHistory = data.roundHistory || [];
     }
 }
