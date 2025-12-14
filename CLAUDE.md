@@ -4,155 +4,221 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Geopinner is a Swedish-language interactive geography quiz game built with vanilla JavaScript and Vite. Players are shown a location name (cities, countries, islands, wine regions, etc.) and must click on a map to guess where it is located. The game calculates distance accuracy and awards points (0-10) based on how close the guess is.
+GeoPinner is a geography guessing game built with Laravel 12, Livewire 3, and Volt. Players guess locations on a map (countries, cities, wine regions, etc.) and earn points based on accuracy and speed. The game supports both single-player and real-time multiplayer modes.
 
-## Development Commands
+## Common Commands
 
-- `npm run dev` - Start development server with hot reload
-- `npm run build` - Build for production (outputs to `dist/`)
-- `npm run preview` - Preview production build locally
+### Development
+```bash
+# Start development server with all services (Laravel, queue, logs, Vite)
+composer run dev
 
-## Code Architecture
+# Build frontend assets
+npm run build
 
-### Modular Structure (Refactored Nov 2025)
+# Run development Vite server
+npm run dev
 
-The codebase uses a clean modular architecture with separation of concerns:
-
-```
-src/
-  game/
-    state.js          - GameState class: centralized state management (220 lines)
-    scoring.js        - Scoring logic and thresholds (105 lines)
-    placeSelector.js  - PlaceSelector class: place filtering and Fisher-Yates shuffle (115 lines)
-  map/
-    mapManager.js     - MapManager class: Leaflet wrapper (270 lines)
-  ui/
-    screens.js        - UI rendering and screen transitions (180 lines)
-  main.js             - Entry point, coordinates modules (270 lines, down from 453)
-  places/             - Location database (~760 lines)
-  style.css           - Complete styling with animations and timer UI
+# Code formatting with Laravel Pint
+vendor/bin/pint --dirty
 ```
 
-### Entry Points
+### Testing
+```bash
+# Run all tests
+php artisan test
 
-- **index.html**: Main HTML template with Swedish UI text, three screens (setup, game, result), timer UI
-- **src/main.js**: Application entry point, coordinates modules, sets up event listeners
-- **public/**: Static assets (pin_user.png, pin_place.png marker icons)
+# Run specific test file
+php artisan test tests/Feature/Livewire/GameTest.php
 
-### Game Flow
-
-1. **Setup Screen**: User selects:
-   - Difficulty (easy/medium/hard)
-   - Game type (mixed/countries/cities/wine regions/DOCG/AOC)
-   - Number of rounds (5/10/15/20)
-   - Timer mode (off/30s/60s/90s per round)
-2. **Game Screen**: Shows question ("Var ligger X?"), interactive map, score tracking, optional countdown timer
-3. **Result Screen**: Shows final score, performance message, round-by-round breakdown with time bonuses if applicable
-
-### Map Integration
-
-- Uses **Leaflet.js** (v1.9.4) loaded from CDN
-- Map functionality encapsulated in **MapManager class** (src/map/mapManager.js)
-- Two tile style options defined in mapManager.js:
-  - `voyager`: CARTO Voyager
-  - `positron`: CARTO Positron (clearer borders, currently active via CURRENT_TILE_STYLE)
-- **In-game label toggle**: Users can toggle labels during gameplay via checkbox
-- Map settings: center [20,0], zoom 2-10 range, world copy jump enabled
-- MapManager methods: `initialize()`, `setTileStyle()`, `addUserMarker()`, `addPlaceMarker()`, `drawDistanceLine()`, `calculateDistance()`, etc.
-
-### Places Database Structure
-
-Located in `src/places.js` with three difficulty tiers:
-
-```javascript
-{
-  easy: [...],    // ~187 places - major cities, large countries, famous landmarks
-  medium: [...],  // ~230 places - smaller cities, regions, wine areas
-  hard: [...]     // Challenging locations
-}
+# Run tests matching a filter
+php artisan test --filter=testName
 ```
 
-Each place object:
-```javascript
-{
-  name: "Stockholm, Sverige",
-  lat: 59.3293,
-  lng: 18.0686,
-  type: "stad",     // stad, land, ö, plats, vin, docg, aoc
-  size: 12          // radius in km - affects scoring tolerance
-}
+### Multiplayer/Broadcasting
+```bash
+# Start Laravel Reverb WebSocket server (required for multiplayer)
+php artisan reverb:start
+
+# Reverb runs at reverb.herd.test:443 (HTTPS) when using Laravel Herd
 ```
 
-Place types:
-- `stad`: City
-- `land`: Country
-- `ö`: Island
-- `plats`: Landmark/specific location
-- `vin`: Wine region
-- `docg`: Italian DOCG wine regions
-- `aoc`: French AOC wine regions
+### Database
+```bash
+# Run migrations
+php artisan migrate
 
-### Scoring System
+# Run seeders
+php artisan db:seed
 
-Points are calculated via **calculateScore()** in src/game/scoring.js:
-- Adjusted distance = actual distance - place size (radius)
-- Distance bands award 10 → 1 points (e.g., <50km = 10pts, <200km = 9pts, etc.)
-- Wine regions (vin, docg, aoc) have **2x stricter thresholds** (50% of normal distances)
-- Distance shown in Swedish miles (1 mil = 10 km)
-- **NEW:** Timer mode adds speed bonuses:
-  - Finish in <25% of time: +3 points
-  - Finish in <50% of time: +2 points
-  - Finish in <75% of time: +1 point
-  - Only applies to good guesses (7+ base points)
+# Fresh database with seed data
+php artisan migrate:fresh --seed
+```
 
-### Game State Management
+## Architecture
 
-Uses **GameState class** (src/game/state.js) for centralized state:
-- Settings: `{difficulty, rounds, gameType, zoomEnabled, showLabels, timerEnabled, timerDuration}`
-- Game progress: `currentRound`, `totalScore`, `currentPlace`, `hasGuessed`
-- Round history: Array storing each round's results with points, distance, time bonuses
-- Timer state: `timeRemaining`, `roundStartTime`, `roundEndTime`
-- Methods: `startGame()`, `nextRound()`, `submitGuess()`, `calculateTimeBonus()`, `serialize()`/`deserialize()`
-- PlaceSelector instance manages place selection with Fisher-Yates shuffle (no duplicates)
+### Game Modes
 
-### Visual Feedback
+The application has two parallel implementations:
 
-- Custom pin markers (red for user, different color for correct location)
-- Animated dashed line connecting guess to correct location
-- Color-coded feedback: excellent (green), good (blue), okay (orange), poor (red)
-- CSS animations for marker drops and line dashes
+1. **Livewire/Volt Version** (routes: `/game-v2`, `/multiplayer-v2`)
+   - Modern implementation using Livewire components
+   - Interactive, server-driven UI
+   - Primary version going forward
 
-## Key Implementation Details
+2. **Vanilla JS Version** (routes: `/multiplayer`)
+   - Original implementation with vanilla JavaScript
+   - Uses API endpoints from `GameController`
+   - Legacy support
 
-### Place Filtering and Selection
+### Core Domain Models
 
-**PlaceSelector class** (src/game/placeSelector.js):
-- `getFilteredPlaces(difficulty, gameType)` filters by difficulty and game type
-- Game types: blandat, lander, stader, huvudstader, vin, docg, aoc
-- Fisher-Yates shuffle ensures true randomization
-- Automatically reshuffles when all places used (no duplicates per cycle)
-- Validates sufficient places exist via `hasEnoughPlaces(rounds)`
+- **Place** (`app/Models/Place.php`): Geographic locations with lat/lng coordinates, type, difficulty, and size (radius)
+- **Game** (`app/Models/Game.php`): Multiplayer game sessions with code, settings, and status
+- **Player** (`app/Models/Player.php`): Participants in multiplayer games
+- **Round** (`app/Models/Round.php`): Individual rounds within a game
+- **Guess** (`app/Models/Guess.php`): Player guesses with coordinates and scoring
 
-### Map Tile Style Switching
+### Key Enums
 
-To change map style, modify `CURRENT_TILE_STYLE` constant in src/map/mapManager.js (line 19).
-Available styles defined in TILE_STYLES object (mapManager.js:5-17).
-Users can toggle labels during gameplay via checkbox.
+- **Difficulty** (`app/Enums/Difficulty.php`): Easy, Medium, Hard
+- **PlaceType** (`app/Enums/PlaceType.php`): Mixed, Location, Island, City, Capital, Country, WineRegion, DOCG, AOC
+- **NumRound** (`app/Enums/NumRound.php`): Number of rounds options
+- **TimeDuration** (`app/Enums/TimeDuration.php`): Timer duration options
 
-### Timer Mode
+### Services
 
-**Timer functionality** (src/game/state.js):
-- `startTimer()` initializes countdown when round begins
-- `stopTimer()` calculates time taken
-- `calculateTimeBonus()` awards 0-3 bonus points for speed
-- Auto-submits guess when timer reaches 0
-- Timer display shows countdown with warning animation at <10 seconds
+- **PlaceService** (`app/Services/PlaceService.php`): Fetches and filters places by difficulty and type
+- **ScoringService** (`app/Services/ScoringService.php`): Calculates points based on distance from target
+  - Standard thresholds for most places
+  - Stricter thresholds (2x harder) for wine regions (vin, docg, aoc)
+  - Accounts for place size/radius when calculating adjusted distance
+  - Returns points (0-10), emoji, message, and CSS class
 
-### Marker Positioning
+### Livewire Components
 
-Custom Leaflet icons use `iconAnchor: [10, 40]` to position the pin tip correctly at coordinates.
-Managed via MapManager methods: `addUserMarker()` and `addPlaceMarker()`.
+- **Game** (`app/Livewire/Game.php`): Single-player game logic
+  - Manages game state (setup, game, result screens)
+  - Handles place selection, scoring, time bonuses
+  - Stores shuffled places in session to avoid hydration issues
+  - Fisher-Yates shuffle for randomization
 
-## Language
+- **Multiplayer** (`app/Livewire/Multiplayer.php`): Multiplayer game coordination
+  - Creates/joins games with unique codes
+  - Broadcasts events via Laravel Reverb
+  - Synchronizes state across all players
 
-All UI text is in Swedish. When adding features, maintain Swedish language for user-facing strings.
+### Real-Time Broadcasting
+
+Uses **Laravel Reverb** for WebSocket communication:
+
+- Game channels: `game.{code}` for isolated per-game communication
+- Events broadcast in `app/Events/`:
+  - `PlayerJoined`, `GameStarted`, `RoundStarted`
+  - `GuessSubmitted`, `RoundCompleted`, `GameCompleted`
+- See `MULTIPLAYER.md` for detailed broadcasting setup
+
+### Frontend Architecture
+
+- **JavaScript**: Modular components in `resources/js/`
+  - `game/`: Game state management, scoring logic
+  - `map/`: Leaflet map integration
+  - `ui/`: Timer, feedback display
+  - `components/`: Reusable Alpine.js components for Livewire version
+
+- **Styles**: Tailwind CSS v4 in `resources/css/app.css`
+  - Uses `@import "tailwindcss"` (not `@tailwind` directives)
+  - Custom theme extensions with `@theme` directive
+
+- **Views**: Blade templates in `resources/views/`
+  - `layouts/app.blade.php`: Base layout with Flux UI components
+  - `livewire/game.blade.php`: Single-player game UI
+  - `livewire/multiplayer.blade.php`: Multiplayer game UI
+  - `home.blade.php`: Landing page
+
+## Important Patterns
+
+### Place Data Storage
+
+Places are stored in the `places` table with:
+- `difficulty`: JSON array (e.g., `["easy", "medium"]`) - a place can appear in multiple difficulties
+- `size`: Radius in kilometers for scoring tolerance
+- `type`: One of the PlaceType enum values
+
+Use `Place::difficulty($difficulty)` scope to filter by difficulty (uses `whereJsonContains`).
+
+### Scoring Algorithm
+
+1. Calculate Haversine distance between guess and actual location
+2. Adjust distance by subtracting place size: `max(0, distance - place['size'])`
+3. Apply thresholds (standard or wine) to determine points (0-10)
+4. Calculate time bonus if timer enabled and points >= 7:
+   - 3 points: < 25% of time
+   - 2 points: < 50% of time
+   - 1 point: < 75% of time
+
+### Session vs. Component State
+
+The Livewire `Game` component stores the shuffled `game_places` array in the session (not component state) to avoid large hydration payloads. Each round retrieves the current place from session.
+
+### Livewire Event Pattern
+
+Components dispatch events to Alpine.js for map interactions:
+- `clear-map`: Reset map markers
+- `show-result`: Display user guess vs. actual location
+- `show-timeout-result`: Display correct location on timeout
+- `round-complete`: Trigger next round transition
+
+## Development Notes
+
+### Database Seeding
+
+The `export-places.mjs` script is used to populate the places database. Place data is seeded from external sources.
+
+### Flux UI Components
+
+This project uses **Flux Pro** with access to all free and pro components. Common components:
+- `<flux:button>`, `<flux:input>`, `<flux:select>`
+- `<flux:card>`, `<flux:heading>`, `<flux:badge>`
+- Always check existing views for component usage patterns
+
+### Volt Components
+
+The project uses **class-based Volt** components (not functional). Components extend `Livewire\Volt\Component` using anonymous classes within `@volt` directives.
+
+### Testing Strategy
+
+- Use Pest for all tests (not PHPUnit syntax)
+- Feature tests in `tests/Feature/`
+- Livewire component tests in `tests/Feature/Livewire/`
+- Browser tests (Pest v4) can be added in `tests/Browser/` for E2E testing
+- Always run relevant tests after changes: `php artisan test --filter=GameTest`
+
+### Running in Laravel Herd
+
+- Site available at: `https://geopinner.test` (managed by Herd)
+- Reverb runs at: `https://reverb.herd.test:443`
+- No need to manually start `php artisan serve`
+- Use `get-absolute-url` tool to generate correct URLs
+
+## API Endpoints (for Vanilla JS version)
+
+```
+POST   /api/games/create       - Create new multiplayer game
+POST   /api/games/join         - Join existing game
+GET    /api/games/{code}/players - Get players in game
+POST   /api/games/start        - Start game (host only)
+POST   /api/games/guess        - Submit player guess
+POST   /api/games/next-round   - Advance to next round
+GET    /api/places             - Get places for single-player
+```
+
+## Configuration
+
+Key environment variables:
+- `BROADCAST_CONNECTION=reverb`
+- `REVERB_APP_ID`, `REVERB_APP_KEY`, `REVERB_APP_SECRET`
+- `REVERB_HOST`, `REVERB_PORT`, `REVERB_SCHEME`
+- `VITE_REVERB_*` variables must match `REVERB_*` for frontend
+
+See `MULTIPLAYER.md` for complete Reverb configuration details.

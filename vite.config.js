@@ -1,13 +1,22 @@
-import { defineConfig } from 'vite';
+import {
+    defineConfig
+} from 'vite';
+import laravel from 'laravel-vite-plugin';
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  build: {
-    rollupOptions: {
-      input: {
-        main: './index.html',
-      },
+    plugins: [
+        laravel({
+            input: [
+                'resources/css/app.css',
+                'resources/js/app.js',
+                'resources/js/app-livewire.js'
+            ],
+            refresh: true,
+        }),
+        tailwindcss(),
+    ],
+    server: {
+        cors: true,
     },
-  },
-  // Ensure public assets are copied correctly
-  publicDir: 'public',
 });

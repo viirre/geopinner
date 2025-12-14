@@ -1,0 +1,6284 @@
+[
+  {
+    "name": "Addis Abeba, Etiopien",
+    "lat": 9.032,
+    "lng": 38.7469,
+    "type": "city",
+    "capital": true,
+    "size": 12,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Almaty, Kazakstan",
+    "lat": 43.222,
+    "lng": 76.8512,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Amman, Jordanien",
+    "lat": 31.9454,
+    "lng": 35.9284,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Amsterdam, Nederländerna",
+    "lat": 52.3676,
+    "lng": 4.9041,
+    "type": "city",
+    "capital": true,
+    "size": 10,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Ankara, Turkiet",
+    "lat": 39.9334,
+    "lng": 32.8597,
+    "type": "city",
+    "capital": true,
+    "size": 15,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Antananarivo, Madagaskar",
+    "lat": -18.8792,
+    "lng": 47.5079,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Antwerpen, Belgien",
+    "lat": 51.2194,
+    "lng": 4.4025,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Apia, Samoa",
+    "lat": -13.8333,
+    "lng": -171.7667,
+    "type": "city",
+    "size": 5,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Ashgabat, Turkmenistan",
+    "lat": 37.9601,
+    "lng": 58.3261,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Asmara, Eritrea",
+    "lat": 15.3229,
+    "lng": 38.9251,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Astana, Kazakstan",
+    "lat": 51.1694,
+    "lng": 71.4491,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Asunción, Paraguay",
+    "lat": -25.2637,
+    "lng": -57.5759,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Aten, Grekland",
+    "lat": 37.9838,
+    "lng": 23.7275,
+    "type": "city",
+    "capital": true,
+    "size": 12,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Auckland, Nya Zeeland",
+    "lat": -36.8485,
+    "lng": 174.7633,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Bagdad, Irak",
+    "lat": 33.3152,
+    "lng": 44.3661,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Baku, Azerbajdzjan",
+    "lat": 40.4093,
+    "lng": 49.8671,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Bamako, Mali",
+    "lat": 12.6392,
+    "lng": -8.0029,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Bangalore, Indien",
+    "lat": 12.9716,
+    "lng": 77.5946,
+    "type": "city",
+    "size": 15,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Bangkok, Thailand",
+    "lat": 13.7563,
+    "lng": 100.5018,
+    "type": "city",
+    "capital": true,
+    "size": 15,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Bangui, Centralafrikanska republiken",
+    "lat": 4.3947,
+    "lng": 18.5582,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Banjul, Gambia",
+    "lat": 13.4549,
+    "lng": -16.579,
+    "type": "city",
+    "size": 6,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Barcelona, Spanien",
+    "lat": 41.3851,
+    "lng": 2.1734,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Beirut, Libanon",
+    "lat": 33.8886,
+    "lng": 35.4955,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Belgrad, Serbien",
+    "lat": 44.7866,
+    "lng": 20.4489,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Belmopan, Belize",
+    "lat": 17.251,
+    "lng": -88.759,
+    "type": "city",
+    "size": 5,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Bergen, Norge",
+    "lat": 60.3913,
+    "lng": 5.3221,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Berlin, Tyskland",
+    "lat": 52.52,
+    "lng": 13.405,
+    "type": "city",
+    "capital": true,
+    "size": 15,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Bilbao, Spanien",
+    "lat": 43.263,
+    "lng": -2.935,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Bishkek, Kirgizistan",
+    "lat": 42.8746,
+    "lng": 74.5698,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Bogotá, Colombia",
+    "lat": 4.711,
+    "lng": -74.0721,
+    "type": "city",
+    "capital": true,
+    "size": 15,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Bologna, Italien",
+    "lat": 44.4949,
+    "lng": 11.3426,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Boston, USA",
+    "lat": 42.3601,
+    "lng": -71.0589,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Bratislava, Slovakien",
+    "lat": 48.1486,
+    "lng": 17.1077,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Brazzaville, Kongo",
+    "lat": -4.2634,
+    "lng": 15.2429,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Bridgetown, Barbados",
+    "lat": 13.1132,
+    "lng": -59.5988,
+    "type": "city",
+    "size": 6,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Brisbane, Australien",
+    "lat": -27.4698,
+    "lng": 153.0251,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Bryssel, Belgien",
+    "lat": 50.8503,
+    "lng": 4.3517,
+    "type": "city",
+    "capital": true,
+    "size": 10,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Budapest, Ungern",
+    "lat": 47.4979,
+    "lng": 19.0402,
+    "type": "city",
+    "capital": true,
+    "size": 10,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Buenos Aires, Argentina",
+    "lat": -34.6037,
+    "lng": -58.3816,
+    "type": "city",
+    "capital": true,
+    "size": 15,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Bukarest, Rumänien",
+    "lat": 44.4268,
+    "lng": 26.1025,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Caracas, Venezuela",
+    "lat": 10.4806,
+    "lng": -66.9036,
+    "type": "city",
+    "capital": true,
+    "size": 12,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Casablanca, Marocko",
+    "lat": 33.5731,
+    "lng": -7.5898,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Castries, Saint Lucia",
+    "lat": 14.0101,
+    "lng": -60.9875,
+    "type": "city",
+    "size": 5,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Cayenne, Franska Guyana",
+    "lat": 4.9333,
+    "lng": -52.3333,
+    "type": "city",
+    "size": 6,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Chengdu, Kina",
+    "lat": 30.5728,
+    "lng": 104.0668,
+    "type": "city",
+    "size": 15,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Chicago, USA",
+    "lat": 41.8781,
+    "lng": -87.6298,
+    "type": "city",
+    "size": 18,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Chișinău, Moldavien",
+    "lat": 47.0105,
+    "lng": 28.8638,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Colombo, Sri Lanka",
+    "lat": 6.9271,
+    "lng": 79.8612,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Damaskus, Syrien",
+    "lat": 33.5138,
+    "lng": 36.2765,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Dar es Salaam, Tanzania",
+    "lat": -6.7924,
+    "lng": 39.2083,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Delhi, Indien",
+    "lat": 28.7041,
+    "lng": 77.1025,
+    "type": "city",
+    "capital": true,
+    "size": 22,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Den Haag, Nederländerna",
+    "lat": 52.0705,
+    "lng": 4.3007,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Dhaka, Bangladesh",
+    "lat": 23.8103,
+    "lng": 90.4125,
+    "type": "city",
+    "capital": true,
+    "size": 15,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Dili, Östtimor",
+    "lat": -8.5569,
+    "lng": 125.5603,
+    "type": "city",
+    "size": 6,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Djibouti, Djibouti",
+    "lat": 11.8251,
+    "lng": 42.5903,
+    "type": "city",
+    "size": 6,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Doha, Qatar",
+    "lat": 25.2854,
+    "lng": 51.531,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Douglas, Isle of Man",
+    "lat": 54.15,
+    "lng": -4.4833,
+    "type": "city",
+    "size": 5,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Dresden, Tyskland",
+    "lat": 51.0504,
+    "lng": 13.7373,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Dubai, UAE",
+    "lat": 25.2048,
+    "lng": 55.2708,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Dublin, Irland",
+    "lat": 53.3498,
+    "lng": -6.2603,
+    "type": "city",
+    "capital": true,
+    "size": 10,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Dushanbe, Tadzjikistan",
+    "lat": 38.5598,
+    "lng": 68.7738,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Edinburgh, Skottland",
+    "lat": 55.9533,
+    "lng": -3.1883,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Florens, Italien",
+    "lat": 43.7696,
+    "lng": 11.2558,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Frankfurt, Tyskland",
+    "lat": 50.1109,
+    "lng": 8.6821,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Gaborone, Botswana",
+    "lat": -24.6282,
+    "lng": 25.9231,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Genève, Schweiz",
+    "lat": 46.2044,
+    "lng": 6.1432,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Georgetown, Guyana",
+    "lat": 6.8013,
+    "lng": -58.1551,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Granada, Spanien",
+    "lat": 37.1773,
+    "lng": -3.5986,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Guangzhou, Kina",
+    "lat": 23.1291,
+    "lng": 113.2644,
+    "type": "city",
+    "size": 18,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Guatemala City, Guatemala",
+    "lat": 14.6349,
+    "lng": -90.5069,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Guayaquil, Ecuador",
+    "lat": -2.1894,
+    "lng": -79.8886,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Göteborg, Sverige",
+    "lat": 57.7089,
+    "lng": 11.9746,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Hamburg, Tyskland",
+    "lat": 53.5511,
+    "lng": 9.9937,
+    "type": "city",
+    "size": 15,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Hanoi, Vietnam",
+    "lat": 21.0285,
+    "lng": 105.8542,
+    "type": "city",
+    "capital": true,
+    "size": 12,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Harare, Zimbabwe",
+    "lat": -17.8252,
+    "lng": 31.0335,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Helsingfors, Finland",
+    "lat": 60.1695,
+    "lng": 24.9354,
+    "type": "city",
+    "capital": true,
+    "size": 10,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Ho Chi Minh-staden, Vietnam",
+    "lat": 10.8231,
+    "lng": 106.6297,
+    "type": "city",
+    "size": 15,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Hongkong",
+    "lat": 22.3193,
+    "lng": 114.1694,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Istanbul, Turkiet",
+    "lat": 41.0082,
+    "lng": 28.9784,
+    "type": "city",
+    "size": 18,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Jakarta, Indonesien",
+    "lat": -6.2088,
+    "lng": 106.8456,
+    "type": "city",
+    "capital": true,
+    "size": 18,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Jerusalem",
+    "lat": 31.7683,
+    "lng": 35.2137,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Johannesburg, Sydafrika",
+    "lat": -26.2041,
+    "lng": 28.0473,
+    "type": "city",
+    "size": 15,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Juba, Sydsudan",
+    "lat": 4.8517,
+    "lng": 31.5825,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Kabul, Afghanistan",
+    "lat": 34.5553,
+    "lng": 69.2075,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Kairo, Egypten",
+    "lat": 30.0444,
+    "lng": 31.2357,
+    "type": "city",
+    "capital": true,
+    "size": 18,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Kampala, Uganda",
+    "lat": 0.3476,
+    "lng": 32.5825,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Kapstaden, Sydafrika",
+    "lat": -33.9249,
+    "lng": 18.4241,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Karachi, Pakistan",
+    "lat": 24.8607,
+    "lng": 67.0011,
+    "type": "city",
+    "size": 18,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Kathmandu, Nepal",
+    "lat": 27.7172,
+    "lng": 85.324,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Khartoum, Sudan",
+    "lat": 15.5007,
+    "lng": 32.5599,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Kiev, Ukraina",
+    "lat": 50.4501,
+    "lng": 30.5234,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Kigali, Rwanda",
+    "lat": -1.9706,
+    "lng": 30.1044,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Kingstown, Saint Vincent",
+    "lat": 13.1579,
+    "lng": -61.2248,
+    "type": "city",
+    "size": 5,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Kinshasa, DR Kongo",
+    "lat": -4.3276,
+    "lng": 15.3136,
+    "type": "city",
+    "size": 15,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Kraków, Polen",
+    "lat": 50.0647,
+    "lng": 19.945,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Kuala Lumpur, Malaysia",
+    "lat": 3.139,
+    "lng": 101.6869,
+    "type": "city",
+    "capital": true,
+    "size": 12,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Kuwait City, Kuwait",
+    "lat": 29.3759,
+    "lng": 47.9774,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Köpenhamn, Danmark",
+    "lat": 55.6761,
+    "lng": 12.5683,
+    "type": "city",
+    "capital": true,
+    "size": 10,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "La Paz, Bolivia",
+    "lat": -16.5,
+    "lng": -68.15,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Lagos, Nigeria",
+    "lat": 6.5244,
+    "lng": 3.3792,
+    "type": "city",
+    "size": 18,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Libreville, Gabon",
+    "lat": 0.4162,
+    "lng": 9.4673,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Lilongwe, Malawi",
+    "lat": -13.9626,
+    "lng": 33.7741,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Lima, Peru",
+    "lat": -12.0464,
+    "lng": -77.0428,
+    "type": "city",
+    "capital": true,
+    "size": 15,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Lissabon, Portugal",
+    "lat": 38.7223,
+    "lng": -9.1393,
+    "type": "city",
+    "capital": true,
+    "size": 10,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Ljubljana, Slovenien",
+    "lat": 46.0569,
+    "lng": 14.5058,
+    "type": "city",
+    "size": 6,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Lomé, Togo",
+    "lat": 6.1256,
+    "lng": 1.2315,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "London, Storbritannien",
+    "lat": 51.5074,
+    "lng": -0.1278,
+    "type": "city",
+    "capital": true,
+    "size": 20,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Los Angeles, USA",
+    "lat": 34.0522,
+    "lng": -118.2437,
+    "type": "city",
+    "size": 18,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Luanda, Angola",
+    "lat": -8.8383,
+    "lng": 13.2344,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Lusaka, Zambia",
+    "lat": -15.3875,
+    "lng": 28.3228,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Lyon, Frankrike",
+    "lat": 45.764,
+    "lng": 4.8357,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Madrid, Spanien",
+    "lat": 40.4168,
+    "lng": -3.7038,
+    "type": "city",
+    "capital": true,
+    "size": 12,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Malabo, Ekvatorialguinea",
+    "lat": 3.7504,
+    "lng": 8.7371,
+    "type": "city",
+    "size": 6,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Málaga, Spanien",
+    "lat": 36.7213,
+    "lng": -4.4214,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Malé, Maldiverna",
+    "lat": 4.1755,
+    "lng": 73.5093,
+    "type": "city",
+    "size": 5,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Malmö, Sverige",
+    "lat": 55.605,
+    "lng": 13.0038,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Managua, Nicaragua",
+    "lat": 12.1149,
+    "lng": -86.2362,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Manama, Bahrain",
+    "lat": 26.0667,
+    "lng": 50.5577,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Manila, Filippinerna",
+    "lat": 14.5995,
+    "lng": 120.9842,
+    "type": "city",
+    "capital": true,
+    "size": 15,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Maputo, Moçambique",
+    "lat": -25.9655,
+    "lng": 32.5832,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Marseille, Frankrike",
+    "lat": 43.2965,
+    "lng": 5.3698,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Maseru, Lesotho",
+    "lat": -29.3167,
+    "lng": 27.4833,
+    "type": "city",
+    "size": 6,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Mbabane, Eswatini",
+    "lat": -26.3054,
+    "lng": 31.1367,
+    "type": "city",
+    "size": 6,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Melbourne, Australien",
+    "lat": -37.8136,
+    "lng": 144.9631,
+    "type": "city",
+    "size": 15,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Mexico City, Mexiko",
+    "lat": 19.4326,
+    "lng": -99.1332,
+    "type": "city",
+    "capital": true,
+    "size": 20,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Miami, USA",
+    "lat": 25.7617,
+    "lng": -80.1918,
+    "type": "city",
+    "size": 15,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Milano, Italien",
+    "lat": 45.4642,
+    "lng": 9.19,
+    "type": "city",
+    "size": 15,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Minsk, Vitryssland",
+    "lat": 53.9045,
+    "lng": 27.5615,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Mogadishu, Somalia",
+    "lat": 2.0469,
+    "lng": 45.3182,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Montevideo, Uruguay",
+    "lat": -34.9011,
+    "lng": -56.1645,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Montreal, Kanada",
+    "lat": 45.5017,
+    "lng": -73.5673,
+    "type": "city",
+    "size": 15,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Moroni, Komorerna",
+    "lat": -11.7172,
+    "lng": 43.2473,
+    "type": "city",
+    "size": 5,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Moskva, Ryssland",
+    "lat": 55.7558,
+    "lng": 37.6173,
+    "type": "city",
+    "capital": true,
+    "size": 20,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Mumbai, Indien",
+    "lat": 19.076,
+    "lng": 72.8777,
+    "type": "city",
+    "size": 20,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Muscat, Oman",
+    "lat": 23.588,
+    "lng": 58.3829,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "N'Djamena, Tchad",
+    "lat": 12.1348,
+    "lng": 15.0557,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Nairobi, Kenya",
+    "lat": -1.2921,
+    "lng": 36.8219,
+    "type": "city",
+    "capital": true,
+    "size": 12,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Neapel, Italien",
+    "lat": 40.8518,
+    "lng": 14.2681,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "New York, USA",
+    "lat": 40.7128,
+    "lng": -74.006,
+    "type": "city",
+    "size": 20,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Niamey, Niger",
+    "lat": 13.5127,
+    "lng": 2.1128,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Nice, Frankrike",
+    "lat": 43.7102,
+    "lng": 7.262,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Nuuk, Grönland",
+    "lat": 64.1814,
+    "lng": -51.6941,
+    "type": "city",
+    "size": 6,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Nürnberg, Tyskland",
+    "lat": 49.4521,
+    "lng": 11.0767,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Odense, Danmark",
+    "lat": 55.4038,
+    "lng": 10.4024,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Oslo, Norge",
+    "lat": 59.9139,
+    "lng": 10.7522,
+    "type": "city",
+    "capital": true,
+    "size": 10,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Ouagadougou, Burkina Faso",
+    "lat": 12.3714,
+    "lng": -1.5197,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Palermo, Italien",
+    "lat": 38.1157,
+    "lng": 13.3615,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Panama City, Panama",
+    "lat": 8.9824,
+    "lng": -79.5199,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Paramaribo, Surinam",
+    "lat": 5.852,
+    "lng": -55.2038,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Paris, Frankrike",
+    "lat": 48.8566,
+    "lng": 2.3522,
+    "type": "city",
+    "capital": true,
+    "size": 15,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Peking, Kina",
+    "lat": 39.9042,
+    "lng": 116.4074,
+    "type": "city",
+    "capital": true,
+    "size": 20,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Phnom Penh, Kambodja",
+    "lat": 11.5564,
+    "lng": 104.9282,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Podgorica, Montenegro",
+    "lat": 42.4304,
+    "lng": 19.2594,
+    "type": "city",
+    "size": 6,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Port Louis, Mauritius",
+    "lat": -20.1609,
+    "lng": 57.5012,
+    "type": "city",
+    "size": 6,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Porto, Portugal",
+    "lat": 41.1579,
+    "lng": -8.6291,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Prag, Tjeckien",
+    "lat": 50.0755,
+    "lng": 14.4378,
+    "type": "city",
+    "capital": true,
+    "size": 10,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Pristina, Kosovo",
+    "lat": 42.6629,
+    "lng": 21.1655,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Quito, Ecuador",
+    "lat": -0.1807,
+    "lng": -78.4678,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Reykjavik, Island",
+    "lat": 64.1466,
+    "lng": -21.9426,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Riga, Lettland",
+    "lat": 56.9496,
+    "lng": 24.1052,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Rio de Janeiro, Brasilien",
+    "lat": -22.9068,
+    "lng": -43.1729,
+    "type": "city",
+    "size": 15,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Riyadh, Saudiarabien",
+    "lat": 24.7136,
+    "lng": 46.6753,
+    "type": "city",
+    "size": 15,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Rom, Italien",
+    "lat": 41.9028,
+    "lng": 12.4964,
+    "type": "city",
+    "capital": true,
+    "size": 12,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Roseau, Dominica",
+    "lat": 15.3017,
+    "lng": -61.387,
+    "type": "city",
+    "size": 5,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Rotterdam, Nederländerna",
+    "lat": 51.9244,
+    "lng": 4.4777,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Saint-Denis, Réunion",
+    "lat": -20.8823,
+    "lng": 55.4504,
+    "type": "city",
+    "size": 6,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "San Francisco, USA",
+    "lat": 37.7749,
+    "lng": -122.4194,
+    "type": "city",
+    "size": 15,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "San José, Costa Rica",
+    "lat": 9.9281,
+    "lng": -84.0907,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "San Salvador, El Salvador",
+    "lat": 13.6929,
+    "lng": -89.2182,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Sana'a, Jemen",
+    "lat": 15.5527,
+    "lng": 48.5164,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Santiago, Chile",
+    "lat": -33.4489,
+    "lng": -70.6693,
+    "type": "city",
+    "capital": true,
+    "size": 15,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "São Tomé, São Tomé och Príncipe",
+    "lat": 0.3365,
+    "lng": 6.7273,
+    "type": "city",
+    "size": 5,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Sarajevo, Bosnien",
+    "lat": 43.8563,
+    "lng": 18.4131,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Seattle, USA",
+    "lat": 47.6062,
+    "lng": -122.3321,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Seoul, Sydkorea",
+    "lat": 37.5665,
+    "lng": 126.978,
+    "type": "city",
+    "capital": true,
+    "size": 18,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Sevilla, Spanien",
+    "lat": 37.3891,
+    "lng": -5.9845,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Shanghai, Kina",
+    "lat": 31.2304,
+    "lng": 121.4737,
+    "type": "city",
+    "size": 22,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Shenzhen, Kina",
+    "lat": 22.5431,
+    "lng": 114.0579,
+    "type": "city",
+    "size": 15,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Skopje, Nordmakedonien",
+    "lat": 41.9973,
+    "lng": 21.428,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Sofia, Bulgarien",
+    "lat": 42.6977,
+    "lng": 23.3219,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "St. George's, Grenada",
+    "lat": 12.0561,
+    "lng": -61.7488,
+    "type": "city",
+    "size": 5,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Stockholm, Sverige",
+    "lat": 59.3293,
+    "lng": 18.0686,
+    "type": "city",
+    "capital": true,
+    "size": 12,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Strasbourg, Frankrike",
+    "lat": 48.5734,
+    "lng": 7.7521,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Stuttgart, Tyskland",
+    "lat": 48.7758,
+    "lng": 9.1829,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Sucre, Bolivia",
+    "lat": -19.0196,
+    "lng": -65.2619,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Suva, Fiji",
+    "lat": -18.1416,
+    "lng": 178.4419,
+    "type": "city",
+    "size": 6,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Sydney, Australien",
+    "lat": -33.8688,
+    "lng": 151.2093,
+    "type": "city",
+    "size": 15,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Taipei, Taiwan",
+    "lat": 25.033,
+    "lng": 121.5654,
+    "type": "city",
+    "capital": true,
+    "size": 12,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Tallinn, Estland",
+    "lat": 59.437,
+    "lng": 24.7536,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Tampere, Finland",
+    "lat": 61.4978,
+    "lng": 23.761,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Tashkent, Uzbekistan",
+    "lat": 41.2995,
+    "lng": 69.2401,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Tbilisi, Georgien",
+    "lat": 41.7151,
+    "lng": 44.8271,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Tegucigalpa, Honduras",
+    "lat": 14.0723,
+    "lng": -87.1921,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Teheran, Iran",
+    "lat": 35.6892,
+    "lng": 51.389,
+    "type": "city",
+    "size": 18,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Tel Aviv, Israel",
+    "lat": 32.0853,
+    "lng": 34.7818,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Thimphu, Bhutan",
+    "lat": 27.4728,
+    "lng": 89.6393,
+    "type": "city",
+    "size": 6,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Tirana, Albanien",
+    "lat": 41.3275,
+    "lng": 19.8187,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Tokyo, Japan",
+    "lat": 35.6762,
+    "lng": 139.6503,
+    "type": "city",
+    "capital": true,
+    "size": 25,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Toronto, Kanada",
+    "lat": 43.6532,
+    "lng": -79.3832,
+    "type": "city",
+    "size": 15,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Tórshavn, Färöarna",
+    "lat": 62.0079,
+    "lng": -6.79,
+    "type": "city",
+    "size": 5,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Toulouse, Frankrike",
+    "lat": 43.6047,
+    "lng": 1.4442,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Trondheim, Norge",
+    "lat": 63.4305,
+    "lng": 10.3951,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Turin, Italien",
+    "lat": 45.0703,
+    "lng": 7.6869,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Ulaanbaatar, Mongoliet",
+    "lat": 47.8864,
+    "lng": 106.9057,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Valencia, Spanien",
+    "lat": 39.4699,
+    "lng": -0.3763,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Vancouver, Kanada",
+    "lat": 49.2827,
+    "lng": -123.1207,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Venedig, Italien",
+    "lat": 45.4408,
+    "lng": 12.3155,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Verona, Italien",
+    "lat": 45.4384,
+    "lng": 10.9916,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Victoria, Seychellerna",
+    "lat": -4.6167,
+    "lng": 55.45,
+    "type": "city",
+    "size": 5,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Vientiane, Laos",
+    "lat": 17.9757,
+    "lng": 102.6331,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Vilnius, Litauen",
+    "lat": 54.6872,
+    "lng": 25.2797,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Warszawa, Polen",
+    "lat": 52.2297,
+    "lng": 21.0122,
+    "type": "city",
+    "capital": true,
+    "size": 12,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Wellington, Nya Zeeland",
+    "lat": -41.2865,
+    "lng": 174.7762,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Wien, Österrike",
+    "lat": 48.2082,
+    "lng": 16.3738,
+    "type": "city",
+    "capital": true,
+    "size": 12,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Windhoek, Namibia",
+    "lat": -22.5597,
+    "lng": 17.0832,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Xi'an, Kina",
+    "lat": 34.3416,
+    "lng": 108.9398,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Yangon, Myanmar",
+    "lat": 16.8661,
+    "lng": 96.1951,
+    "type": "city",
+    "size": 12,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Yerevan, Armenien",
+    "lat": 40.1792,
+    "lng": 44.4991,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Zagreb, Kroatien",
+    "lat": 45.815,
+    "lng": 15.9819,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Zaragoza, Spanien",
+    "lat": 41.6488,
+    "lng": -0.8891,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Zürich, Schweiz",
+    "lat": 47.3769,
+    "lng": 8.5417,
+    "type": "city",
+    "size": 8,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Århus, Danmark",
+    "lat": 56.1629,
+    "lng": 10.2039,
+    "type": "city",
+    "size": 10,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Afghanistan",
+    "lat": 33.9391,
+    "lng": 67.71,
+    "type": "country",
+    "size": 500,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Albanien",
+    "lat": 41.1533,
+    "lng": 20.1683,
+    "type": "country",
+    "size": 100,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Algeriet",
+    "lat": 28.0339,
+    "lng": 1.6596,
+    "type": "country",
+    "size": 1000,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Angola",
+    "lat": -11.2027,
+    "lng": 17.8739,
+    "type": "country",
+    "size": 700,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Antarktis",
+    "lat": -82.8628,
+    "lng": 135,
+    "type": "country",
+    "size": 3000,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Argentina",
+    "lat": -38.4161,
+    "lng": -63.6167,
+    "type": "country",
+    "size": 1200,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Armenien",
+    "lat": 40.0691,
+    "lng": 45.0382,
+    "type": "country",
+    "size": 100,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Australien",
+    "lat": -25.2744,
+    "lng": 133.7751,
+    "type": "country",
+    "size": 2000,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Azerbajdzjan",
+    "lat": 40.1431,
+    "lng": 47.5769,
+    "type": "country",
+    "size": 150,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Bahrain",
+    "lat": 26.0667,
+    "lng": 50.5577,
+    "type": "country",
+    "size": 30,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Bangladesh",
+    "lat": 23.685,
+    "lng": 90.3563,
+    "type": "country",
+    "size": 250,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Belgien",
+    "lat": 50.5039,
+    "lng": 4.4699,
+    "type": "country",
+    "size": 100,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Benin",
+    "lat": 9.3077,
+    "lng": 2.3158,
+    "type": "country",
+    "size": 150,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Bhutan",
+    "lat": 27.5142,
+    "lng": 90.4336,
+    "type": "country",
+    "size": 100,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Bolivia",
+    "lat": -16.2902,
+    "lng": -63.5887,
+    "type": "country",
+    "size": 600,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Bosnien och Hercegovina",
+    "lat": 43.9159,
+    "lng": 17.6791,
+    "type": "country",
+    "size": 120,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Botswana",
+    "lat": -22.3285,
+    "lng": 24.6849,
+    "type": "country",
+    "size": 400,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Brasilien",
+    "lat": -14.235,
+    "lng": -51.9253,
+    "type": "country",
+    "size": 2000,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Bulgarien",
+    "lat": 42.7339,
+    "lng": 25.4858,
+    "type": "country",
+    "size": 200,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Burkina Faso",
+    "lat": 12.2383,
+    "lng": -1.5616,
+    "type": "country",
+    "size": 300,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Burundi",
+    "lat": -3.3731,
+    "lng": 29.9189,
+    "type": "country",
+    "size": 80,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Centralafrikanska republiken",
+    "lat": 6.6111,
+    "lng": 20.9394,
+    "type": "country",
+    "size": 500,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Chile",
+    "lat": -35.6751,
+    "lng": -71.543,
+    "type": "country",
+    "size": 1000,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Colombia",
+    "lat": 4.5709,
+    "lng": -74.2973,
+    "type": "country",
+    "size": 600,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Costa Rica",
+    "lat": 9.7489,
+    "lng": -83.7534,
+    "type": "country",
+    "size": 120,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Danmark",
+    "lat": 56.2639,
+    "lng": 9.5018,
+    "type": "country",
+    "size": 150,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Djibouti",
+    "lat": 11.8251,
+    "lng": 42.5903,
+    "type": "country",
+    "size": 80,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "DR Kongo",
+    "lat": -4.0383,
+    "lng": 21.7587,
+    "type": "country",
+    "size": 1200,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Ecuador",
+    "lat": -1.8312,
+    "lng": -78.1834,
+    "type": "country",
+    "size": 300,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Egypten",
+    "lat": 26.8206,
+    "lng": 30.8025,
+    "type": "country",
+    "size": 800,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Ekvatorialguinea",
+    "lat": 1.6508,
+    "lng": 10.2679,
+    "type": "country",
+    "size": 80,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Eritrea",
+    "lat": 15.1794,
+    "lng": 39.7823,
+    "type": "country",
+    "size": 200,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Estland",
+    "lat": 58.5953,
+    "lng": 25.0136,
+    "type": "country",
+    "size": 100,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Eswatini",
+    "lat": -26.5225,
+    "lng": 31.4659,
+    "type": "country",
+    "size": 60,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Etiopien",
+    "lat": 9.145,
+    "lng": 40.4897,
+    "type": "country",
+    "size": 600,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Filippinerna",
+    "lat": 12.8797,
+    "lng": 121.774,
+    "type": "country",
+    "size": 400,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Finland",
+    "lat": 61.9241,
+    "lng": 25.7482,
+    "type": "country",
+    "size": 400,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Frankrike",
+    "lat": 46.2276,
+    "lng": 2.2137,
+    "type": "country",
+    "size": 350,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Gabon",
+    "lat": -0.8037,
+    "lng": 11.6094,
+    "type": "country",
+    "size": 300,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Gambia",
+    "lat": 13.4432,
+    "lng": -15.3101,
+    "type": "country",
+    "size": 100,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Georgien",
+    "lat": 42.3154,
+    "lng": 43.3569,
+    "type": "country",
+    "size": 120,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Ghana",
+    "lat": 7.9465,
+    "lng": -1.0232,
+    "type": "country",
+    "size": 300,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Grekland",
+    "lat": 39.0742,
+    "lng": 21.8243,
+    "type": "country",
+    "size": 250,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Guatemala",
+    "lat": 15.7835,
+    "lng": -90.2308,
+    "type": "country",
+    "size": 200,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Guinea",
+    "lat": 9.9456,
+    "lng": -9.6966,
+    "type": "country",
+    "size": 300,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Guinea-Bissau",
+    "lat": 11.8037,
+    "lng": -15.1804,
+    "type": "country",
+    "size": 100,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Haiti",
+    "lat": 18.9712,
+    "lng": -72.2852,
+    "type": "country",
+    "size": 80,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Honduras",
+    "lat": 15.2,
+    "lng": -86.2419,
+    "type": "country",
+    "size": 200,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Indien",
+    "lat": 20.5937,
+    "lng": 78.9629,
+    "type": "country",
+    "size": 1500,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Indonesien",
+    "lat": -0.7893,
+    "lng": 113.9213,
+    "type": "country",
+    "size": 1200,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Irak",
+    "lat": 33.2232,
+    "lng": 43.6793,
+    "type": "country",
+    "size": 400,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Iran",
+    "lat": 32.4279,
+    "lng": 53.688,
+    "type": "country",
+    "size": 800,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Island",
+    "lat": 64.9631,
+    "lng": -19.0208,
+    "type": "country",
+    "size": 200,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Israel",
+    "lat": 31.0461,
+    "lng": 34.8516,
+    "type": "country",
+    "size": 100,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Italien",
+    "lat": 41.8719,
+    "lng": 12.5674,
+    "type": "country",
+    "size": 400,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Japan",
+    "lat": 36.2048,
+    "lng": 138.2529,
+    "type": "country",
+    "size": 600,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Jemen",
+    "lat": 15.5527,
+    "lng": 48.5164,
+    "type": "country",
+    "size": 400,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Jordanien",
+    "lat": 30.5852,
+    "lng": 36.2384,
+    "type": "country",
+    "size": 150,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Kambodja",
+    "lat": 12.5657,
+    "lng": 104.991,
+    "type": "country",
+    "size": 250,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Kamerun",
+    "lat": 7.3697,
+    "lng": 12.3547,
+    "type": "country",
+    "size": 400,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Kanada",
+    "lat": 56.1304,
+    "lng": -106.3468,
+    "type": "country",
+    "size": 2500,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Kazakstan",
+    "lat": 48.0196,
+    "lng": 66.9237,
+    "type": "country",
+    "size": 1200,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Kenya",
+    "lat": -0.0236,
+    "lng": 37.9062,
+    "type": "country",
+    "size": 400,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Kina",
+    "lat": 35.8617,
+    "lng": 104.1954,
+    "type": "country",
+    "size": 2000,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Kirgizistan",
+    "lat": 41.2044,
+    "lng": 74.7661,
+    "type": "country",
+    "size": 300,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Kosovo",
+    "lat": 42.6026,
+    "lng": 20.903,
+    "type": "country",
+    "size": 50,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Kroatien",
+    "lat": 45.1,
+    "lng": 15.2,
+    "type": "country",
+    "size": 150,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Kuwait",
+    "lat": 29.3117,
+    "lng": 47.4818,
+    "type": "country",
+    "size": 80,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Laos",
+    "lat": 19.8563,
+    "lng": 102.4955,
+    "type": "country",
+    "size": 300,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Lesotho",
+    "lat": -29.61,
+    "lng": 28.2336,
+    "type": "country",
+    "size": 80,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Lettland",
+    "lat": 56.8796,
+    "lng": 24.6032,
+    "type": "country",
+    "size": 120,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Libanon",
+    "lat": 33.8547,
+    "lng": 35.8623,
+    "type": "country",
+    "size": 80,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Liberia",
+    "lat": 6.4281,
+    "lng": -9.4295,
+    "type": "country",
+    "size": 150,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Litauen",
+    "lat": 55.1694,
+    "lng": 23.8813,
+    "type": "country",
+    "size": 120,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Malawi",
+    "lat": -13.2543,
+    "lng": 34.3015,
+    "type": "country",
+    "size": 200,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Malaysia",
+    "lat": 4.2105,
+    "lng": 101.9758,
+    "type": "country",
+    "size": 350,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Mali",
+    "lat": 17.5707,
+    "lng": -3.9962,
+    "type": "country",
+    "size": 700,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Marocko",
+    "lat": 31.7917,
+    "lng": -7.0926,
+    "type": "country",
+    "size": 500,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Mauretanien",
+    "lat": 21.0079,
+    "lng": -10.9408,
+    "type": "country",
+    "size": 600,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Mexiko",
+    "lat": 23.6345,
+    "lng": -102.5528,
+    "type": "country",
+    "size": 800,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Moçambique",
+    "lat": -18.6657,
+    "lng": 35.5296,
+    "type": "country",
+    "size": 500,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Moldavien",
+    "lat": 47.4116,
+    "lng": 28.3699,
+    "type": "country",
+    "size": 80,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Mongoliet",
+    "lat": 46.8625,
+    "lng": 103.8467,
+    "type": "country",
+    "size": 800,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Montenegro",
+    "lat": 42.7087,
+    "lng": 19.3744,
+    "type": "country",
+    "size": 60,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Myanmar",
+    "lat": 21.9162,
+    "lng": 95.956,
+    "type": "country",
+    "size": 400,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Namibia",
+    "lat": -22.9576,
+    "lng": 18.4904,
+    "type": "country",
+    "size": 600,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Nederländerna",
+    "lat": 52.1326,
+    "lng": 5.2913,
+    "type": "country",
+    "size": 100,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Nepal",
+    "lat": 28.3949,
+    "lng": 84.124,
+    "type": "country",
+    "size": 200,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Nicaragua",
+    "lat": 12.8654,
+    "lng": -85.2072,
+    "type": "country",
+    "size": 200,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Niger",
+    "lat": 17.6078,
+    "lng": 8.0817,
+    "type": "country",
+    "size": 700,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Nigeria",
+    "lat": 9.082,
+    "lng": 8.6753,
+    "type": "country",
+    "size": 600,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Nordmakedonien",
+    "lat": 41.6086,
+    "lng": 21.7453,
+    "type": "country",
+    "size": 80,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Norge",
+    "lat": 60.472,
+    "lng": 8.4689,
+    "type": "country",
+    "size": 400,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Nya Zeeland",
+    "lat": -40.9006,
+    "lng": 174.886,
+    "type": "country",
+    "size": 500,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Oman",
+    "lat": 21.4735,
+    "lng": 55.9754,
+    "type": "country",
+    "size": 300,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Pakistan",
+    "lat": 30.3753,
+    "lng": 69.3451,
+    "type": "country",
+    "size": 700,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Papua Nya Guinea",
+    "lat": -6.315,
+    "lng": 143.9555,
+    "type": "country",
+    "size": 600,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Paraguay",
+    "lat": -23.4425,
+    "lng": -58.4438,
+    "type": "country",
+    "size": 400,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Peru",
+    "lat": -9.19,
+    "lng": -75.0152,
+    "type": "country",
+    "size": 700,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Polen",
+    "lat": 51.9194,
+    "lng": 19.1451,
+    "type": "country",
+    "size": 300,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Portugal",
+    "lat": 39.3999,
+    "lng": -8.2245,
+    "type": "country",
+    "size": 200,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Qatar",
+    "lat": 25.3548,
+    "lng": 51.1839,
+    "type": "country",
+    "size": 50,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Rumänien",
+    "lat": 45.9432,
+    "lng": 24.9668,
+    "type": "country",
+    "size": 300,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Rwanda",
+    "lat": -1.9403,
+    "lng": 29.8739,
+    "type": "country",
+    "size": 80,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Ryssland",
+    "lat": 61.524,
+    "lng": 105.3188,
+    "type": "country",
+    "size": 3000,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "São Tomé och Príncipe",
+    "lat": 0.1864,
+    "lng": 6.6131,
+    "type": "country",
+    "size": 30,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Saudiarabien",
+    "lat": 23.8859,
+    "lng": 45.0792,
+    "type": "country",
+    "size": 1000,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Schweiz",
+    "lat": 46.8182,
+    "lng": 8.2275,
+    "type": "country",
+    "size": 100,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Senegal",
+    "lat": 14.4974,
+    "lng": -14.4524,
+    "type": "country",
+    "size": 250,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Serbien",
+    "lat": 44.0165,
+    "lng": 21.0059,
+    "type": "country",
+    "size": 150,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Sierra Leone",
+    "lat": 8.4606,
+    "lng": -11.7799,
+    "type": "country",
+    "size": 150,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Singapore",
+    "lat": 1.3521,
+    "lng": 103.8198,
+    "type": "country",
+    "size": 25,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Slovakien",
+    "lat": 48.669,
+    "lng": 19.699,
+    "type": "country",
+    "size": 100,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Slovenien",
+    "lat": 46.1512,
+    "lng": 14.9955,
+    "type": "country",
+    "size": 80,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Spanien",
+    "lat": 40.4637,
+    "lng": -3.7492,
+    "type": "country",
+    "size": 400,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Storbritannien",
+    "lat": 55.3781,
+    "lng": -3.436,
+    "type": "country",
+    "size": 300,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Sverige",
+    "lat": 60.1282,
+    "lng": 18.6435,
+    "type": "country",
+    "size": 500,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Sydafrika",
+    "lat": -30.5595,
+    "lng": 22.9375,
+    "type": "country",
+    "size": 600,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Sydkorea",
+    "lat": 35.9078,
+    "lng": 127.7669,
+    "type": "country",
+    "size": 250,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Syrien",
+    "lat": 34.8021,
+    "lng": 38.9968,
+    "type": "country",
+    "size": 250,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Tadzjikistan",
+    "lat": 38.861,
+    "lng": 71.2761,
+    "type": "country",
+    "size": 250,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Tanzania",
+    "lat": -6.369,
+    "lng": 34.8888,
+    "type": "country",
+    "size": 500,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Tchad",
+    "lat": 15.4542,
+    "lng": 18.7322,
+    "type": "country",
+    "size": 700,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Thailand",
+    "lat": 15.87,
+    "lng": 100.9925,
+    "type": "country",
+    "size": 400,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Tjeckien",
+    "lat": 49.8175,
+    "lng": 15.473,
+    "type": "country",
+    "size": 200,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Togo",
+    "lat": 8.6195,
+    "lng": 0.8248,
+    "type": "country",
+    "size": 100,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Tunisien",
+    "lat": 33.8869,
+    "lng": 9.5375,
+    "type": "country",
+    "size": 250,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Turkiet",
+    "lat": 38.9637,
+    "lng": 35.2433,
+    "type": "country",
+    "size": 700,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Turkmenistan",
+    "lat": 38.9697,
+    "lng": 59.5563,
+    "type": "country",
+    "size": 400,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Tyskland",
+    "lat": 51.1657,
+    "lng": 10.4515,
+    "type": "country",
+    "size": 300,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Uganda",
+    "lat": 1.3733,
+    "lng": 32.2903,
+    "type": "country",
+    "size": 300,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Ukraina",
+    "lat": 48.3794,
+    "lng": 31.1656,
+    "type": "country",
+    "size": 500,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Ungern",
+    "lat": 47.1625,
+    "lng": 19.5033,
+    "type": "country",
+    "size": 200,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Uruguay",
+    "lat": -32.5228,
+    "lng": -55.7658,
+    "type": "country",
+    "size": 200,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "USA",
+    "lat": 37.0902,
+    "lng": -95.7129,
+    "type": "country",
+    "size": 2000,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Uzbekistan",
+    "lat": 41.3775,
+    "lng": 64.5853,
+    "type": "country",
+    "size": 500,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Venezuela",
+    "lat": 6.4238,
+    "lng": -66.5897,
+    "type": "country",
+    "size": 500,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Vietnam",
+    "lat": 14.0583,
+    "lng": 108.2772,
+    "type": "country",
+    "size": 400,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Vitryssland",
+    "lat": 53.7098,
+    "lng": 27.9534,
+    "type": "country",
+    "size": 300,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Zambia",
+    "lat": -13.1339,
+    "lng": 27.8493,
+    "type": "country",
+    "size": 500,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Zimbabwe",
+    "lat": -19.0154,
+    "lng": 29.1549,
+    "type": "country",
+    "size": 400,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Österrike",
+    "lat": 47.5162,
+    "lng": 14.5501,
+    "type": "country",
+    "size": 150,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Östtimor",
+    "lat": -8.5569,
+    "lng": 125.5603,
+    "type": "country",
+    "size": 60,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Azorerna",
+    "lat": 37.7412,
+    "lng": -25.6756,
+    "type": "island",
+    "size": 80,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Bali",
+    "lat": -8.3405,
+    "lng": 115.092,
+    "type": "island",
+    "size": 60,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Bora Bora",
+    "lat": -16.5004,
+    "lng": -151.7414,
+    "type": "island",
+    "size": 10,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Borneo",
+    "lat": 0.9619,
+    "lng": 114.5548,
+    "type": "island",
+    "size": 400,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Cypern",
+    "lat": 35.1264,
+    "lng": 33.4299,
+    "type": "island",
+    "size": 80,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Fiji",
+    "lat": -17.7134,
+    "lng": 178.065,
+    "type": "island",
+    "size": 80,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Franska Polynesien",
+    "lat": -17.6797,
+    "lng": -149.4068,
+    "type": "island",
+    "size": 150,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Färöarna",
+    "lat": 61.8926,
+    "lng": -6.9118,
+    "type": "island",
+    "size": 50,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Galapagosöarna",
+    "lat": -0.9538,
+    "lng": -90.9656,
+    "type": "island",
+    "size": 100,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Gotland",
+    "lat": 57.4684,
+    "lng": 18.4867,
+    "type": "island",
+    "size": 50,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Grönland",
+    "lat": 71.7069,
+    "lng": -42.6043,
+    "type": "island",
+    "size": 1000,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Guam",
+    "lat": 13.4443,
+    "lng": 144.7937,
+    "type": "island",
+    "size": 30,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Guernsey",
+    "lat": 49.4657,
+    "lng": -2.5853,
+    "type": "island",
+    "size": 20,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Hawaii",
+    "lat": 19.8968,
+    "lng": -155.5828,
+    "type": "island",
+    "size": 80,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Hokkaido",
+    "lat": 43.0642,
+    "lng": 141.3469,
+    "type": "island",
+    "size": 200,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Irland",
+    "lat": 53.4129,
+    "lng": -8.2439,
+    "type": "island",
+    "size": 150,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Island",
+    "lat": 64.9631,
+    "lng": -19.0208,
+    "type": "island",
+    "size": 200,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Isle of Man",
+    "lat": 54.2361,
+    "lng": -4.5481,
+    "type": "island",
+    "size": 30,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Jamaica",
+    "lat": 18.1096,
+    "lng": -77.2975,
+    "type": "island",
+    "size": 100,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Jeju",
+    "lat": 33.4996,
+    "lng": 126.5312,
+    "type": "island",
+    "size": 50,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Jersey",
+    "lat": 49.2144,
+    "lng": -2.1312,
+    "type": "island",
+    "size": 20,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Kanariöarna",
+    "lat": 28.2916,
+    "lng": -16.6291,
+    "type": "island",
+    "size": 100,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Komorerna",
+    "lat": -11.6455,
+    "lng": 43.3333,
+    "type": "island",
+    "size": 40,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Korfu",
+    "lat": 39.6243,
+    "lng": 19.9217,
+    "type": "island",
+    "size": 40,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Korsika",
+    "lat": 42.0396,
+    "lng": 9.0129,
+    "type": "island",
+    "size": 70,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Kreta",
+    "lat": 35.2401,
+    "lng": 24.8093,
+    "type": "island",
+    "size": 80,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Kuba",
+    "lat": 21.5218,
+    "lng": -77.7812,
+    "type": "island",
+    "size": 200,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Madagaskar",
+    "lat": -18.7669,
+    "lng": 46.8691,
+    "type": "island",
+    "size": 400,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Madeira",
+    "lat": 32.7607,
+    "lng": -16.9595,
+    "type": "island",
+    "size": 50,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Maldiverna",
+    "lat": 3.2028,
+    "lng": 73.2207,
+    "type": "island",
+    "size": 50,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Mallorca",
+    "lat": 39.6953,
+    "lng": 3.0176,
+    "type": "island",
+    "size": 60,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Malta",
+    "lat": 35.9375,
+    "lng": 14.3754,
+    "type": "island",
+    "size": 20,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Mauritius",
+    "lat": -20.3484,
+    "lng": 57.5522,
+    "type": "island",
+    "size": 40,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Mayotte",
+    "lat": -12.8275,
+    "lng": 45.1662,
+    "type": "island",
+    "size": 20,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Mikronesien",
+    "lat": 7.4256,
+    "lng": 150.5508,
+    "type": "island",
+    "size": 150,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Mykonos",
+    "lat": 37.4467,
+    "lng": 25.3289,
+    "type": "island",
+    "size": 15,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Ny Kaledonien",
+    "lat": -20.9043,
+    "lng": 165.618,
+    "type": "island",
+    "size": 100,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Okinawa",
+    "lat": 26.3344,
+    "lng": 127.8056,
+    "type": "island",
+    "size": 50,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Palau",
+    "lat": 7.515,
+    "lng": 134.5825,
+    "type": "island",
+    "size": 50,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Phuket",
+    "lat": 7.8804,
+    "lng": 98.3923,
+    "type": "island",
+    "size": 40,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Påskön",
+    "lat": -27.1127,
+    "lng": -109.3497,
+    "type": "island",
+    "size": 15,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Réunion",
+    "lat": -21.1151,
+    "lng": 55.5364,
+    "type": "island",
+    "size": 40,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Rhodos",
+    "lat": 36.1341,
+    "lng": 27.9528,
+    "type": "island",
+    "size": 50,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Salomonöarna",
+    "lat": -9.6457,
+    "lng": 160.1562,
+    "type": "island",
+    "size": 200,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Samoa",
+    "lat": -13.759,
+    "lng": -172.1046,
+    "type": "island",
+    "size": 40,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Santorini",
+    "lat": 36.3932,
+    "lng": 25.4615,
+    "type": "island",
+    "size": 20,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Sardinien",
+    "lat": 40.1209,
+    "lng": 9.0129,
+    "type": "island",
+    "size": 80,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Seychellerna",
+    "lat": -4.6796,
+    "lng": 55.492,
+    "type": "island",
+    "size": 30,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Sicilien",
+    "lat": 37.5999,
+    "lng": 14.0154,
+    "type": "island",
+    "size": 120,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Sri Lanka",
+    "lat": 7.8731,
+    "lng": 80.7718,
+    "type": "island",
+    "size": 150,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Sumatra",
+    "lat": -0.5897,
+    "lng": 101.3431,
+    "type": "island",
+    "size": 300,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Taiwan",
+    "lat": 23.6978,
+    "lng": 120.9605,
+    "type": "island",
+    "size": 100,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Tasmanien",
+    "lat": -41.4545,
+    "lng": 145.9707,
+    "type": "island",
+    "size": 150,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Tonga",
+    "lat": -21.1789,
+    "lng": -175.1982,
+    "type": "island",
+    "size": 50,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Vanuatu",
+    "lat": -15.3767,
+    "lng": 166.9592,
+    "type": "island",
+    "size": 100,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Zanzibar",
+    "lat": -6.1659,
+    "lng": 39.2026,
+    "type": "island",
+    "size": 60,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Öland",
+    "lat": 56.7167,
+    "lng": 16.65,
+    "type": "island",
+    "size": 40,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Akropolis",
+    "lat": 37.9715,
+    "lng": 23.7269,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Akropolis, Aten",
+    "lat": 37.9715,
+    "lng": 23.7257,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Alhambra",
+    "lat": 37.176,
+    "lng": -3.5881,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Amazonas",
+    "lat": -3.4653,
+    "lng": -62.2159,
+    "type": "location",
+    "size": 1500,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Angkor Wat",
+    "lat": 13.4125,
+    "lng": 103.867,
+    "type": "location",
+    "size": 2,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Angkor Wat, Kambodja",
+    "lat": 13.4125,
+    "lng": 103.867,
+    "type": "location",
+    "size": 5,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Ayers Rock/Uluru",
+    "lat": -25.3444,
+    "lng": 131.0369,
+    "type": "location",
+    "size": 3,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Big Ben",
+    "lat": 51.5007,
+    "lng": -0.1246,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Big Ben, London",
+    "lat": 51.5007,
+    "lng": -0.1246,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Borobudur",
+    "lat": -7.6079,
+    "lng": 110.2038,
+    "type": "location",
+    "size": 2,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Brandenburg Gate",
+    "lat": 52.5163,
+    "lng": 13.3777,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Burj Khalifa",
+    "lat": 25.1972,
+    "lng": 55.2744,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Chichen Itza",
+    "lat": 20.6843,
+    "lng": -88.5678,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Christoförlösaren",
+    "lat": -22.9519,
+    "lng": -43.2105,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "CN Tower",
+    "lat": 43.6426,
+    "lng": -79.3871,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Colosseum",
+    "lat": 41.8902,
+    "lng": 12.4922,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Duomo di Milano",
+    "lat": 45.4642,
+    "lng": 9.19,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Eiffeltornet",
+    "lat": 48.8584,
+    "lng": 2.2945,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Forbidden City",
+    "lat": 39.9163,
+    "lng": 116.3972,
+    "type": "location",
+    "size": 2,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Forntida Forum Romanum",
+    "lat": 41.8925,
+    "lng": 12.4853,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Frihetsgudinnan",
+    "lat": 40.6892,
+    "lng": -74.0445,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Golden Gate Bridge",
+    "lat": 37.8199,
+    "lng": -122.4783,
+    "type": "location",
+    "size": 2,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Grand Canyon",
+    "lat": 36.1069,
+    "lng": -112.1129,
+    "type": "location",
+    "size": 30,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Grand Canyon, USA",
+    "lat": 36.1069,
+    "lng": -112.1129,
+    "type": "location",
+    "size": 80,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Hagia Sophia",
+    "lat": 41.0086,
+    "lng": 28.9802,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Hermitage",
+    "lat": 59.9398,
+    "lng": 30.3146,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Kilimanjaro",
+    "lat": -3.0674,
+    "lng": 37.3556,
+    "type": "location",
+    "size": 5,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Kinesiska muren",
+    "lat": 40.4319,
+    "lng": 116.5704,
+    "type": "location",
+    "size": 100,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Kreml, Moskva",
+    "lat": 55.752,
+    "lng": 37.6175,
+    "type": "location",
+    "size": 2,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Kremlin",
+    "lat": 55.752,
+    "lng": 37.6175,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Louvren",
+    "lat": 48.8606,
+    "lng": 2.3376,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Lutande tornet i Pisa",
+    "lat": 43.723,
+    "lng": 10.3966,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Machu Picchu",
+    "lat": -13.1631,
+    "lng": -72.545,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Machu Picchu, Peru",
+    "lat": -13.1631,
+    "lng": -72.545,
+    "type": "location",
+    "size": 3,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Matterhorn",
+    "lat": 45.9763,
+    "lng": 7.6586,
+    "type": "location",
+    "size": 5,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Moai på Påskön",
+    "lat": -27.1127,
+    "lng": -109.3497,
+    "type": "location",
+    "size": 2,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Mont Blanc",
+    "lat": 45.8326,
+    "lng": 6.8652,
+    "type": "location",
+    "size": 5,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Mont Saint-Michel",
+    "lat": 48.6361,
+    "lng": -1.5115,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Mont-Blanc",
+    "lat": 45.8326,
+    "lng": 6.8652,
+    "type": "location",
+    "size": 5,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Mount Everest",
+    "lat": 27.9881,
+    "lng": 86.925,
+    "type": "location",
+    "size": 10,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Neuschwanstein",
+    "lat": 47.5576,
+    "lng": 10.7498,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Niagara Falls",
+    "lat": 43.0828,
+    "lng": -79.0763,
+    "type": "location",
+    "size": 2,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Niagarafallen",
+    "lat": 43.0828,
+    "lng": -79.0763,
+    "type": "location",
+    "size": 5,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Nordpolen",
+    "lat": 90,
+    "lng": 0,
+    "type": "location",
+    "size": 50,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Notre-Dame",
+    "lat": 48.853,
+    "lng": 2.3499,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Operahuset i Sydney",
+    "lat": -33.8568,
+    "lng": 151.2153,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Petra",
+    "lat": 30.3285,
+    "lng": 35.4444,
+    "type": "location",
+    "size": 2,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Petra, Jordanien",
+    "lat": 30.3285,
+    "lng": 35.4444,
+    "type": "location",
+    "size": 5,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Potala Palace",
+    "lat": 29.6558,
+    "lng": 91.1173,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Pyramiderna i Giza",
+    "lat": 29.9792,
+    "lng": 31.1342,
+    "type": "location",
+    "size": 2,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Sagrada Familia",
+    "lat": 41.4036,
+    "lng": 2.1744,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Sagrada Familia, Barcelona",
+    "lat": 41.4036,
+    "lng": 2.1744,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Sahara",
+    "lat": 23.4162,
+    "lng": 25.6628,
+    "type": "location",
+    "size": 2000,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Saint Basil's Cathedral",
+    "lat": 55.7525,
+    "lng": 37.6231,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Space Needle",
+    "lat": 47.6205,
+    "lng": -122.3493,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Stonehenge",
+    "lat": 51.1789,
+    "lng": -1.8262,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Stonehenge, England",
+    "lat": 51.1789,
+    "lng": -1.8262,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Taj Mahal",
+    "lat": 27.1751,
+    "lng": 78.0421,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Topkapi Palace",
+    "lat": 41.0115,
+    "lng": 28.9833,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Tower Bridge",
+    "lat": 51.5055,
+    "lng": -0.0754,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Triumfbågen",
+    "lat": 48.8738,
+    "lng": 2.295,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Vatikanstaten",
+    "lat": 41.9029,
+    "lng": 12.4534,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Versailles",
+    "lat": 48.8049,
+    "lng": 2.1204,
+    "type": "location",
+    "size": 2,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Versailles, Frankrike",
+    "lat": 48.8049,
+    "lng": 2.1204,
+    "type": "location",
+    "size": 3,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Victoria Falls",
+    "lat": -17.9243,
+    "lng": 25.8572,
+    "type": "location",
+    "size": 3,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Westminster Abbey",
+    "lat": 51.4993,
+    "lng": -0.1273,
+    "type": "location",
+    "size": 1,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Alentejo, Portugal",
+    "lat": 38.5667,
+    "lng": -7.9,
+    "type": "wine_region",
+    "size": 120,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Alsace, Frankrike",
+    "lat": 48.3181,
+    "lng": 7.4416,
+    "type": "wine_region",
+    "size": 80,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Amarone/Valpolicella, Italien",
+    "lat": 45.5333,
+    "lng": 10.8833,
+    "type": "wine_region",
+    "size": 30,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Barolo, Italien",
+    "lat": 44.6107,
+    "lng": 7.9464,
+    "type": "wine_region",
+    "size": 10,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Barossa Valley, Australien",
+    "lat": -34.5331,
+    "lng": 138.9978,
+    "type": "wine_region",
+    "size": 50,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Beaujolais, Frankrike",
+    "lat": 46.1667,
+    "lng": 4.6333,
+    "type": "wine_region",
+    "size": 50,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Bordeaux, Frankrike",
+    "lat": 44.8378,
+    "lng": -0.5792,
+    "type": "wine_region",
+    "size": 80,
+    "difficulty": [
+      "easy",
+      "medium"
+    ]
+  },
+  {
+    "name": "Brunello di Montalcino, Italien",
+    "lat": 43.0567,
+    "lng": 11.4933,
+    "type": "wine_region",
+    "size": 15,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Burgund, Frankrike",
+    "lat": 47.05,
+    "lng": 4.85,
+    "type": "wine_region",
+    "size": 100,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Carneros, USA",
+    "lat": 38.25,
+    "lng": -122.3667,
+    "type": "wine_region",
+    "size": 20,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Casablanca Valley, Chile",
+    "lat": -33.3167,
+    "lng": -71.4,
+    "type": "wine_region",
+    "size": 50,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Chablis, Burgund",
+    "lat": 47.8167,
+    "lng": 3.8,
+    "type": "wine_region",
+    "size": 20,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Champagne, Frankrike",
+    "lat": 49.042,
+    "lng": 4.036,
+    "type": "wine_region",
+    "size": 120,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Châteauneuf-du-Pape, Rhône",
+    "lat": 44.0575,
+    "lng": 4.8317,
+    "type": "wine_region",
+    "size": 12,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Chianti Classico, Italien",
+    "lat": 43.5833,
+    "lng": 11.3667,
+    "type": "wine_region",
+    "size": 40,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Chianti Rufina, Toscana",
+    "lat": 43.8333,
+    "lng": 11.4667,
+    "type": "wine_region",
+    "size": 15,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Côte d'Or, Burgund",
+    "lat": 47.05,
+    "lng": 4.85,
+    "type": "wine_region",
+    "size": 40,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Douro Valley, Portugal",
+    "lat": 41.1621,
+    "lng": -7.55,
+    "type": "wine_region",
+    "size": 100,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Franken, Tyskland",
+    "lat": 49.75,
+    "lng": 10,
+    "type": "wine_region",
+    "size": 80,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Gevrey-Chambertin, Burgund",
+    "lat": 47.2267,
+    "lng": 4.9644,
+    "type": "wine_region",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Jerez, Spanien",
+    "lat": 36.6833,
+    "lng": -6.1333,
+    "type": "wine_region",
+    "size": 25,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Loire-dalen, Frankrike",
+    "lat": 47.4,
+    "lng": 0.7,
+    "type": "wine_region",
+    "size": 200,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Maipo Valley, Chile",
+    "lat": -33.5,
+    "lng": -70.75,
+    "type": "wine_region",
+    "size": 70,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Margaret River, Australien",
+    "lat": -33.95,
+    "lng": 115.0833,
+    "type": "wine_region",
+    "size": 80,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Marlborough, Nya Zeeland",
+    "lat": -41.5167,
+    "lng": 173.9667,
+    "type": "wine_region",
+    "size": 60,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Mendoza, Argentina",
+    "lat": -33,
+    "lng": -68.8333,
+    "type": "wine_region",
+    "size": 150,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Meursault, Burgund",
+    "lat": 46.9792,
+    "lng": 4.7744,
+    "type": "wine_region",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Montepulciano d'Abruzzo, Italien",
+    "lat": 42.4,
+    "lng": 14,
+    "type": "wine_region",
+    "size": 40,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Mosel, Tyskland",
+    "lat": 50,
+    "lng": 7,
+    "type": "wine_region",
+    "size": 100,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Napa Valley, USA",
+    "lat": 38.5025,
+    "lng": -122.4167,
+    "type": "wine_region",
+    "size": 60,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Piemonte, Italien",
+    "lat": 45.0522,
+    "lng": 7.5153,
+    "type": "wine_region",
+    "size": 120,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Priorat, Spanien",
+    "lat": 41.15,
+    "lng": 0.8333,
+    "type": "wine_region",
+    "size": 25,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Prosecco, Veneto",
+    "lat": 45.9,
+    "lng": 12.25,
+    "type": "wine_region",
+    "size": 35,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Rheingau, Tyskland",
+    "lat": 50,
+    "lng": 8.0833,
+    "type": "wine_region",
+    "size": 40,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Rhônedalen, Frankrike",
+    "lat": 44.1833,
+    "lng": 4.8333,
+    "type": "wine_region",
+    "size": 150,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Rías Baixas Albariño, Spanien",
+    "lat": 42.5,
+    "lng": -8.75,
+    "type": "wine_region",
+    "size": 40,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Rías Baixas, Spanien",
+    "lat": 42.5,
+    "lng": -8.75,
+    "type": "wine_region",
+    "size": 50,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Ribera del Duero, Spanien",
+    "lat": 41.6333,
+    "lng": -4.0167,
+    "type": "wine_region",
+    "size": 60,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Riesling, Alsace",
+    "lat": 48.3181,
+    "lng": 7.4416,
+    "type": "wine_region",
+    "size": 50,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Rioja, Spanien",
+    "lat": 42.35,
+    "lng": -2.6,
+    "type": "wine_region",
+    "size": 100,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Soave, Veneto",
+    "lat": 45.4167,
+    "lng": 11.25,
+    "type": "wine_region",
+    "size": 20,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Sonoma, USA",
+    "lat": 38.2919,
+    "lng": -122.458,
+    "type": "wine_region",
+    "size": 50,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Stellenbosch, Sydafrika",
+    "lat": -33.9321,
+    "lng": 18.8602,
+    "type": "wine_region",
+    "size": 40,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Toro, Spanien",
+    "lat": 41.5236,
+    "lng": -5.3978,
+    "type": "wine_region",
+    "size": 20,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Toscana, Italien",
+    "lat": 43.7711,
+    "lng": 11.2486,
+    "type": "wine_region",
+    "size": 150,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Vinho Verde, Portugal",
+    "lat": 41.5,
+    "lng": -8.5,
+    "type": "wine_region",
+    "size": 80,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Vosne-Romanée, Burgund",
+    "lat": 47.1606,
+    "lng": 4.9594,
+    "type": "wine_region",
+    "size": 6,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Willamette Valley, USA",
+    "lat": 45.0833,
+    "lng": -123.0833,
+    "type": "wine_region",
+    "size": 80,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Amarone della Valpolicella",
+    "lat": 45.5333,
+    "lng": 10.8833,
+    "type": "docg",
+    "size": 30,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Asti, Piemonte",
+    "lat": 44.9,
+    "lng": 8.2,
+    "type": "docg",
+    "size": 50,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Barbaresco, Piemonte",
+    "lat": 44.725,
+    "lng": 8.0817,
+    "type": "docg",
+    "size": 8,
+    "difficulty": [
+      "easy",
+      "hard"
+    ]
+  },
+  {
+    "name": "Barbera d'Asti, Piemonte",
+    "lat": 44.9,
+    "lng": 8.2167,
+    "type": "docg",
+    "size": 20,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Bardolino Superiore",
+    "lat": 45.5333,
+    "lng": 10.7333,
+    "type": "docg",
+    "size": 15,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Barolo, Piemonte",
+    "lat": 44.6107,
+    "lng": 7.9464,
+    "type": "docg",
+    "size": 10,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Brunello di Montalcino",
+    "lat": 43.0567,
+    "lng": 11.4933,
+    "type": "docg",
+    "size": 15,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Carmignano, Toscana",
+    "lat": 43.8167,
+    "lng": 11.0167,
+    "type": "docg",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Castelli di Jesi Verdicchio",
+    "lat": 43.5233,
+    "lng": 13.2444,
+    "type": "docg",
+    "size": 20,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Cerasuolo di Vittoria",
+    "lat": 36.9533,
+    "lng": 14.5281,
+    "type": "docg",
+    "size": 20,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Chianti Classico, Toscana",
+    "lat": 43.5833,
+    "lng": 11.3667,
+    "type": "docg",
+    "size": 40,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Chianti, Toscana",
+    "lat": 43.4667,
+    "lng": 11.25,
+    "type": "docg",
+    "size": 60,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Conero, Marche",
+    "lat": 43.5667,
+    "lng": 13.6,
+    "type": "docg",
+    "size": 15,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Dolcetto di Dogliani Superiore",
+    "lat": 44.5333,
+    "lng": 7.95,
+    "type": "docg",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Fiano di Avellino",
+    "lat": 40.9167,
+    "lng": 14.7833,
+    "type": "docg",
+    "size": 15,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Franciacorta, Lombardia",
+    "lat": 45.6333,
+    "lng": 10.0833,
+    "type": "docg",
+    "size": 20,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Gattinara, Piemonte",
+    "lat": 45.6092,
+    "lng": 8.3697,
+    "type": "docg",
+    "size": 5,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Gavi, Piemonte",
+    "lat": 44.6833,
+    "lng": 8.8,
+    "type": "docg",
+    "size": 15,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Ghemme, Piemonte",
+    "lat": 45.5833,
+    "lng": 8.4167,
+    "type": "docg",
+    "size": 5,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Greco di Tufo",
+    "lat": 41.0167,
+    "lng": 14.8,
+    "type": "docg",
+    "size": 12,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Montecucco, Toscana",
+    "lat": 42.9167,
+    "lng": 11.5,
+    "type": "docg",
+    "size": 25,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Montepulciano d'Abruzzo Colline Teramane",
+    "lat": 42.65,
+    "lng": 13.7,
+    "type": "docg",
+    "size": 25,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Morellino di Scansano",
+    "lat": 42.7,
+    "lng": 11.3333,
+    "type": "docg",
+    "size": 20,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Nizza, Piemonte",
+    "lat": 44.7731,
+    "lng": 8.3467,
+    "type": "docg",
+    "size": 12,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Prosecco, Conegliano",
+    "lat": 45.8833,
+    "lng": 12.2167,
+    "type": "docg",
+    "size": 35,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Recioto di Soave",
+    "lat": 45.4167,
+    "lng": 11.25,
+    "type": "docg",
+    "size": 12,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Roero Arneis, Piemonte",
+    "lat": 44.7833,
+    "lng": 7.9667,
+    "type": "docg",
+    "size": 15,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Sagrantino di Montefalco",
+    "lat": 42.8931,
+    "lng": 12.6594,
+    "type": "docg",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Soave Superiore, Veneto",
+    "lat": 45.4167,
+    "lng": 11.25,
+    "type": "docg",
+    "size": 20,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Taurasi, Campania",
+    "lat": 40.9833,
+    "lng": 14.95,
+    "type": "docg",
+    "size": 12,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Valtellina Superiore",
+    "lat": 46.1667,
+    "lng": 9.8667,
+    "type": "docg",
+    "size": 30,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Vermentino di Gallura",
+    "lat": 40.9167,
+    "lng": 9.3333,
+    "type": "docg",
+    "size": 30,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Vernaccia di San Gimignano",
+    "lat": 43.4678,
+    "lng": 11.0433,
+    "type": "docg",
+    "size": 12,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Vino Nobile di Montepulciano",
+    "lat": 43.0994,
+    "lng": 11.7889,
+    "type": "docg",
+    "size": 15,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Alsace AOC",
+    "lat": 48.3181,
+    "lng": 7.4416,
+    "type": "aoc",
+    "size": 80,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Bandol, Provence",
+    "lat": 43.1378,
+    "lng": 5.7556,
+    "type": "aoc",
+    "size": 15,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Beaujolais, Bourgogne",
+    "lat": 46.1667,
+    "lng": 4.6333,
+    "type": "aoc",
+    "size": 50,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Bordeaux AOC",
+    "lat": 44.8378,
+    "lng": -0.5792,
+    "type": "aoc",
+    "size": 80,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Bourgogne AOC",
+    "lat": 47.05,
+    "lng": 4.85,
+    "type": "aoc",
+    "size": 100,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Bourgueil, Loire",
+    "lat": 47.2833,
+    "lng": 0.1667,
+    "type": "aoc",
+    "size": 15,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Cahors, Sud-Ouest",
+    "lat": 44.4478,
+    "lng": 1.4411,
+    "type": "aoc",
+    "size": 40,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Cassis, Provence",
+    "lat": 43.2147,
+    "lng": 5.5384,
+    "type": "aoc",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Chablis Grand Cru",
+    "lat": 47.8167,
+    "lng": 3.8,
+    "type": "aoc",
+    "size": 5,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Chablis, Bourgogne",
+    "lat": 47.8167,
+    "lng": 3.8,
+    "type": "aoc",
+    "size": 20,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Chambertin, Bourgogne",
+    "lat": 47.2267,
+    "lng": 4.9644,
+    "type": "aoc",
+    "size": 3,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Champagne AOC",
+    "lat": 49.042,
+    "lng": 4.036,
+    "type": "aoc",
+    "size": 120,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Châteauneuf-du-Pape",
+    "lat": 44.0575,
+    "lng": 4.8317,
+    "type": "aoc",
+    "size": 12,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Chinon, Loire",
+    "lat": 47.1667,
+    "lng": 0.25,
+    "type": "aoc",
+    "size": 20,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Condrieu, Rhône",
+    "lat": 45.4667,
+    "lng": 4.7667,
+    "type": "aoc",
+    "size": 8,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Corbieres, Languedoc",
+    "lat": 43.0167,
+    "lng": 2.6833,
+    "type": "aoc",
+    "size": 50,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Corton-Charlemagne",
+    "lat": 47.0667,
+    "lng": 4.8667,
+    "type": "aoc",
+    "size": 4,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Côte-Rôtie, Rhône",
+    "lat": 45.4667,
+    "lng": 4.7667,
+    "type": "aoc",
+    "size": 10,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Côtes du Rhône",
+    "lat": 44.1833,
+    "lng": 4.8333,
+    "type": "aoc",
+    "size": 150,
+    "difficulty": [
+      "easy"
+    ]
+  },
+  {
+    "name": "Gevrey-Chambertin",
+    "lat": 47.2267,
+    "lng": 4.9644,
+    "type": "aoc",
+    "size": 8,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Gigondas, Rhône",
+    "lat": 44.165,
+    "lng": 5.015,
+    "type": "aoc",
+    "size": 12,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Hermitage, Rhône",
+    "lat": 45.0778,
+    "lng": 4.8383,
+    "type": "aoc",
+    "size": 8,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Jurançon, Sud-Ouest",
+    "lat": 43.3,
+    "lng": -0.4,
+    "type": "aoc",
+    "size": 20,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "La Tâche, Bourgogne",
+    "lat": 47.1611,
+    "lng": 4.9597,
+    "type": "aoc",
+    "size": 2,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Madiran, Sud-Ouest",
+    "lat": 43.5167,
+    "lng": -0.1333,
+    "type": "aoc",
+    "size": 25,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Margaux, Bordeaux",
+    "lat": 45.0419,
+    "lng": -0.6689,
+    "type": "aoc",
+    "size": 12,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Meursault, Bourgogne",
+    "lat": 46.9792,
+    "lng": 4.7744,
+    "type": "aoc",
+    "size": 8,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Minervois, Languedoc",
+    "lat": 43.3167,
+    "lng": 2.5167,
+    "type": "aoc",
+    "size": 35,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Montrachet, Bourgogne",
+    "lat": 46.95,
+    "lng": 4.75,
+    "type": "aoc",
+    "size": 3,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Muscadet, Loire",
+    "lat": 47.1333,
+    "lng": -1.3833,
+    "type": "aoc",
+    "size": 30,
+    "difficulty": [
+      "easy",
+      "hard"
+    ]
+  },
+  {
+    "name": "Pauillac, Bordeaux",
+    "lat": 45.1967,
+    "lng": -0.7489,
+    "type": "aoc",
+    "size": 15,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Pomerol, Bordeaux",
+    "lat": 44.9333,
+    "lng": -0.2,
+    "type": "aoc",
+    "size": 8,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Pommard, Bourgogne",
+    "lat": 47,
+    "lng": 4.8,
+    "type": "aoc",
+    "size": 6,
+    "difficulty": [
+      "medium"
+    ]
+  },
+  {
+    "name": "Pouilly-Fumé, Loire",
+    "lat": 47.2833,
+    "lng": 2.9667,
+    "type": "aoc",
+    "size": 12,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Quarts de Chaume",
+    "lat": 47.3167,
+    "lng": -0.7167,
+    "type": "aoc",
+    "size": 5,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Romanée-Conti, Bourgogne",
+    "lat": 47.1608,
+    "lng": 4.96,
+    "type": "aoc",
+    "size": 2,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Saint-Émilion, Bordeaux",
+    "lat": 44.8939,
+    "lng": -0.1556,
+    "type": "aoc",
+    "size": 10,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Sancerre, Loire",
+    "lat": 47.3333,
+    "lng": 2.8333,
+    "type": "aoc",
+    "size": 15,
+    "difficulty": [
+      "easy",
+      "hard"
+    ]
+  },
+  {
+    "name": "Sauternes, Bordeaux",
+    "lat": 44.5333,
+    "lng": -0.3167,
+    "type": "aoc",
+    "size": 15,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Savennières, Loire",
+    "lat": 47.3833,
+    "lng": -0.65,
+    "type": "aoc",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Vacqueyras, Rhône",
+    "lat": 44.1333,
+    "lng": 5.0333,
+    "type": "aoc",
+    "size": 10,
+    "difficulty": [
+      "hard"
+    ]
+  },
+  {
+    "name": "Vouvray, Loire",
+    "lat": 47.4111,
+    "lng": 0.7983,
+    "type": "aoc",
+    "size": 12,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  }
+]
