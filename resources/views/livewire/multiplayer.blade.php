@@ -33,7 +33,22 @@
     }"></div>
         {{-- Lobby Screen --}}
         @if($screen === 'lobby')
-            <section class="min-h-screen flex items-center justify-center p-4 relative">
+            <section class="min-h-screen flex items-center justify-center p-4 relative"
+                x-data="{
+                    init() {
+                        // Load saved player name from localStorage
+                        const savedName = localStorage.getItem('geopinner_player_name');
+                        if (savedName) {
+                            $wire.hostName = savedName;
+                            $wire.playerName = savedName;
+                        }
+                    },
+                    savePlayerName(name) {
+                        if (name && name.trim()) {
+                            localStorage.setItem('geopinner_player_name', name.trim());
+                        }
+                    }
+                }">
                 <x-map-background blur="true" overlay="true" />
 
                 <div class="relative w-full max-w-5xl glass-panel rounded-3xl flex flex-col shadow-2xl overflow-hidden animate-fade-in">
@@ -67,7 +82,7 @@
                                 </div>
                             </div>
 
-                            <form wire:submit.prevent="createGame" class="space-y-4 flex-1">
+                            <form wire:submit.prevent="createGame" x-on:submit="savePlayerName($wire.hostName)" class="space-y-4 flex-1">
                                 <div class="space-y-1">
                                     <label class="text-xs text-slate-400 font-bold uppercase">Ditt Namn</label>
                                     <input type="text" wire:model="hostName" placeholder="Ange ditt namn" maxlength="20" required class="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
@@ -173,7 +188,7 @@
                                 </div>
                             </div>
 
-                            <form wire:submit="joinGame" class="space-y-4 flex-1">
+                            <form wire:submit="joinGame" x-on:submit="savePlayerName($wire.playerName)" class="space-y-4 flex-1">
                                 <div class="space-y-1">
                                     <label class="text-xs text-slate-400 font-bold uppercase">Ditt Namn</label>
                                     <input type="text" wire:model="playerName" placeholder="Ange ditt namn" maxlength="20" required class="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none">

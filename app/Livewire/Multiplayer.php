@@ -305,6 +305,8 @@ class Multiplayer extends Component
         $this->screen = 'game';
         $this->currentRound = $roundData['number'];
         $this->totalRounds = $gameData['total_rounds'];
+        $this->timerDuration = $gameData['timer_duration'] ?? 30;
+        $this->showLabels = $gameData['show_labels'] ?? false;
         $this->currentPlace = $roundData['place'];
         $this->currentPlace['round_id'] = $roundData['id']; // Add round_id for guess submission
         $this->hasGuessed = false;
