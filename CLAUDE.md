@@ -4,155 +4,811 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Geopinner is a Swedish-language interactive geography quiz game built with vanilla JavaScript and Vite. Players are shown a location name (cities, countries, islands, wine regions, etc.) and must click on a map to guess where it is located. The game calculates distance accuracy and awards points (0-10) based on how close the guess is.
+GeoPinner is a geography guessing game built with Laravel 12, Livewire 3, and Volt. Players guess locations on a map (countries, cities, wine regions, etc.) and earn points based on accuracy and speed. The game supports both single-player and real-time multiplayer modes.
 
-## Development Commands
+## Common Commands
 
-- `npm run dev` - Start development server with hot reload
-- `npm run build` - Build for production (outputs to `dist/`)
-- `npm run preview` - Preview production build locally
+### Development
+```bash
+# Start development server with all services (Laravel, queue, logs, Vite)
+composer run dev
 
-## Code Architecture
+# Build frontend assets
+npm run build
 
-### Modular Structure (Refactored Nov 2025)
+# Run development Vite server
+npm run dev
 
-The codebase uses a clean modular architecture with separation of concerns:
-
-```
-src/
-  game/
-    state.js          - GameState class: centralized state management (220 lines)
-    scoring.js        - Scoring logic and thresholds (105 lines)
-    placeSelector.js  - PlaceSelector class: place filtering and Fisher-Yates shuffle (115 lines)
-  map/
-    mapManager.js     - MapManager class: Leaflet wrapper (270 lines)
-  ui/
-    screens.js        - UI rendering and screen transitions (180 lines)
-  main.js             - Entry point, coordinates modules (270 lines, down from 453)
-  places/             - Location database (~760 lines)
-  style.css           - Complete styling with animations and timer UI
+# Code formatting with Laravel Pint
+vendor/bin/pint --dirty
 ```
 
-### Entry Points
+### Testing
+```bash
+# Run all tests
+php artisan test
 
-- **index.html**: Main HTML template with Swedish UI text, three screens (setup, game, result), timer UI
-- **src/main.js**: Application entry point, coordinates modules, sets up event listeners
-- **public/**: Static assets (pin_user.png, pin_place.png marker icons)
+# Run specific test file
+php artisan test tests/Feature/Livewire/GameTest.php
 
-### Game Flow
+# Run tests matching a filter
+php artisan test --filter=testName
+```
 
-1. **Setup Screen**: User selects:
-   - Difficulty (easy/medium/hard)
-   - Game type (mixed/countries/cities/wine regions/DOCG/AOC)
-   - Number of rounds (5/10/15/20)
-   - Timer mode (off/30s/60s/90s per round)
-2. **Game Screen**: Shows question ("Var ligger X?"), interactive map, score tracking, optional countdown timer
-3. **Result Screen**: Shows final score, performance message, round-by-round breakdown with time bonuses if applicable
+### Multiplayer/Broadcasting
+```bash
+# Start Laravel Reverb WebSocket server (required for multiplayer)
+php artisan reverb:start
 
-### Map Integration
+# Reverb runs at reverb.herd.test:443 (HTTPS) when using Laravel Herd
+```
 
-- Uses **Leaflet.js** (v1.9.4) loaded from CDN
-- Map functionality encapsulated in **MapManager class** (src/map/mapManager.js)
-- Two tile style options defined in mapManager.js:
-  - `voyager`: CARTO Voyager
-  - `positron`: CARTO Positron (clearer borders, currently active via CURRENT_TILE_STYLE)
-- **In-game label toggle**: Users can toggle labels during gameplay via checkbox
-- Map settings: center [20,0], zoom 2-10 range, world copy jump enabled
-- MapManager methods: `initialize()`, `setTileStyle()`, `addUserMarker()`, `addPlaceMarker()`, `drawDistanceLine()`, `calculateDistance()`, etc.
+### Database
+```bash
+# Run migrations
+php artisan migrate
 
-### Places Database Structure
+# Run seeders
+php artisan db:seed
 
-Located in `src/places.js` with three difficulty tiers:
+# Fresh database with seed data
+php artisan migrate:fresh --seed
+```
 
-```javascript
+## Architecture
+
+### Game Modes
+
+The application has two parallel implementations:
+
+1. **Livewire/Volt Version** (routes: `/game-v2`, `/multiplayer-v2`)
+   - Modern implementation using Livewire components
+   - Interactive, server-driven UI
+   - Primary version going forward
+
+2. **Vanilla JS Version** (routes: `/multiplayer`)
+   - Original implementation with vanilla JavaScript
+   - Uses API endpoints from `GameController`
+   - Legacy support
+
+### Core Domain Models
+
+- **Place** (`app/Models/Place.php`): Geographic locations with lat/lng coordinates, type, difficulty, and size (radius)
+- **Game** (`app/Models/Game.php`): Multiplayer game sessions with code, settings, and status
+- **Player** (`app/Models/Player.php`): Participants in multiplayer games
+- **Round** (`app/Models/Round.php`): Individual rounds within a game
+- **Guess** (`app/Models/Guess.php`): Player guesses with coordinates and scoring
+
+### Key Enums
+
+- **Difficulty** (`app/Enums/Difficulty.php`): Easy, Medium, Hard
+- **PlaceType** (`app/Enums/PlaceType.php`): Mixed, Location, Island, City, Capital, Country, WineRegion, DOCG, AOC
+- **NumRound** (`app/Enums/NumRound.php`): Number of rounds options
+- **TimeDuration** (`app/Enums/TimeDuration.php`): Timer duration options
+
+### Services
+
+- **PlaceService** (`app/Services/PlaceService.php`): Fetches and filters places by difficulty and type
+- **ScoringService** (`app/Services/ScoringService.php`): Calculates points based on distance from target
+  - Standard thresholds for most places
+  - Stricter thresholds (2x harder) for wine regions (vin, docg, aoc)
+  - Accounts for place size/radius when calculating adjusted distance
+  - Returns points (0-10), emoji, message, and CSS class
+
+### Livewire Components
+
+- **Game** (`app/Livewire/Game.php`): Single-player game logic
+  - Manages game state (setup, game, result screens)
+  - Handles place selection, scoring, time bonuses
+  - Stores shuffled places in session to avoid hydration issues
+  - Fisher-Yates shuffle for randomization
+
+- **Multiplayer** (`app/Livewire/Multiplayer.php`): Multiplayer game coordination
+  - Creates/joins games with unique codes
+  - Broadcasts events via Laravel Reverb
+  - Synchronizes state across all players
+
+### Real-Time Broadcasting
+
+Uses **Laravel Reverb** for WebSocket communication:
+
+- Game channels: `game.{code}` for isolated per-game communication
+- Events broadcast in `app/Events/`:
+  - `PlayerJoined`, `GameStarted`, `RoundStarted`
+  - `GuessSubmitted`, `RoundCompleted`, `GameCompleted`
+- See `MULTIPLAYER.md` for detailed broadcasting setup
+
+### Frontend Architecture
+
+- **JavaScript**: Modular components in `resources/js/`
+  - `game/`: Game state management, scoring logic
+  - `map/`: Leaflet map integration
+  - `ui/`: Timer, feedback display
+  - `components/`: Reusable Alpine.js components for Livewire version
+
+- **Styles**: Tailwind CSS v4 in `resources/css/app.css`
+  - Uses `@import "tailwindcss"` (not `@tailwind` directives)
+  - Custom theme extensions with `@theme` directive
+
+- **Views**: Blade templates in `resources/views/`
+  - `layouts/app.blade.php`: Base layout with Flux UI components
+  - `livewire/game.blade.php`: Single-player game UI
+  - `livewire/multiplayer.blade.php`: Multiplayer game UI
+  - `home.blade.php`: Landing page
+
+## Important Patterns
+
+### Place Data Storage
+
+Places are stored in the `places` table with:
+- `difficulty`: JSON array (e.g., `["easy", "medium"]`) - a place can appear in multiple difficulties
+- `size`: Radius in kilometers for scoring tolerance
+- `type`: One of the PlaceType enum values
+
+Use `Place::difficulty($difficulty)` scope to filter by difficulty (uses `whereJsonContains`).
+
+### Scoring Algorithm
+
+1. Calculate Haversine distance between guess and actual location
+2. Adjust distance by subtracting place size: `max(0, distance - place['size'])`
+3. Apply thresholds (standard or wine) to determine points (0-10)
+4. Calculate time bonus if timer enabled and points >= 7:
+   - 3 points: < 25% of time
+   - 2 points: < 50% of time
+   - 1 point: < 75% of time
+
+### Session vs. Component State
+
+The Livewire `Game` component stores the shuffled `game_places` array in the session (not component state) to avoid large hydration payloads. Each round retrieves the current place from session.
+
+### Livewire Event Pattern
+
+Components dispatch events to Alpine.js for map interactions:
+- `clear-map`: Reset map markers
+- `show-result`: Display user guess vs. actual location
+- `show-timeout-result`: Display correct location on timeout
+- `round-complete`: Trigger next round transition
+
+## Development Notes
+
+### Database Seeding
+
+The `export-places.mjs` script is used to populate the places database. Place data is seeded from external sources.
+
+### Flux UI Components
+
+This project uses **Flux Pro** with access to all free and pro components. Common components:
+- `<flux:button>`, `<flux:input>`, `<flux:select>`
+- `<flux:card>`, `<flux:heading>`, `<flux:badge>`
+- Always check existing views for component usage patterns
+
+### Volt Components
+
+The project uses **class-based Volt** components (not functional). Components extend `Livewire\Volt\Component` using anonymous classes within `@volt` directives.
+
+### Testing Strategy
+
+- Use Pest for all tests (not PHPUnit syntax)
+- Feature tests in `tests/Feature/`
+- Livewire component tests in `tests/Feature/Livewire/`
+- Browser tests (Pest v4) can be added in `tests/Browser/` for E2E testing
+- Always run relevant tests after changes: `php artisan test --filter=GameTest`
+
+### Running in Laravel Herd
+
+- Site available at: `https://geopinner.test` (managed by Herd)
+- Reverb runs at: `https://reverb.herd.test:443`
+- No need to manually start `php artisan serve`
+- Use `get-absolute-url` tool to generate correct URLs
+
+## API Endpoints (for Vanilla JS version)
+
+```
+POST   /api/games/create       - Create new multiplayer game
+POST   /api/games/join         - Join existing game
+GET    /api/games/{code}/players - Get players in game
+POST   /api/games/start        - Start game (host only)
+POST   /api/games/guess        - Submit player guess
+POST   /api/games/next-round   - Advance to next round
+GET    /api/places             - Get places for single-player
+```
+
+## Configuration
+
+Key environment variables:
+- `BROADCAST_CONNECTION=reverb`
+- `REVERB_APP_ID`, `REVERB_APP_KEY`, `REVERB_APP_SECRET`
+- `REVERB_HOST`, `REVERB_PORT`, `REVERB_SCHEME`
+- `VITE_REVERB_*` variables must match `REVERB_*` for frontend
+
+See `MULTIPLAYER.md` for complete Reverb configuration details.
+
+===
+
+<laravel-boost-guidelines>
+=== foundation rules ===
+
+# Laravel Boost Guidelines
+
+The Laravel Boost guidelines are specifically curated by Laravel maintainers for this application. These guidelines should be followed closely to enhance the user's satisfaction building Laravel applications.
+
+## Foundational Context
+This application is a Laravel application and its main Laravel ecosystems package & versions are below. You are an expert with them all. Ensure you abide by these specific packages & versions.
+
+- php - 8.3.27
+- laravel/framework (LARAVEL) - v12
+- laravel/prompts (PROMPTS) - v0
+- laravel/reverb (REVERB) - v1
+- livewire/livewire (LIVEWIRE) - v3
+- livewire/volt (VOLT) - v1
+- laravel/mcp (MCP) - v0
+- laravel/pint (PINT) - v1
+- laravel/sail (SAIL) - v1
+- pestphp/pest (PEST) - v4
+- phpunit/phpunit (PHPUNIT) - v12
+- laravel-echo (ECHO) - v2
+- tailwindcss (TAILWINDCSS) - v4
+
+## Conventions
+- You must follow all existing code conventions used in this application. When creating or editing a file, check sibling files for the correct structure, approach, naming.
+- Use descriptive names for variables and methods. For example, `isRegisteredForDiscounts`, not `discount()`.
+- Check for existing components to reuse before writing a new one.
+
+## Verification Scripts
+- Do not create verification scripts or tinker when tests cover that functionality and prove it works. Unit and feature tests are more important.
+
+## Application Structure & Architecture
+- Stick to existing directory structure - don't create new base folders without approval.
+- Do not change the application's dependencies without approval.
+
+## Frontend Bundling
+- If the user doesn't see a frontend change reflected in the UI, it could mean they need to run `npm run build`, `npm run dev`, or `composer run dev`. Ask them.
+
+## Replies
+- Be concise in your explanations - focus on what's important rather than explaining obvious details.
+
+## Documentation Files
+- You must only create documentation files if explicitly requested by the user.
+
+
+=== boost rules ===
+
+## Laravel Boost
+- Laravel Boost is an MCP server that comes with powerful tools designed specifically for this application. Use them.
+
+## Artisan
+- Use the `list-artisan-commands` tool when you need to call an Artisan command to double check the available parameters.
+
+## URLs
+- Whenever you share a project URL with the user you should use the `get-absolute-url` tool to ensure you're using the correct scheme, domain / IP, and port.
+
+## Tinker / Debugging
+- You should use the `tinker` tool when you need to execute PHP to debug code or query Eloquent models directly.
+- Use the `database-query` tool when you only need to read from the database.
+
+## Reading Browser Logs With the `browser-logs` Tool
+- You can read browser logs, errors, and exceptions using the `browser-logs` tool from Boost.
+- Only recent browser logs will be useful - ignore old logs.
+
+## Searching Documentation (Critically Important)
+- Boost comes with a powerful `search-docs` tool you should use before any other approaches. This tool automatically passes a list of installed packages and their versions to the remote Boost API, so it returns only version-specific documentation specific for the user's circumstance. You should pass an array of packages to filter on if you know you need docs for particular packages.
+- The 'search-docs' tool is perfect for all Laravel related packages, including Laravel, Inertia, Livewire, Filament, Tailwind, Pest, Nova, Nightwatch, etc.
+- You must use this tool to search for Laravel-ecosystem documentation before falling back to other approaches.
+- Search the documentation before making code changes to ensure we are taking the correct approach.
+- Use multiple, broad, simple, topic based queries to start. For example: `['rate limiting', 'routing rate limiting', 'routing']`.
+- Do not add package names to queries - package information is already shared. For example, use `test resource table`, not `filament 4 test resource table`.
+
+### Available Search Syntax
+- You can and should pass multiple queries at once. The most relevant results will be returned first.
+
+1. Simple Word Searches with auto-stemming - query=authentication - finds 'authenticate' and 'auth'
+2. Multiple Words (AND Logic) - query=rate limit - finds knowledge containing both "rate" AND "limit"
+3. Quoted Phrases (Exact Position) - query="infinite scroll" - Words must be adjacent and in that order
+4. Mixed Queries - query=middleware "rate limit" - "middleware" AND exact phrase "rate limit"
+5. Multiple Queries - queries=["authentication", "middleware"] - ANY of these terms
+
+
+=== php rules ===
+
+## PHP
+
+- Always use curly braces for control structures, even if it has one line.
+
+### Constructors
+- Use PHP 8 constructor property promotion in `__construct()`.
+    - <code-snippet>public function __construct(public GitHub $github) { }</code-snippet>
+- Do not allow empty `__construct()` methods with zero parameters.
+
+### Type Declarations
+- Always use explicit return type declarations for methods and functions.
+- Use appropriate PHP type hints for method parameters.
+
+<code-snippet name="Explicit Return Types and Method Params" lang="php">
+protected function isAccessible(User $user, ?string $path = null): bool
 {
-  easy: [...],    // ~187 places - major cities, large countries, famous landmarks
-  medium: [...],  // ~230 places - smaller cities, regions, wine areas
-  hard: [...]     // Challenging locations
+    ...
 }
-```
+</code-snippet>
 
-Each place object:
-```javascript
-{
-  name: "Stockholm, Sverige",
-  lat: 59.3293,
-  lng: 18.0686,
-  type: "stad",     // stad, land, ö, plats, vin, docg, aoc
-  size: 12          // radius in km - affects scoring tolerance
+## Comments
+- Prefer PHPDoc blocks over comments. Never use comments within the code itself unless there is something _very_ complex going on.
+
+## PHPDoc Blocks
+- Add useful array shape type definitions for arrays when appropriate.
+
+## Enums
+- Typically, keys in an Enum should be TitleCase. For example: `FavoritePerson`, `BestLake`, `Monthly`.
+
+
+=== herd rules ===
+
+## Laravel Herd
+
+- The application is served by Laravel Herd and will be available at: https?://[kebab-case-project-dir].test. Use the `get-absolute-url` tool to generate URLs for the user to ensure valid URLs.
+- You must not run any commands to make the site available via HTTP(s). It is _always_ available through Laravel Herd.
+
+
+=== tests rules ===
+
+## Test Enforcement
+
+- Every change must be programmatically tested. Write a new test or update an existing test, then run the affected tests to make sure they pass.
+- Run the minimum number of tests needed to ensure code quality and speed. Use `php artisan test` with a specific filename or filter.
+
+
+=== laravel/core rules ===
+
+## Do Things the Laravel Way
+
+- Use `php artisan make:` commands to create new files (i.e. migrations, controllers, models, etc.). You can list available Artisan commands using the `list-artisan-commands` tool.
+- If you're creating a generic PHP class, use `php artisan make:class`.
+- Pass `--no-interaction` to all Artisan commands to ensure they work without user input. You should also pass the correct `--options` to ensure correct behavior.
+
+### Database
+- Always use proper Eloquent relationship methods with return type hints. Prefer relationship methods over raw queries or manual joins.
+- Use Eloquent models and relationships before suggesting raw database queries
+- Avoid `DB::`; prefer `Model::query()`. Generate code that leverages Laravel's ORM capabilities rather than bypassing them.
+- Generate code that prevents N+1 query problems by using eager loading.
+- Use Laravel's query builder for very complex database operations.
+
+### Model Creation
+- When creating new models, create useful factories and seeders for them too. Ask the user if they need any other things, using `list-artisan-commands` to check the available options to `php artisan make:model`.
+
+### APIs & Eloquent Resources
+- For APIs, default to using Eloquent API Resources and API versioning unless existing API routes do not, then you should follow existing application convention.
+
+### Controllers & Validation
+- Always create Form Request classes for validation rather than inline validation in controllers. Include both validation rules and custom error messages.
+- Check sibling Form Requests to see if the application uses array or string based validation rules.
+
+### Queues
+- Use queued jobs for time-consuming operations with the `ShouldQueue` interface.
+
+### Authentication & Authorization
+- Use Laravel's built-in authentication and authorization features (gates, policies, Sanctum, etc.).
+
+### URL Generation
+- When generating links to other pages, prefer named routes and the `route()` function.
+
+### Configuration
+- Use environment variables only in configuration files - never use the `env()` function directly outside of config files. Always use `config('app.name')`, not `env('APP_NAME')`.
+
+### Testing
+- When creating models for tests, use the factories for the models. Check if the factory has custom states that can be used before manually setting up the model.
+- Faker: Use methods such as `$this->faker->word()` or `fake()->randomDigit()`. Follow existing conventions whether to use `$this->faker` or `fake()`.
+- When creating tests, make use of `php artisan make:test [options] {name}` to create a feature test, and pass `--unit` to create a unit test. Most tests should be feature tests.
+
+### Vite Error
+- If you receive an "Illuminate\Foundation\ViteException: Unable to locate file in Vite manifest" error, you can run `npm run build` or ask the user to run `npm run dev` or `composer run dev`.
+
+
+=== laravel/v12 rules ===
+
+## Laravel 12
+
+- Use the `search-docs` tool to get version specific documentation.
+- Since Laravel 11, Laravel has a new streamlined file structure which this project uses.
+
+### Laravel 12 Structure
+- No middleware files in `app/Http/Middleware/`.
+- `bootstrap/app.php` is the file to register middleware, exceptions, and routing files.
+- `bootstrap/providers.php` contains application specific service providers.
+- **No app\Console\Kernel.php** - use `bootstrap/app.php` or `routes/console.php` for console configuration.
+- **Commands auto-register** - files in `app/Console/Commands/` are automatically available and do not require manual registration.
+
+### Database
+- When modifying a column, the migration must include all of the attributes that were previously defined on the column. Otherwise, they will be dropped and lost.
+- Laravel 11 allows limiting eagerly loaded records natively, without external packages: `$query->latest()->limit(10);`.
+
+### Models
+- Casts can and likely should be set in a `casts()` method on a model rather than the `$casts` property. Follow existing conventions from other models.
+
+
+=== livewire/core rules ===
+
+## Livewire Core
+- Use the `search-docs` tool to find exact version specific documentation for how to write Livewire & Livewire tests.
+- Use the `php artisan make:livewire [Posts\CreatePost]` artisan command to create new components
+- State should live on the server, with the UI reflecting it.
+- All Livewire requests hit the Laravel backend, they're like regular HTTP requests. Always validate form data, and run authorization checks in Livewire actions.
+
+## Livewire Best Practices
+- Livewire components require a single root element.
+- Use `wire:loading` and `wire:dirty` for delightful loading states.
+- Add `wire:key` in loops:
+
+    ```blade
+    @foreach ($items as $item)
+        <div wire:key="item-{{ $item->id }}">
+            {{ $item->name }}
+        </div>
+    @endforeach
+    ```
+
+- Prefer lifecycle hooks like `mount()`, `updatedFoo()` for initialization and reactive side effects:
+
+<code-snippet name="Lifecycle hook examples" lang="php">
+    public function mount(User $user) { $this->user = $user; }
+    public function updatedSearch() { $this->resetPage(); }
+</code-snippet>
+
+
+## Testing Livewire
+
+<code-snippet name="Example Livewire component test" lang="php">
+    Livewire::test(Counter::class)
+        ->assertSet('count', 0)
+        ->call('increment')
+        ->assertSet('count', 1)
+        ->assertSee(1)
+        ->assertStatus(200);
+</code-snippet>
+
+
+    <code-snippet name="Testing a Livewire component exists within a page" lang="php">
+        $this->get('/posts/create')
+        ->assertSeeLivewire(CreatePost::class);
+    </code-snippet>
+
+
+=== livewire/v3 rules ===
+
+## Livewire 3
+
+### Key Changes From Livewire 2
+- These things changed in Livewire 2, but may not have been updated in this application. Verify this application's setup to ensure you conform with application conventions.
+    - Use `wire:model.live` for real-time updates, `wire:model` is now deferred by default.
+    - Components now use the `App\Livewire` namespace (not `App\Http\Livewire`).
+    - Use `$this->dispatch()` to dispatch events (not `emit` or `dispatchBrowserEvent`).
+    - Use the `components.layouts.app` view as the typical layout path (not `layouts.app`).
+
+### New Directives
+- `wire:show`, `wire:transition`, `wire:cloak`, `wire:offline`, `wire:target` are available for use. Use the documentation to find usage examples.
+
+### Alpine
+- Alpine is now included with Livewire, don't manually include Alpine.js.
+- Plugins included with Alpine: persist, intersect, collapse, and focus.
+
+### Lifecycle Hooks
+- You can listen for `livewire:init` to hook into Livewire initialization, and `fail.status === 419` for the page expiring:
+
+<code-snippet name="livewire:load example" lang="js">
+document.addEventListener('livewire:init', function () {
+    Livewire.hook('request', ({ fail }) => {
+        if (fail && fail.status === 419) {
+            alert('Your session expired');
+        }
+    });
+
+    Livewire.hook('message.failed', (message, component) => {
+        console.error(message);
+    });
+});
+</code-snippet>
+
+
+=== volt/core rules ===
+
+## Livewire Volt
+
+- This project uses Livewire Volt for interactivity within its pages. New pages requiring interactivity must also use Livewire Volt. There is documentation available for it.
+- Make new Volt components using `php artisan make:volt [name] [--test] [--pest]`
+- Volt is a **class-based** and **functional** API for Livewire that supports single-file components, allowing a component's PHP logic and Blade templates to co-exist in the same file
+- Livewire Volt allows PHP logic and Blade templates in one file. Components use the `@volt` directive.
+- You must check existing Volt components to determine if they're functional or class based. If you can't detect that, ask the user which they prefer before writing a Volt component.
+
+### Volt Functional Component Example
+
+<code-snippet name="Volt Functional Component Example" lang="php">
+@volt
+<?php
+use function Livewire\Volt\{state, computed};
+
+state(['count' => 0]);
+
+$increment = fn () => $this->count++;
+$decrement = fn () => $this->count--;
+
+$double = computed(fn () => $this->count * 2);
+?>
+
+<div>
+    <h1>Count: {{ $count }}</h1>
+    <h2>Double: {{ $this->double }}</h2>
+    <button wire:click="increment">+</button>
+    <button wire:click="decrement">-</button>
+</div>
+@endvolt
+</code-snippet>
+
+
+### Volt Class Based Component Example
+To get started, define an anonymous class that extends Livewire\Volt\Component. Within the class, you may utilize all of the features of Livewire using traditional Livewire syntax:
+
+
+<code-snippet name="Volt Class-based Volt Component Example" lang="php">
+use Livewire\Volt\Component;
+
+new class extends Component {
+    public $count = 0;
+
+    public function increment()
+    {
+        $this->count++;
+    }
+} ?>
+
+<div>
+    <h1>{{ $count }}</h1>
+    <button wire:click="increment">+</button>
+</div>
+</code-snippet>
+
+
+### Testing Volt & Volt Components
+- Use the existing directory for tests if it already exists. Otherwise, fallback to `tests/Feature/Volt`.
+
+<code-snippet name="Livewire Test Example" lang="php">
+use Livewire\Volt\Volt;
+
+test('counter increments', function () {
+    Volt::test('counter')
+        ->assertSee('Count: 0')
+        ->call('increment')
+        ->assertSee('Count: 1');
+});
+</code-snippet>
+
+
+<code-snippet name="Volt Component Test Using Pest" lang="php">
+declare(strict_types=1);
+
+use App\Models\{User, Product};
+use Livewire\Volt\Volt;
+
+test('product form creates product', function () {
+    $user = User::factory()->create();
+
+    Volt::test('pages.products.create')
+        ->actingAs($user)
+        ->set('form.name', 'Test Product')
+        ->set('form.description', 'Test Description')
+        ->set('form.price', 99.99)
+        ->call('create')
+        ->assertHasNoErrors();
+
+    expect(Product::where('name', 'Test Product')->exists())->toBeTrue();
+});
+</code-snippet>
+
+
+### Common Patterns
+
+
+<code-snippet name="CRUD With Volt" lang="php">
+<?php
+
+use App\Models\Product;
+use function Livewire\Volt\{state, computed};
+
+state(['editing' => null, 'search' => '']);
+
+$products = computed(fn() => Product::when($this->search,
+    fn($q) => $q->where('name', 'like', "%{$this->search}%")
+)->get());
+
+$edit = fn(Product $product) => $this->editing = $product->id;
+$delete = fn(Product $product) => $product->delete();
+
+?>
+
+<!-- HTML / UI Here -->
+</code-snippet>
+
+<code-snippet name="Real-Time Search With Volt" lang="php">
+    <flux:input
+        wire:model.live.debounce.300ms="search"
+        placeholder="Search..."
+    />
+</code-snippet>
+
+<code-snippet name="Loading States With Volt" lang="php">
+    <flux:button wire:click="save" wire:loading.attr="disabled">
+        <span wire:loading.remove>Save</span>
+        <span wire:loading>Saving...</span>
+    </flux:button>
+</code-snippet>
+
+
+=== pint/core rules ===
+
+## Laravel Pint Code Formatter
+
+- You must run `vendor/bin/pint --dirty` before finalizing changes to ensure your code matches the project's expected style.
+- Do not run `vendor/bin/pint --test`, simply run `vendor/bin/pint` to fix any formatting issues.
+
+
+=== pest/core rules ===
+
+## Pest
+### Testing
+- If you need to verify a feature is working, write or update a Unit / Feature test.
+
+### Pest Tests
+- All tests must be written using Pest. Use `php artisan make:test --pest {name}`.
+- You must not remove any tests or test files from the tests directory without approval. These are not temporary or helper files - these are core to the application.
+- Tests should test all of the happy paths, failure paths, and weird paths.
+- Tests live in the `tests/Feature` and `tests/Unit` directories.
+- Pest tests look and behave like this:
+<code-snippet name="Basic Pest Test Example" lang="php">
+it('is true', function () {
+    expect(true)->toBeTrue();
+});
+</code-snippet>
+
+### Running Tests
+- Run the minimal number of tests using an appropriate filter before finalizing code edits.
+- To run all tests: `php artisan test`.
+- To run all tests in a file: `php artisan test tests/Feature/ExampleTest.php`.
+- To filter on a particular test name: `php artisan test --filter=testName` (recommended after making a change to a related file).
+- When the tests relating to your changes are passing, ask the user if they would like to run the entire test suite to ensure everything is still passing.
+
+### Pest Assertions
+- When asserting status codes on a response, use the specific method like `assertForbidden` and `assertNotFound` instead of using `assertStatus(403)` or similar, e.g.:
+<code-snippet name="Pest Example Asserting postJson Response" lang="php">
+it('returns all', function () {
+    $response = $this->postJson('/api/docs', []);
+
+    $response->assertSuccessful();
+});
+</code-snippet>
+
+### Mocking
+- Mocking can be very helpful when appropriate.
+- When mocking, you can use the `Pest\Laravel\mock` Pest function, but always import it via `use function Pest\Laravel\mock;` before using it. Alternatively, you can use `$this->mock()` if existing tests do.
+- You can also create partial mocks using the same import or self method.
+
+### Datasets
+- Use datasets in Pest to simplify tests which have a lot of duplicated data. This is often the case when testing validation rules, so consider going with this solution when writing tests for validation rules.
+
+<code-snippet name="Pest Dataset Example" lang="php">
+it('has emails', function (string $email) {
+    expect($email)->not->toBeEmpty();
+})->with([
+    'james' => 'james@laravel.com',
+    'taylor' => 'taylor@laravel.com',
+]);
+</code-snippet>
+
+
+=== pest/v4 rules ===
+
+## Pest 4
+
+- Pest v4 is a huge upgrade to Pest and offers: browser testing, smoke testing, visual regression testing, test sharding, and faster type coverage.
+- Browser testing is incredibly powerful and useful for this project.
+- Browser tests should live in `tests/Browser/`.
+- Use the `search-docs` tool for detailed guidance on utilizing these features.
+
+### Browser Testing
+- You can use Laravel features like `Event::fake()`, `assertAuthenticated()`, and model factories within Pest v4 browser tests, as well as `RefreshDatabase` (when needed) to ensure a clean state for each test.
+- Interact with the page (click, type, scroll, select, submit, drag-and-drop, touch gestures, etc.) when appropriate to complete the test.
+- If requested, test on multiple browsers (Chrome, Firefox, Safari).
+- If requested, test on different devices and viewports (like iPhone 14 Pro, tablets, or custom breakpoints).
+- Switch color schemes (light/dark mode) when appropriate.
+- Take screenshots or pause tests for debugging when appropriate.
+
+### Example Tests
+
+<code-snippet name="Pest Browser Test Example" lang="php">
+it('may reset the password', function () {
+    Notification::fake();
+
+    $this->actingAs(User::factory()->create());
+
+    $page = visit('/sign-in'); // Visit on a real browser...
+
+    $page->assertSee('Sign In')
+        ->assertNoJavascriptErrors() // or ->assertNoConsoleLogs()
+        ->click('Forgot Password?')
+        ->fill('email', 'nuno@laravel.com')
+        ->click('Send Reset Link')
+        ->assertSee('We have emailed your password reset link!')
+
+    Notification::assertSent(ResetPassword::class);
+});
+</code-snippet>
+
+<code-snippet name="Pest Smoke Testing Example" lang="php">
+$pages = visit(['/', '/about', '/contact']);
+
+$pages->assertNoJavascriptErrors()->assertNoConsoleLogs();
+</code-snippet>
+
+
+=== tailwindcss/core rules ===
+
+## Tailwind Core
+
+- Use Tailwind CSS classes to style HTML, check and use existing tailwind conventions within the project before writing your own.
+- Offer to extract repeated patterns into components that match the project's conventions (i.e. Blade, JSX, Vue, etc..)
+- Think through class placement, order, priority, and defaults - remove redundant classes, add classes to parent or child carefully to limit repetition, group elements logically
+- You can use the `search-docs` tool to get exact examples from the official documentation when needed.
+
+### Spacing
+- When listing items, use gap utilities for spacing, don't use margins.
+
+    <code-snippet name="Valid Flex Gap Spacing Example" lang="html">
+        <div class="flex gap-8">
+            <div>Superior</div>
+            <div>Michigan</div>
+            <div>Erie</div>
+        </div>
+    </code-snippet>
+
+
+### Dark Mode
+- If existing pages and components support dark mode, new pages and components must support dark mode in a similar way, typically using `dark:`.
+
+
+=== tailwindcss/v4 rules ===
+
+## Tailwind 4
+
+- Always use Tailwind CSS v4 - do not use the deprecated utilities.
+- `corePlugins` is not supported in Tailwind v4.
+- In Tailwind v4, configuration is CSS-first using the `@theme` directive — no separate `tailwind.config.js` file is needed.
+<code-snippet name="Extending Theme in CSS" lang="css">
+@theme {
+  --color-brand: oklch(0.72 0.11 178);
 }
-```
+</code-snippet>
 
-Place types:
-- `stad`: City
-- `land`: Country
-- `ö`: Island
-- `plats`: Landmark/specific location
-- `vin`: Wine region
-- `docg`: Italian DOCG wine regions
-- `aoc`: French AOC wine regions
+- In Tailwind v4, you import Tailwind using a regular CSS `@import` statement, not using the `@tailwind` directives used in v3:
 
-### Scoring System
+<code-snippet name="Tailwind v4 Import Tailwind Diff" lang="diff">
+   - @tailwind base;
+   - @tailwind components;
+   - @tailwind utilities;
+   + @import "tailwindcss";
+</code-snippet>
 
-Points are calculated via **calculateScore()** in src/game/scoring.js:
-- Adjusted distance = actual distance - place size (radius)
-- Distance bands award 10 → 1 points (e.g., <50km = 10pts, <200km = 9pts, etc.)
-- Wine regions (vin, docg, aoc) have **2x stricter thresholds** (50% of normal distances)
-- Distance shown in Swedish miles (1 mil = 10 km)
-- **NEW:** Timer mode adds speed bonuses:
-  - Finish in <25% of time: +3 points
-  - Finish in <50% of time: +2 points
-  - Finish in <75% of time: +1 point
-  - Only applies to good guesses (7+ base points)
 
-### Game State Management
+### Replaced Utilities
+- Tailwind v4 removed deprecated utilities. Do not use the deprecated option - use the replacement.
+- Opacity values are still numeric.
 
-Uses **GameState class** (src/game/state.js) for centralized state:
-- Settings: `{difficulty, rounds, gameType, zoomEnabled, showLabels, timerEnabled, timerDuration}`
-- Game progress: `currentRound`, `totalScore`, `currentPlace`, `hasGuessed`
-- Round history: Array storing each round's results with points, distance, time bonuses
-- Timer state: `timeRemaining`, `roundStartTime`, `roundEndTime`
-- Methods: `startGame()`, `nextRound()`, `submitGuess()`, `calculateTimeBonus()`, `serialize()`/`deserialize()`
-- PlaceSelector instance manages place selection with Fisher-Yates shuffle (no duplicates)
-
-### Visual Feedback
-
-- Custom pin markers (red for user, different color for correct location)
-- Animated dashed line connecting guess to correct location
-- Color-coded feedback: excellent (green), good (blue), okay (orange), poor (red)
-- CSS animations for marker drops and line dashes
-
-## Key Implementation Details
-
-### Place Filtering and Selection
-
-**PlaceSelector class** (src/game/placeSelector.js):
-- `getFilteredPlaces(difficulty, gameType)` filters by difficulty and game type
-- Game types: blandat, lander, stader, huvudstader, vin, docg, aoc
-- Fisher-Yates shuffle ensures true randomization
-- Automatically reshuffles when all places used (no duplicates per cycle)
-- Validates sufficient places exist via `hasEnoughPlaces(rounds)`
-
-### Map Tile Style Switching
-
-To change map style, modify `CURRENT_TILE_STYLE` constant in src/map/mapManager.js (line 19).
-Available styles defined in TILE_STYLES object (mapManager.js:5-17).
-Users can toggle labels during gameplay via checkbox.
-
-### Timer Mode
-
-**Timer functionality** (src/game/state.js):
-- `startTimer()` initializes countdown when round begins
-- `stopTimer()` calculates time taken
-- `calculateTimeBonus()` awards 0-3 bonus points for speed
-- Auto-submits guess when timer reaches 0
-- Timer display shows countdown with warning animation at <10 seconds
-
-### Marker Positioning
-
-Custom Leaflet icons use `iconAnchor: [10, 40]` to position the pin tip correctly at coordinates.
-Managed via MapManager methods: `addUserMarker()` and `addPlaceMarker()`.
-
-## Language
-
-All UI text is in Swedish. When adding features, maintain Swedish language for user-facing strings.
+| Deprecated |	Replacement |
+|------------+--------------|
+| bg-opacity-* | bg-black/* |
+| text-opacity-* | text-black/* |
+| border-opacity-* | border-black/* |
+| divide-opacity-* | divide-black/* |
+| ring-opacity-* | ring-black/* |
+| placeholder-opacity-* | placeholder-black/* |
+| flex-shrink-* | shrink-* |
+| flex-grow-* | grow-* |
+| overflow-ellipsis | text-ellipsis |
+| decoration-slice | box-decoration-slice |
+| decoration-clone | box-decoration-clone |
+</laravel-boost-guidelines>
