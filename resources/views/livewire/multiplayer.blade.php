@@ -1,45 +1,36 @@
-<div class="min-h-screen bg-slate-900 text-white w-full"
-    x-data="{
-        ...multiplayerScreen(),
-        beforeUnloadHandler: null,
-        setupBeforeUnload() {
-            this.beforeUnloadHandler = (e) => {
-                e.preventDefault();
-                e.returnValue = '';
-                return '';
-            };
-            window.addEventListener('beforeunload', this.beforeUnloadHandler);
-        },
-        removeBeforeUnload() {
-            if (this.beforeUnloadHandler) {
-                window.removeEventListener('beforeunload', this.beforeUnloadHandler);
-                this.beforeUnloadHandler = null;
+<div class="min-h-screen bg-slate-900 text-white w-full" x-data="multiplayerScreen()">
+    {{-- Separate Alpine component for beforeunload handler --}}
+    <div x-data="{
+        init() {
+            let handler = null;
+
+            $watch('$wire.screen', (screen) => {
+                if (screen === 'game') {
+                    handler = (e) => {
+                        e.preventDefault();
+                        e.returnValue = '';
+                        return '';
+                    };
+                    window.addEventListener('beforeunload', handler);
+                } else {
+                    if (handler) {
+                        window.removeEventListener('beforeunload', handler);
+                        handler = null;
+                    }
+                }
+            });
+
+            // Initialize on mount if already in game screen
+            if ($wire.screen === 'game') {
+                handler = (e) => {
+                    e.preventDefault();
+                    e.returnValue = '';
+                    return '';
+                };
+                window.addEventListener('beforeunload', handler);
             }
         }
-    }"
-    x-init="
-        // Initialize multiplayer screen
-        if (typeof init === 'function') init();
-
-        // Watch screen changes for beforeunload handler
-        $watch('$wire.screen', (screen) => {
-            if (screen === 'game') {
-                setupBeforeUnload();
-            } else {
-                removeBeforeUnload();
-            }
-        });
-
-        // Initialize on mount if already in game screen
-        if ($wire.screen === 'game') {
-            setupBeforeUnload();
-        }
-    "
-    x-on:destroy="
-        if (typeof destroy === 'function') destroy();
-        removeBeforeUnload();
-    "
->
+    }"></div>
         {{-- Lobby Screen --}}
         @if($screen === 'lobby')
             <section class="min-h-screen flex items-center justify-center p-4 relative">
