@@ -275,16 +275,17 @@ class GameController extends Controller
             ]);
         }
 
+        // Get place data (needed for both timeout and normal guesses)
+        $placeLat = (float) $round->place_data['lat'];
+        $placeLng = (float) $round->place_data['lng'];
+        $placeSize = (float) ($round->place_data['size'] ?? 0);
+
         // Handle timeout (null coordinates)
         if ($validated['lat'] === null || $validated['lng'] === null) {
             $distance = PHP_FLOAT_MAX; // Infinite distance
             $score = 0;
         } else {
             // Calculate distance using Haversine formula
-            $placeLat = (float) $round->place_data['lat'];
-            $placeLng = (float) $round->place_data['lng'];
-            $placeSize = (float) ($round->place_data['size'] ?? 0);
-
             $distance = $this->calculateDistance(
                 $validated['lat'],
                 $validated['lng'],

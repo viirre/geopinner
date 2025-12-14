@@ -37,11 +37,17 @@ class PlacesSeeder extends Seeder
 
         foreach ($chunks as $chunk) {
             $records = array_map(function ($place) {
+                // If it's a capital city, set type to 'capital' instead of 'city'
+                $type = $place['type'];
+                if (($place['capital'] ?? false) && $type === 'city') {
+                    $type = 'capital';
+                }
+
                 return [
                     'name' => $place['name'],
                     'lat' => $place['lat'],
                     'lng' => $place['lng'],
-                    'type' => $place['type'],
+                    'type' => strtolower($type), // Ensure lowercase
                     'size' => $place['size'],
                     'difficulty' => json_encode($place['difficulty']),
                     'capital' => $place['capital'] ?? null,

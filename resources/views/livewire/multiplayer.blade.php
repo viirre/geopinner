@@ -1,4 +1,45 @@
-<div class="min-h-screen bg-slate-900 text-white w-full" x-data="multiplayerScreen()">
+<div class="min-h-screen bg-slate-900 text-white w-full"
+    x-data="{
+        ...multiplayerScreen(),
+        beforeUnloadHandler: null,
+        setupBeforeUnload() {
+            this.beforeUnloadHandler = (e) => {
+                e.preventDefault();
+                e.returnValue = '';
+                return '';
+            };
+            window.addEventListener('beforeunload', this.beforeUnloadHandler);
+        },
+        removeBeforeUnload() {
+            if (this.beforeUnloadHandler) {
+                window.removeEventListener('beforeunload', this.beforeUnloadHandler);
+                this.beforeUnloadHandler = null;
+            }
+        }
+    }"
+    x-init="
+        // Initialize multiplayer screen
+        if (typeof init === 'function') init();
+
+        // Watch screen changes for beforeunload handler
+        $watch('$wire.screen', (screen) => {
+            if (screen === 'game') {
+                setupBeforeUnload();
+            } else {
+                removeBeforeUnload();
+            }
+        });
+
+        // Initialize on mount if already in game screen
+        if ($wire.screen === 'game') {
+            setupBeforeUnload();
+        }
+    "
+    x-on:destroy="
+        if (typeof destroy === 'function') destroy();
+        removeBeforeUnload();
+    "
+>
         {{-- Lobby Screen --}}
         @if($screen === 'lobby')
             <section class="min-h-screen flex items-center justify-center p-4 relative">
@@ -6,7 +47,7 @@
 
                 <div class="relative w-full max-w-5xl glass-panel rounded-3xl flex flex-col shadow-2xl overflow-hidden animate-fade-in">
                     {{-- Header --}}
-                    <div class="p-6 border-b border-slate-700/50 flex items-center justify-between">
+                    <div class="p-6 border-b border-slate-700/50 md:flex items-center justify-between">
                         <a href="{{ route('home') }}" class="text-slate-400 hover:text-white flex items-center gap-2 text-sm font-medium transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
@@ -58,13 +99,66 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                    <div class="space-y-1">
+                                        <label class="text-xs text-slate-400 font-bold uppercase">Tid per runda</label>
+                                        <select wire:model="timerDuration" class="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm">
+                                            @foreach(\App\Enums\TimeDuration::cases() as $duration)
+                                                <option value="{{ $duration->value }}">{{ $duration->value }} sekunder</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <div class="space-y-1">
-                                    <label class="text-xs text-slate-400 font-bold uppercase">Speltyp</label>
-                                    <div class="flex gap-2">
-                                        <span class="px-3 py-1 bg-blue-500/20 text-blue-400 border border-blue-500/50 rounded-md text-xs">Blandat</span>
-                                        <span class="px-3 py-1 bg-slate-800 text-slate-400 border border-slate-700 rounded-md text-xs cursor-pointer">+ Välj fler</span>
+                                    <label class="text-xs text-slate-400 font-bold uppercase">Typ av platser</label>
+                                    <div class="flex flex-wrap gap-2">
+                                        {{-- Mixed --}}
+                                        <button
+                                            type="button"
+                                            wire:click="toggleGameType('{{ \App\Enums\PlaceType::Mixed->value }}')"
+                                            class="px-3 py-1 rounded-md text-xs font-medium border transition-all {{ in_array(\App\Enums\PlaceType::Mixed->value, $gameTypes) ? 'bg-blue-500/20 border-blue-500/50 text-blue-400 hover:bg-blue-500 hover:text-white' : 'bg-slate-800 border-slate-700 text-slate-300 hover:border-slate-500' }}"
+                                        >
+                                            {{ \App\Enums\PlaceType::Mixed->label() }}
+                                        </button>
+
+                                        {{-- Regular Types --}}
+                                        @foreach(\App\Enums\PlaceType::regularTypes() as $placeType)
+                                            <button
+                                                type="button"
+                                                wire:click="toggleGameType('{{ $placeType->value }}')"
+                                                class="px-3 py-1 rounded-md text-xs font-medium border transition-all {{ in_array($placeType->value, $gameTypes) ? 'bg-blue-500/20 border-blue-500/50 text-blue-400 hover:bg-blue-500 hover:text-white' : 'bg-slate-800 border-slate-700 text-slate-300 hover:border-slate-500' }}"
+                                            >
+                                                {{ $placeType->label() }}
+                                            </button>
+                                        @endforeach
+
+                                        {{-- Wine Button (toggles submenu) --}}
+                                        <button
+                                            type="button"
+                                            x-on:click="$dispatch('toggle-wine-menu')"
+                                            class="px-3 py-1 bg-slate-800 border border-slate-700 text-slate-300 rounded-md text-xs hover:border-slate-500 transition-all"
+                                        >
+                                            Viner
+                                        </button>
+                                    </div>
+
+                                    {{-- Wine Submenu --}}
+                                    <div
+                                        x-data="{ showWine: false }"
+                                        x-on:toggle-wine-menu.window="showWine = !showWine"
+                                        x-show="showWine"
+                                        x-cloak
+                                        class="flex flex-wrap gap-2 mt-2 pl-4 border-l-2 border-slate-700"
+                                    >
+                                        @foreach(\App\Enums\PlaceType::wineTypes() as $wineType)
+                                            <button
+                                                type="button"
+                                                wire:click="toggleGameType('{{ $wineType->value }}')"
+                                                class="px-2 py-1 rounded text-xs font-medium border transition-all {{ in_array($wineType->value, $gameTypes) ? 'bg-blue-500/20 border-blue-500/50 text-blue-400' : 'bg-slate-800 border-slate-700 text-slate-300 hover:border-slate-500' }}"
+                                            >
+                                                {{ $wineType->label() }}
+                                            </button>
+                                        @endforeach
                                     </div>
                                 </div>
 
@@ -261,7 +355,13 @@
                                         </div>
                                         <div class="text-right">
                                             <div class="text-white font-bold">{{ $guess['score'] }} p</div>
-                                            <div class="text-xs text-slate-500">{{ number_format($guess['distance'], 0) }} km</div>
+                                            <div class="text-xs text-slate-500">
+                                                @if($guess['distance'] > 50000)
+                                                    -
+                                                @else
+                                                    {{ number_format($guess['distance'], 0) }} km
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
                                 @endforeach

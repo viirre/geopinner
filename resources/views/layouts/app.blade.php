@@ -28,7 +28,6 @@
 
         @vite(['resources/css/app.css', 'resources/js/app-livewire.js'])
         @livewireStyles
-        @fluxAppearance
     </head>
     <body class="antialiased bg-slate-900 text-white">
         {{ $slot }}
@@ -37,6 +36,5 @@
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
         @livewireScripts
-        @fluxScripts
     </body>
 </html>

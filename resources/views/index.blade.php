@@ -1,213 +1,117 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="UTF-8" />
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>GeoPinner - Hitta platsen!</title>
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GeoPinner - Hitta platsen!</title>
 
-        <!-- PWA Meta Tags -->
-        <meta name="theme-color" content="#1e3a8a" />
-        <meta name="description" content="Hitta platser runt om i världen! Ett interaktivt geografispel." />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <link rel="manifest" href="/manifest.json" />
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1e3a8a" />
+    <meta name="description" content="Hitta platser runt om i världen! Ett interaktivt geografispel." />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="manifest" href="/manifest.json" />
 
-        <!-- Apple Touch Icons -->
-        <link rel="apple-touch-icon" href="/icons/icon-192.png" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="Geopinner" />
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Geopinner" />
 
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body>
-        <div class="container">
-            <div class="header">
-                <div class="header-title">
-                    <img src="/logo.svg" alt="GeoPinner Logo" class="header-logo" />
-                    <h1>GeoPinner</h1>
+    @vite(['resources/css/app.css', 'resources/js/app-livewire.js'])
+    @livewireStyles
+</head>
+<body class="min-h-screen bg-slate-900 text-white">
+    <section class="w-full min-h-screen flex items-center justify-center relative overflow-hidden">
+        <!-- Background -->
+        <x-map-background blur="true" overlay="true" />
+
+        <div class="relative z-10 w-full max-w-5xl px-4 flex flex-col items-center animate-fade-in">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <div class="flex items-center justify-center gap-3 mb-4">
+                    <div class="bg-gradient-to-tr from-emerald-500 to-cyan-500 p-3 rounded-2xl shadow-lg shadow-emerald-500/20">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white">GeoPinner</h1>
                 </div>
-                <p class="subtitle">Hitta platser runt om i världen!</p>
-                <div class="flex justify-center gap-x-2 mt-6">
-                    <a class="cursor-pointer block tab border hover:bg-gray-100 bg-gray-300 py-2 p-4 rounded text-black">Single Player
-                    </a>
-                    <a
-                        href="{{ route('multiplayer') }}"
-                        class="cursor-pointer block tab border hover:bg-gray-100 bg-gray-300 py-2 p-4 rounded text-black"
-                    >Multi Player</a>
-                </div>
+                <p class="text-slate-300 text-lg md:text-xl font-light">Hitta platser runt om i världen – ju närmre du gissar, desto mer poäng!</p>
             </div>
 
-            <!-- Setup Screen -->
-            <div class="setup-screen" id="setupScreen">
-                <div class="option-group">
-                    <label>Svårighetsgrad:</label>
-                    <div class="pill-group">
-                        @foreach (\App\Enums\Difficulty::cases() as $difficulty)
-                            <button
-                                @class([
-                                    'pill-btn',
-                                    'selected' => $difficulty === \App\Enums\Difficulty::Medium
-                                ])
-                                data-difficulty="{{ $difficulty->value }}"
-                            >
-                                {{ $difficulty->label() }}
-                            </button>
-                        @endforeach
+            <!-- Game Mode Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mb-12">
+                <!-- Single Player Card -->
+                <a href="{{ route('game.v2') }}" class="group relative glass-panel p-8 rounded-3xl text-left transition-all hover:bg-slate-800/90 hover:-translate-y-1 hover:border-emerald-500/50 cursor-pointer">
+                    <div class="absolute top-6 right-6 opacity-20 group-hover:opacity-100 group-hover:scale-110 transition-all">
+                        <svg class="w-16 h-16 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
                     </div>
-                </div>
+                    <h2 class="text-2xl font-bold text-white mb-2 group-hover:text-emerald-400">Single Player</h2>
+                    <p class="text-slate-400 mb-6 group-hover:text-slate-300">Testa dina egna kunskaper. Slå ditt personbästa.</p>
+                    <span class="inline-flex items-center text-emerald-400 font-semibold">
+                        Starta spel
+                        <span class="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+                    </span>
+                </a>
 
-                <div class="option-group">
-                    <label>Speltyp:</label>
-                    <div class="pill-group">
-                        <button
-                            @class([
-                                'pill-btn',
-                                'selected'
-                            ])
-                            data-gametype="{{ \App\Enums\PlaceType::Mixed->value }}"
-                        >{{ \App\Enums\PlaceType::Mixed->label() }}</button>
-                        @foreach (\App\Enums\PlaceType::regularTypes() as $placeType)
-                            <button
-                                @class([
-                                    'pill-btn',
-                                ])
-                                data-gametype="{{ $placeType->value }}"
-                            >{{ $placeType->label() }}</button>
-                        @endforeach
-                        <button class="pill-btn" id="vinerToggle">Viner</button>
+                <!-- Multiplayer Card -->
+                <a href="{{ route('multiplayer.v2') }}" class="group relative glass-panel p-8 rounded-3xl text-left transition-all hover:bg-slate-800/90 hover:-translate-y-1 hover:border-blue-500/50 cursor-pointer">
+                    <div class="absolute top-6 right-6 opacity-20 group-hover:opacity-100 group-hover:scale-110 transition-all">
+                        <svg class="w-16 h-16 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
                     </div>
-                    <div class="pill-group wine-submenu" id="wineSubmenu" style="display: none;">
-                        @foreach (\App\Enums\PlaceType::wineTypes() as $placeType)
-                            <button
-                                class="pill-btn" data-gametype="{{ $placeType->value }}"
-                            >{{ $placeType->label() }}</button>
-                        @endforeach
-                    </div>
-                </div>
-
-                <div class="option-group">
-                    <label for="roundsSelect">Antal omgångar:</label>
-                    <select id="roundsSelect" class="select-control">
-                        @foreach (\App\Enums\NumRound::cases() as $numRound)
-                            <option value="{{ $numRound->value }}" @selected($numRound === \App\Enums\NumRound::Ten)>
-                                {{ $numRound->value }} platser
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="option-group">
-                    <label for="zoomToggle">Tillåt zoom:</label>
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="zoomToggle" checked>
-                        <span class="toggle-slider"></span>
-                    </label>
-                </div>
-
-                <div class="option-group">
-                    <label for="timerToggle">Tidsbegränsning:</label>
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="timerToggle" checked>
-                        <span class="toggle-slider"></span>
-                    </label>
-                </div>
-
-                <div class="option-group" id="timerDurationContainer">
-                    <label for="timerDurationSelect">Tid per runda:</label>
-                    <select id="timerDurationSelect" class="select-control">
-                        @foreach (\App\Enums\TimeDuration::cases() as $timeDuration)
-                            <option
-                                value="{{ $numRound->value }}" @selected($timeDuration === \App\Enums\TimeDuration::TenSeconds)>
-                                {{ $timeDuration->value }} sekunder
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <button class="start-btn" id="startBtn">Starta spelet!</button>
+                    <h2 class="text-2xl font-bold text-white mb-2 group-hover:text-blue-400">Multiplayer</h2>
+                    <p class="text-slate-400 mb-6 group-hover:text-slate-300">Utmana en vän i realtid. Vem hittar snabbast?</p>
+                    <span class="inline-flex items-center text-blue-400 font-semibold">
+                        Gå med eller skapa
+                        <span class="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+                    </span>
+                </a>
             </div>
 
-            <!-- Game Screen -->
-            <div class="game-screen hidden" id="gameScreen">
-                <div class="game-info">
-                    <div class="info-item">
-                        <div class="info-label">Runda</div>
-                        <div class="info-value" id="currentRound">1</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Poäng</div>
-                        <div class="info-value" id="currentScore">0</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Max poäng</div>
-                        <div class="info-value" id="maxScore">100</div>
-                    </div>
-                </div>
-
-                <div class="question-box" id="questionBox">
-                    <span class="question-text">Var ligger Paris?</span>
-                    <span class="timer-display hidden" id="timerDisplay">60s</span>
-                </div>
-
-                <div class="map-container">
-                    <div id="map"></div>
-                    <div class="map-label-toggle">
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="toggleLabelsCheckbox">
-                            <span class="toggle-slider"></span>
-                            <span class="toggle-label">Platsetiketter</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div id="feedbackContainer"></div>
-            </div>
-
-            <!-- Result Screen -->
-            <div class="result-screen hidden" id="resultScreen">
-                <div class="results">
-                    <h2>🎉 Grattis! 🎉</h2>
-                    <div class="final-score" id="finalScore">0</div>
-                    <div class="score-message" id="scoreMessage">Fantastiskt resultat!</div>
-
-                    <div class="round-results" id="roundResults"></div>
-
-                    <button class="play-again-btn" id="playAgainBtn">Spela igen!</button>
-                </div>
+            <!-- Features Footer -->
+            <div class="w-full flex flex-wrap justify-center gap-4 text-sm text-slate-400">
+                <span class="flex items-center gap-1">
+                    <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    Olika speltyper (Städer, Vin, Öar)
+                </span>
+                <span class="flex items-center gap-1">
+                    <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    Tidsbegränsning
+                </span>
+                <span class="flex items-center gap-1">
+                    <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    Interaktiv Karta
+                </span>
             </div>
         </div>
+    </section>
 
-        <footer class="footer">
-            <p>
-                Skapad av <a href="https://github.com/viirre" target="_blank" rel="noopener noreferrer">Victor
-                    Eliasson</a>
-                ·
-                <a href="https://adaptivemedia.se" target="_blank" rel="noopener noreferrer">Adaptive Media</a>
-            </p>
-        </footer>
+    <!-- Footer -->
+    <footer class="py-6 text-center text-sm text-slate-300 dark:text-slate-400">
+        <div class="flex items-center justify-center gap-2">
+            <div>Skapad av <a href="https://github.com/viirre" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">Victor Eliasson</a></div>
+            <div>·</div>
+            <div><a href="https://adaptivemedia.se" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">Adaptive Media</a></div>
+            <div><a href="/pacman.html"><svg fill="#FFFF00" width="16px" height="16px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,23a10.927,10.927,0,0,0,7.778-3.222,1,1,0,0,0,0-1.414L13.414,12l6.364-6.364a1,1,0,0,0,0-1.414A11,11,0,1,0,12,23ZM12,3a8.933,8.933,0,0,1,5.618,1.967l-6.325,6.326a1,1,0,0,0,0,1.414l6.325,6.326A9,9,0,1,1,12,3Zm11,9a2,2,0,1,1-2-2A2,2,0,0,1,23,12ZM8,7a2,2,0,1,1,2,2A2,2,0,0,1,8,7Z"/></svg></a></div>
+        </div>
+    </footer>
 
-        <div id="app"></div>
-        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-        <!-- Service Worker Registration -->
-        <script>
-            {{-- TODO: fix --}}
-            // if ('serviceWorker' in navigator) {
-            //     window.addEventListener('load', () => {
-            //         navigator.serviceWorker.register('/sw.js')
-            //             .then((registration) => {
-            //                 console.log('SW registered:', registration);
-            //             })
-            //             .catch((error) => {
-            //                 console.log('SW registration failed:', error);
-            //             });
-            //     });
-            // }
-        </script>
-    </body>
+    @livewireScripts
+</body>
 </html>

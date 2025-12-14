@@ -1,4 +1,36 @@
-<div class="min-h-screen bg-slate-900 text-white w-full">
+<div class="min-h-screen bg-slate-900 text-white w-full"
+    x-data="{
+        beforeUnloadHandler: null,
+        setupBeforeUnload() {
+            this.beforeUnloadHandler = (e) => {
+                e.preventDefault();
+                e.returnValue = '';
+                return '';
+            };
+            window.addEventListener('beforeunload', this.beforeUnloadHandler);
+        },
+        removeBeforeUnload() {
+            if (this.beforeUnloadHandler) {
+                window.removeEventListener('beforeunload', this.beforeUnloadHandler);
+                this.beforeUnloadHandler = null;
+            }
+        }
+    }"
+    x-init="
+        $watch('$wire.screen', (screen) => {
+            if (screen === 'game') {
+                setupBeforeUnload();
+            } else {
+                removeBeforeUnload();
+            }
+        });
+        // Initialize on mount if already in game screen
+        if ($wire.screen === 'game') {
+            setupBeforeUnload();
+        }
+    "
+    x-on:destroy="removeBeforeUnload()"
+>
         {{-- Setup Screen --}}
         @if($screen === 'setup')
             <section class="min-h-screen flex items-center justify-center pt-16 relative">
@@ -6,7 +38,7 @@
 
                 <div class="relative w-full max-w-2xl h-full md:h-auto md:max-h-[90vh] glass-panel md:rounded-3xl flex flex-col shadow-2xl overflow-hidden animate-fade-in">
                     {{-- Header --}}
-                    <div class="p-6 border-b border-slate-700/50 flex items-center justify-between">
+                    <div class="p-6 border-b border-slate-700/50 md:flex items-center justify-between">
                         <a href="{{ route('home') }}" class="text-slate-400 hover:text-white flex items-center gap-2 text-sm font-medium transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
@@ -197,12 +229,6 @@
                         <input type="checkbox" wire:model.live="showLabels" x-on:change="toggleLabels()" class="rounded accent-emerald-500">
                         <span class="text-white text-sm">Visa etiketter</span>
                     </label>
-                </div>
-
-                {{-- ZOOM CONTROLS --}}
-                <div class="absolute top-1/2 right-4 transform -translate-y-1/2 flex flex-col gap-2 z-10">
-                    <button class="w-10 h-10 bg-slate-800/90 text-white rounded-lg flex items-center justify-center shadow-lg hover:bg-slate-700">+</button>
-                    <button class="w-10 h-10 bg-slate-800/90 text-white rounded-lg flex items-center justify-center shadow-lg hover:bg-slate-700">-</button>
                 </div>
 
                 {{-- BOTTOM RESULT CARD (appears after guess) --}}
