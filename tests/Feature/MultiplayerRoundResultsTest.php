@@ -97,7 +97,7 @@ test('round completed event sorts guesses by score with highest first', function
     expect($guesses[1]['score'])->toBe(7);
 });
 
-test('round completed handles tied scores correctly', function () {
+test('round completed uses distance as tie-breaker when scores are equal', function () {
     // Create a game
     $game = Game::create([
         'code' => 'TEST02',
@@ -112,7 +112,7 @@ test('round completed handles tied scores correctly', function () {
     // Create players
     $player1 = Player::create([
         'game_id' => $game->id,
-        'name' => 'Player A',
+        'name' => 'Player A - Far',
         'color' => '#ff0000',
         'total_score' => 0,
         'is_host' => true,
@@ -120,7 +120,7 @@ test('round completed handles tied scores correctly', function () {
 
     $player2 = Player::create([
         'game_id' => $game->id,
-        'name' => 'Player B',
+        'name' => 'Player B - Closest',
         'color' => '#00ff00',
         'total_score' => 0,
         'is_host' => false,
@@ -128,7 +128,7 @@ test('round completed handles tied scores correctly', function () {
 
     $player3 = Player::create([
         'game_id' => $game->id,
-        'name' => 'Player C',
+        'name' => 'Player C - Middle',
         'color' => '#0000ff',
         'total_score' => 0,
         'is_host' => false,
@@ -148,13 +148,13 @@ test('round completed handles tied scores correctly', function () {
         'started_at' => now(),
     ]);
 
-    // All three players get same score (tie)
+    // All three players get same score (8 points) but different distances
     Guess::create([
         'round_id' => $round->id,
         'player_id' => $player1->id,
         'lat' => 59.0,
         'lng' => 18.0,
-        'distance' => 500,
+        'distance' => 800, // Farthest
         'score' => 8,
         'guessed_at' => now(),
     ]);
@@ -162,9 +162,9 @@ test('round completed handles tied scores correctly', function () {
     Guess::create([
         'round_id' => $round->id,
         'player_id' => $player2->id,
-        'lat' => 59.0,
-        'lng' => 18.0,
-        'distance' => 500,
+        'lat' => 59.3,
+        'lng' => 18.05,
+        'distance' => 300, // Closest
         'score' => 8,
         'guessed_at' => now()->addSecond(),
     ]);
@@ -172,9 +172,9 @@ test('round completed handles tied scores correctly', function () {
     Guess::create([
         'round_id' => $round->id,
         'player_id' => $player3->id,
-        'lat' => 59.0,
+        'lat' => 59.2,
         'lng' => 18.0,
-        'distance' => 500,
+        'distance' => 500, // Middle
         'score' => 8,
         'guessed_at' => now()->addSeconds(2),
     ]);
@@ -188,9 +188,21 @@ test('round completed handles tied scores correctly', function () {
 
     // All should have same score
     expect($guesses)->toHaveCount(3);
+
+    // Winner should be Player B (closest distance)
+    expect($guesses[0]['player']['name'])->toBe('Player B - Closest');
     expect($guesses[0]['score'])->toBe(8);
+    expect((float) $guesses[0]['distance'])->toBe(300.0);
+
+    // Second should be Player C (middle distance)
+    expect($guesses[1]['player']['name'])->toBe('Player C - Middle');
     expect($guesses[1]['score'])->toBe(8);
+    expect((float) $guesses[1]['distance'])->toBe(500.0);
+
+    // Third should be Player A (farthest)
+    expect($guesses[2]['player']['name'])->toBe('Player A - Far');
     expect($guesses[2]['score'])->toBe(8);
+    expect((float) $guesses[2]['distance'])->toBe(800.0);
 });
 
 test('round completed with timeout player shows correct winner', function () {
