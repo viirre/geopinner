@@ -63,13 +63,13 @@
                 </a>
 
                 <!-- Multiplayer Card -->
-                <a href="{{ route('multiplayer.v2') }}" class="group relative glass-panel p-8 rounded-3xl text-left transition-all hover:bg-slate-800/90 hover:-translate-y-1 hover:border-blue-500/50 opacity-60 pointer-events-none">
+                <a href="{{ route('multiplayer.v2') }}" class="group relative glass-panel p-8 rounded-3xl text-left transition-all hover:bg-slate-800/90 hover:-translate-y-1 hover:border-blue-500/50 cursor-pointer">
                     <div class="absolute top-6 right-6 opacity-20 group-hover:opacity-100 group-hover:scale-110 transition-all">
                         <svg class="w-16 h-16 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                         </svg>
                     </div>
-                    <h2 class="text-2xl font-bold text-white mb-2 group-hover:text-blue-400">Multiplayer (snart!)</h2>
+                    <h2 class="text-2xl font-bold text-white mb-2 group-hover:text-blue-400">Multiplayer</h2>
                     <p class="text-slate-400 mb-6 group-hover:text-slate-300">Utmana en vän i realtid. Vem hittar snabbast?</p>
                     <span class="inline-flex items-center text-blue-400 font-semibold">
                         Gå med eller skapa
