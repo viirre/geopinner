@@ -32,6 +32,8 @@ class RoundCompleted implements ShouldBroadcastNow
         $guesses = $this->round->guesses()
             ->with('player')
             ->get()
+            ->sortByDesc('score') // Sort by score descending so winner is first
+            ->values() // Re-index array after sorting
             ->map(fn($guess) => [
                 'player' => [
                     'id' => $guess->player->id,
