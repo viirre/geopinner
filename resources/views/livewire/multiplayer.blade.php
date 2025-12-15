@@ -188,7 +188,9 @@
                                 </div>
                             </div>
 
-                            <form wire:submit="joinGame" x-on:submit="savePlayerName($wire.playerName)" class="space-y-4 flex-1">
+                            <form wire:submit="joinGame" x-on:submit="savePlayerName($wire.playerName)" class="space-y-4 flex-1"
+                                x-data="{ hasValidCode: false }"
+                                x-init="$watch('$wire.gameCode', (value) => hasValidCode = value && value.length === 6)">
                                 <div class="space-y-1">
                                     <label class="text-xs text-slate-400 font-bold uppercase">Ditt Namn</label>
                                     <input type="text" wire:model="playerName" placeholder="Ange ditt namn" maxlength="20" required class="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none">
@@ -199,9 +201,11 @@
                                     <input type="text" wire:model="gameCode" placeholder="T.ex. SKTNGR" maxlength="6" required class="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-3 text-white text-center font-mono text-lg tracking-widest uppercase focus:ring-2 focus:ring-emerald-500 focus:outline-none placeholder-slate-600">
                                 </div>
 
-                                <x-glass-button variant="secondary" class="w-full mt-6 hover:bg-emerald-600" type="submit">
+                                <button type="submit"
+                                    class="w-full mt-6 font-bold rounded-xl transition-all transform active:scale-95 px-4 py-2"
+                                    x-bind:class="hasValidCode ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/20' : 'bg-slate-700 hover:bg-slate-600 text-white opacity-50'">
                                     Gå med
-                                </x-glass-button>
+                                </button>
                             </form>
                         </div>
                     </div>
@@ -232,6 +236,37 @@
                                 </div>
                                 <div class="text-sm text-slate-400 mt-2">
                                     Dela denna kod med din vän!
+                                </div>
+                            </div>
+
+                            {{-- Shareable URL --}}
+                            <div class="mt-4" x-data="{ copied: false }">
+                                <div class="text-xs text-slate-400 mb-2 text-center">Eller dela denna länk</div>
+                                <div class="flex items-center gap-2 bg-slate-800/50 rounded-lg p-3 max-w-xl mx-auto">
+                                    <input
+                                        type="text"
+                                        readonly
+                                        value="{{ route('multiplayer.v2') }}?code={{ $sessionGameCode }}"
+                                        class="flex-1 bg-transparent text-slate-300 text-sm outline-none select-all font-mono"
+                                        x-ref="urlInput"
+                                    >
+                                    <button
+                                        type="button"
+                                        class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold rounded-lg transition-colors flex items-center gap-1"
+                                        x-on:click="
+                                            navigator.clipboard.writeText($refs.urlInput.value);
+                                            copied = true;
+                                            setTimeout(() => copied = false, 2000);
+                                        "
+                                    >
+                                        <span x-show="!copied">Kopiera</span>
+                                        <span x-show="copied" class="flex items-center gap-1">
+                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                            </svg>
+                                            Kopierad!
+                                        </span>
+                                    </button>
                                 </div>
                             </div>
                         </div>

@@ -69,8 +69,10 @@ class Multiplayer extends Component
 
     public function mount(): void
     {
-        // Check if user has active session
-        // (could restore from session storage via Alpine)
+        // Auto-populate game code from URL query parameter if present
+        if (request()->has('code')) {
+            $this->gameCode = strtoupper(request()->get('code'));
+        }
     }
 
     public function toggleGameType(string $type): void

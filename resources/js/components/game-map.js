@@ -61,7 +61,7 @@ export default function gameMap() {
                 center: [20, 0],
                 zoom: 2,
                 minZoom: 2,
-                maxZoom: this.$wire.zoomEnabled ? 10 : 2,
+                maxZoom: this.$wire.zoomEnabled ? 6 : 2,
                 scrollWheelZoom: this.$wire.zoomEnabled,
                 doubleClickZoom: this.$wire.zoomEnabled,
                 worldCopyJump: true,
