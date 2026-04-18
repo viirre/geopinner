@@ -248,22 +248,20 @@
                                 </div>
                             </div>
 
-                            <form wire:submit="joinGame" x-on:submit="savePlayerName($wire.playerName)" class="space-y-4 flex-1"
-                                x-data="{ hasValidCode: false }"
-                                x-init="$watch('$wire.gameCode', (value) => hasValidCode = value && value.length === 6)">
+                            <form wire:submit="joinGame" x-on:submit="savePlayerName($wire.playerName)" class="space-y-4 flex-1">
                                 <div class="space-y-1">
                                     <label class="text-xs text-slate-400 font-bold uppercase">Ditt Namn</label>
-                                    <input type="text" wire:model="playerName" placeholder="Ange ditt namn" maxlength="20" required class="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                                    <input type="text" wire:model.live.debounce.150ms="playerName" placeholder="Ange ditt namn" maxlength="20" required class="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
                                 </div>
 
                                 <div class="space-y-1">
                                     <label class="text-xs text-slate-400 font-bold uppercase">Spelkod</label>
-                                    <input type="text" wire:model="gameCode" placeholder="T.ex. SKTNGR" maxlength="6" required class="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-3 text-white text-center font-mono text-lg tracking-widest uppercase focus:ring-2 focus:ring-emerald-500 focus:outline-none placeholder-slate-600">
+                                    <input type="text" wire:model.live.debounce.150ms="gameCode" placeholder="T.ex. SKTNGR" maxlength="6" required class="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-3 text-white text-center font-mono text-lg tracking-widest uppercase focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder-slate-600">
                                 </div>
 
                                 <button type="submit"
                                     class="w-full mt-6 font-bold rounded-xl transition-all transform active:scale-95 px-4 py-2"
-                                    x-bind:class="hasValidCode ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/20' : 'bg-slate-700 hover:bg-slate-600 text-white opacity-50'">
+                                    x-bind:class="(($wire.playerName ?? '').trim().length > 0 && ($wire.gameCode ?? '').length === 6) ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/20' : 'bg-slate-700 hover:bg-slate-600 text-white opacity-50'">
                                     Gå med
                                 </button>
                             </form>
@@ -410,8 +408,20 @@
                     </div>
                 </div>
 
-                {{-- PLAYERS LIST (Floating Overlay) --}}
-                <div class="absolute top-32 left-4 right-4 md:left-auto md:right-4 md:w-64 flex flex-col gap-2 pointer-events-none z-10">
+                {{-- PLAYERS (mobile: compact horizontal strip) --}}
+                <div class="md:hidden absolute top-40 left-0 right-0 z-10 pointer-events-none">
+                    <div class="flex gap-1.5 px-4 overflow-x-auto pb-1">
+                        @foreach($players as $player)
+                            <div class="pointer-events-auto shrink-0 bg-slate-900/85 backdrop-blur border rounded-full pl-1 pr-2.5 py-1 shadow-lg flex items-center gap-1.5 {{ $player['id'] == $sessionPlayerId ? 'border-red-500/70' : 'border-blue-500/40' }}">
+                                <div class="w-3 h-3 rounded-full shrink-0" style="background-color: {{ $player['color'] ?? '#6366f1' }}"></div>
+                                <span class="text-white text-xs font-semibold whitespace-nowrap max-w-[6rem] truncate">{{ $player['name'] }}</span>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                {{-- PLAYERS (desktop: sidebar with status) --}}
+                <div class="hidden md:flex absolute top-32 right-4 w-64 flex-col gap-2 pointer-events-none z-10">
                     @foreach($players as $player)
                         <div class="pointer-events-auto bg-slate-900/90 backdrop-blur border-l-4 rounded-r-lg p-3 shadow-lg flex items-center justify-between {{ $player['id'] == $sessionPlayerId ? 'border-red-500' : 'border-blue-500' }}">
                             <div class="flex items-center gap-2">
