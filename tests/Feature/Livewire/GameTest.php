@@ -108,6 +108,35 @@ it('validates game has enough places for selected rounds', function () {
     expect(true)->toBeTrue();
 });
 
+it('exposes a setup error when not enough places match settings', function () {
+    $component = Livewire::test(Game::class)
+        ->set('difficulty', Difficulty::Hard->value)
+        ->set('gameTypes', [PlaceType::DOCG->value])
+        ->set('rounds', 50)
+        ->call('startGame');
+
+    expect($component->get('setupError'))->toBeString()->not->toBeEmpty();
+    expect($component->get('screen'))->toBe('setup');
+});
+
+it('clears setup error when toggling a game type', function () {
+    $component = Livewire::test(Game::class)
+        ->set('setupError', 'något gick fel');
+
+    $component->call('toggleGameType', PlaceType::City->value);
+
+    expect($component->get('setupError'))->toBeNull();
+});
+
+it('clears setup error when changing region', function () {
+    $component = Livewire::test(Game::class)
+        ->set('setupError', 'något gick fel');
+
+    $component->call('setRegion', 'europe');
+
+    expect($component->get('setupError'))->toBeNull();
+});
+
 it('advances to next round after guess', function () {
     $component = Livewire::test(Game::class)
         ->set('rounds', 5)

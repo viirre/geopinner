@@ -46,13 +46,22 @@ class Game extends Component
     // UI feedback
     public ?array $lastFeedback = null;
 
+    public ?string $setupError = null;
+
     public function mount(): void
     {
         // Initialize with default settings
     }
 
+    public function updated(string $property): void
+    {
+        $this->setupError = null;
+    }
+
     public function toggleGameType(string $type): void
     {
+        $this->setupError = null;
+
         // Handle "Blandat" (Mixed) exclusivity
         if ($type === PlaceType::Mixed->value) {
             $this->gameTypes = [PlaceType::Mixed->value];
@@ -85,8 +94,17 @@ class Game extends Component
             return;
         }
 
+        $this->setupError = null;
         $this->region = $region;
         $this->gameTypes = [PlaceType::Mixed->value];
+    }
+
+    public function getAvailablePlaceCountProperty(): int
+    {
+        return app(PlaceService::class)->getPlaceCount(
+            $this->difficulty,
+            $this->resolvedGameTypes()
+        );
     }
 
     /**
@@ -122,20 +140,22 @@ class Game extends Component
 
     public function startGame(): void
     {
+        $this->setupError = null;
+
         // Fetch places using PlaceService
         $placeService = app(PlaceService::class);
         $places = $placeService->getPlaces($this->difficulty, $this->resolvedGameTypes());
 
         // Check if we have any places
         if ($places->isEmpty()) {
-            $this->dispatch('error', message: 'Inga platser hittades för denna kombination. Välj andra inställningar.');
+            $this->setupError = 'Inga platser hittades för denna kombination. Välj andra inställningar.';
 
             return;
         }
 
         // Check if enough places for selected rounds
         if ($places->count() < $this->rounds) {
-            $this->dispatch('error', message: 'Det finns bara '.$places->count().' platser i denna kombination. Välj färre rundor eller byt speltyp/svårighetsgrad.');
+            $this->setupError = 'Det finns bara '.$places->count().' platser i denna kombination. Välj färre rundor eller byt speltyp/svårighetsgrad.';
 
             return;
         }

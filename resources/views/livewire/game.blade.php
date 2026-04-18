@@ -147,6 +147,18 @@
                                     @endforeach
                                 </div>
                             @endif
+
+                            {{-- Availability hint --}}
+                            @php($availableCount = $this->availablePlaceCount)
+                            @if($availableCount < $rounds)
+                                <p class="text-xs text-amber-400 font-medium">
+                                    Endast {{ $availableCount }} {{ $availableCount === 1 ? 'plats' : 'platser' }} tillgängliga, välj färre rundor eller byt inställningar.
+                                </p>
+                            @else
+                                <p class="text-xs text-slate-500">
+                                    {{ $availableCount }} platser tillgängliga
+                                </p>
+                            @endif
                         </div>
 
                         {{-- Sliders --}}
@@ -204,7 +216,20 @@
                     </div>
 
                     {{-- Footer Action --}}
-                    <div class="p-6 border-t border-slate-700/50 bg-slate-900/40">
+                    <div class="p-6 border-t border-slate-700/50 bg-slate-900/40 space-y-3">
+                        @if($setupError)
+                            <div
+                                wire:key="setup-error"
+                                role="alert"
+                                class="flex items-start gap-3 rounded-xl border border-rose-500/40 bg-rose-500/10 px-4 py-3 text-sm text-rose-200"
+                            >
+                                <svg class="mt-0.5 h-5 w-5 shrink-0 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"></path>
+                                </svg>
+                                <span>{{ $setupError }}</span>
+                            </div>
+                        @endif
+
                         <x-glass-button variant="primary" size="xl" wire:click="startGame">
                             Starta Spelet!
                         </x-glass-button>
