@@ -66,9 +66,38 @@
                             </div>
                         </div>
 
-                        {{-- Game Types (Chips) --}}
+                        {{-- Game Types --}}
                         <div class="space-y-3">
                             <label class="text-xs uppercase tracking-wider text-slate-400 font-bold">Typ av platser</label>
+
+                            {{-- Region segmented control --}}
+                            <div class="flex p-1 bg-slate-900/50 rounded-xl">
+                                <button
+                                    wire:click="setRegion('world')"
+                                    class="flex-1 py-2 text-sm font-medium rounded-lg transition-colors {{ $region === 'world' ? 'bg-emerald-500 text-white shadow-lg font-bold' : 'text-slate-400 hover:text-white' }}"
+                                >
+                                    Hela världen
+                                </button>
+                                <button
+                                    wire:click="setRegion('europe')"
+                                    class="flex-1 py-2 text-sm font-medium rounded-lg transition-colors {{ $region === 'europe' ? 'bg-emerald-500 text-white shadow-lg font-bold' : 'text-slate-400 hover:text-white' }}"
+                                >
+                                    Europa
+                                </button>
+                            </div>
+
+                            {{-- Type chips (filtered by region) --}}
+                            @php
+                                $europeSupportedTypes = [
+                                    \App\Enums\PlaceType::Country,
+                                    \App\Enums\PlaceType::Capital,
+                                    \App\Enums\PlaceType::City,
+                                ];
+                                $visibleTypes = $region === 'europe'
+                                    ? $europeSupportedTypes
+                                    : \App\Enums\PlaceType::regularTypes();
+                            @endphp
+
                             <div class="flex flex-wrap gap-2">
                                 {{-- Mixed --}}
                                 <button
@@ -78,9 +107,9 @@
                                     {{ \App\Enums\PlaceType::Mixed->label() }}
                                 </button>
 
-                                {{-- Regular Types --}}
-                                @foreach(\App\Enums\PlaceType::regularTypes() as $placeType)
+                                @foreach($visibleTypes as $placeType)
                                     <button
+                                        wire:key="type-{{ $region }}-{{ $placeType->value }}"
                                         wire:click="toggleGameType('{{ $placeType->value }}')"
                                         class="px-4 py-2 rounded-full text-sm font-medium border transition-all {{ in_array($placeType->value, $gameTypes) ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-400 hover:bg-emerald-500 hover:text-white' : 'bg-slate-800 border-slate-700 text-slate-300 hover:border-slate-500' }}"
                                     >
@@ -88,42 +117,36 @@
                                     </button>
                                 @endforeach
 
-                                {{-- Europe Types --}}
-                                @foreach(\App\Enums\PlaceType::europeTypes() as $europeType)
+                                {{-- Wine button (world only) --}}
+                                @if($region === 'world')
                                     <button
-                                        wire:click="toggleGameType('{{ $europeType->value }}')"
-                                        class="px-4 py-2 rounded-full text-sm font-medium border transition-all {{ in_array($europeType->value, $gameTypes) ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-400 hover:bg-emerald-500 hover:text-white' : 'bg-slate-800 border-slate-700 text-slate-300 hover:border-slate-500' }}"
+                                        x-on:click="$dispatch('toggle-wine-menu')"
+                                        class="px-4 py-2 bg-slate-800 border border-slate-700 text-slate-300 rounded-full text-sm hover:border-slate-500 transition-all"
                                     >
-                                        {{ $europeType->label() }}
+                                        Viner
                                     </button>
-                                @endforeach
+                                @endif
+                            </div>
 
-                                {{-- Wine Button (toggles submenu) --}}
-                                <button
-                                    x-on:click="$dispatch('toggle-wine-menu')"
-                                    class="px-4 py-2 bg-slate-800 border border-slate-700 text-slate-300 rounded-full text-sm hover:border-slate-500 transition-all"
+                            {{-- Wine submenu (world only) --}}
+                            @if($region === 'world')
+                                <div
+                                    x-data="{ showWine: false }"
+                                    x-on:toggle-wine-menu.window="showWine = !showWine"
+                                    x-show="showWine"
+                                    x-cloak
+                                    class="flex flex-wrap gap-2 mt-2 pl-4 border-l-2 border-slate-700"
                                 >
-                                    Viner
-                                </button>
-                            </div>
-
-                            {{-- Wine Submenu --}}
-                            <div
-                                x-data="{ showWine: false }"
-                                x-on:toggle-wine-menu.window="showWine = !showWine"
-                                x-show="showWine"
-                                x-cloak
-                                class="flex flex-wrap gap-2 mt-2 pl-4 border-l-2 border-slate-700"
-                            >
-                                @foreach(\App\Enums\PlaceType::wineTypes() as $wineType)
-                                    <button
-                                        wire:click="toggleGameType('{{ $wineType->value }}')"
-                                        class="px-3 py-1 rounded-md text-xs font-medium border transition-all {{ in_array($wineType->value, $gameTypes) ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-400' : 'bg-slate-800 border-slate-700 text-slate-300 hover:border-slate-500' }}"
-                                    >
-                                        {{ $wineType->label() }}
-                                    </button>
-                                @endforeach
-                            </div>
+                                    @foreach(\App\Enums\PlaceType::wineTypes() as $wineType)
+                                        <button
+                                            wire:click="toggleGameType('{{ $wineType->value }}')"
+                                            class="px-3 py-1 rounded-md text-xs font-medium border transition-all {{ in_array($wineType->value, $gameTypes) ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-400' : 'bg-slate-800 border-slate-700 text-slate-300 hover:border-slate-500' }}"
+                                        >
+                                            {{ $wineType->label() }}
+                                        </button>
+                                    @endforeach
+                                </div>
+                            @endif
                         </div>
 
                         {{-- Sliders --}}

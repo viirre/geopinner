@@ -13,6 +13,8 @@ class Game extends Component
     // Settings
     public string $difficulty = 'medium';
 
+    public string $region = 'world'; // 'world' | 'europe'
+
     public array $gameTypes = ['mixed'];
 
     public int $rounds = 10;
@@ -73,11 +75,56 @@ class Game extends Component
         }
     }
 
+    public function setRegion(string $region): void
+    {
+        if (! in_array($region, ['world', 'europe'], true)) {
+            return;
+        }
+
+        if ($this->region === $region) {
+            return;
+        }
+
+        $this->region = $region;
+        $this->gameTypes = [PlaceType::Mixed->value];
+    }
+
+    /**
+     * Resolve selected gameTypes to the actual values passed to PlaceService,
+     * mapping regular types to their Europe-restricted variants when region is 'europe'.
+     *
+     * @return array<int, string>
+     */
+    private function resolvedGameTypes(): array
+    {
+        if ($this->region !== 'europe') {
+            return $this->gameTypes;
+        }
+
+        $europeMap = [
+            PlaceType::Mixed->value => [
+                PlaceType::CountryEurope->value,
+                PlaceType::CapitalEurope->value,
+                PlaceType::CityEurope->value,
+            ],
+            PlaceType::Country->value => [PlaceType::CountryEurope->value],
+            PlaceType::Capital->value => [PlaceType::CapitalEurope->value],
+            PlaceType::City->value => [PlaceType::CityEurope->value],
+        ];
+
+        $resolved = [];
+        foreach ($this->gameTypes as $type) {
+            $resolved = array_merge($resolved, $europeMap[$type] ?? []);
+        }
+
+        return array_values(array_unique($resolved));
+    }
+
     public function startGame(): void
     {
         // Fetch places using PlaceService
         $placeService = app(PlaceService::class);
-        $places = $placeService->getPlaces($this->difficulty, $this->gameTypes);
+        $places = $placeService->getPlaces($this->difficulty, $this->resolvedGameTypes());
 
         // Check if we have any places
         if ($places->isEmpty()) {

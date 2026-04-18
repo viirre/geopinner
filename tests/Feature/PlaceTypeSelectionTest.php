@@ -1,9 +1,12 @@
 <?php
 
 use App\Enums\Difficulty;
+use App\Enums\PlaceType;
+use App\Livewire\Game;
 use App\Models\Place;
 use App\Services\PlaceService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Livewire;
 
 uses(RefreshDatabase::class);
 
@@ -157,6 +160,56 @@ test('european city filter excludes capitals', function () {
 
     foreach ($places as $place) {
         expect($place->type)->not->toBe('capital');
+    }
+});
+
+test('starting a game in europe region with mixed type yields only european places', function () {
+    $european = PlaceType::europeanCountries();
+
+    Livewire::test(Game::class)
+        ->call('setRegion', 'europe')
+        ->set('difficulty', Difficulty::Easy->value)
+        ->set('rounds', 5)
+        ->call('startGame')
+        ->assertSet('screen', 'game');
+
+    $places = session('game_places');
+
+    expect($places)->toBeArray()->not->toBeEmpty();
+
+    foreach ($places as $place) {
+        $isCountry = in_array($place['name'], $european, true);
+
+        $isCityOrCapital = false;
+        foreach ($european as $country) {
+            if (str_ends_with($place['name'], ', '.$country)) {
+                $isCityOrCapital = true;
+                break;
+            }
+        }
+
+        expect($isCountry || $isCityOrCapital)->toBeTrue(
+            "'{$place['name']}' should be a European place"
+        );
+    }
+});
+
+test('starting a game in europe region with country type yields only european countries', function () {
+    $european = PlaceType::europeanCountries();
+
+    Livewire::test(Game::class)
+        ->call('setRegion', 'europe')
+        ->call('toggleGameType', PlaceType::Country->value)
+        ->set('difficulty', Difficulty::Medium->value)
+        ->set('rounds', 5)
+        ->call('startGame')
+        ->assertSet('screen', 'game');
+
+    $places = session('game_places');
+
+    foreach ($places as $place) {
+        expect($place['type'])->toBe('country');
+        expect(in_array($place['name'], $european, true))->toBeTrue();
     }
 });
 

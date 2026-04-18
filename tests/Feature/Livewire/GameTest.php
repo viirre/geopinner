@@ -376,6 +376,41 @@ it('defaults back to mixed when all types removed', function () {
     expect($component->get('gameTypes'))->toBe([PlaceType::Mixed->value]);
 });
 
+it('defaults region to world', function () {
+    Livewire::test(Game::class)
+        ->assertSet('region', 'world');
+});
+
+it('switches region and resets game types to mixed', function () {
+    $component = Livewire::test(Game::class)
+        ->call('toggleGameType', PlaceType::City->value);
+
+    expect($component->get('gameTypes'))->toBe([PlaceType::City->value]);
+
+    $component->call('setRegion', 'europe');
+
+    expect($component->get('region'))->toBe('europe');
+    expect($component->get('gameTypes'))->toBe([PlaceType::Mixed->value]);
+});
+
+it('ignores unknown region values', function () {
+    $component = Livewire::test(Game::class)
+        ->call('setRegion', 'mars');
+
+    expect($component->get('region'))->toBe('world');
+});
+
+it('does not reset game types when setting same region', function () {
+    $component = Livewire::test(Game::class)
+        ->call('toggleGameType', PlaceType::City->value);
+
+    expect($component->get('gameTypes'))->toBe([PlaceType::City->value]);
+
+    $component->call('setRegion', 'world');
+
+    expect($component->get('gameTypes'))->toBe([PlaceType::City->value]);
+});
+
 it('provides feedback messages based on score', function () {
     $component = Livewire::test(Game::class)
         ->call('startGame');
