@@ -67,8 +67,31 @@ export default function gameTimer() {
 
         handleTimeout() {
             this.stopTimer();
-            // Call Livewire method to handle timeout
-            this.$wire.handleTimeout();
+
+            if (this.$wire.hasGuessed || !this.$wire.currentPlace) {
+                return;
+            }
+
+            // Mark as guessed
+            this.$wire.hasGuessed = true;
+
+            // Set feedback immediately on frontend
+            this.$wire.lastFeedback = {
+                message: '⏰ Tiden är ute!',
+                class: 'poor',
+                emoji: '⏰',
+                points: 0,
+                timeBonus: 0,
+            };
+
+            // Show correct location on map
+            this.$wire.$dispatch('show-timeout-result', {
+                placeLat: this.$wire.currentPlace.lat,
+                placeLng: this.$wire.currentPlace.lng,
+            });
+
+            // Record timeout in backend asynchronously
+            this.$wire.recordTimeout();
         },
 
         getTimerClass() {

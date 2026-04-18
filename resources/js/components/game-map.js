@@ -2,6 +2,8 @@
  * Alpine.js component for Leaflet map integration
  * Handles map initialization, markers, and click events
  */
+import { calculateScore } from '../game/scoring.js';
+
 export default function gameMap() {
     return {
         map: null,
@@ -9,6 +11,7 @@ export default function gameMap() {
         placeMarker: null,
         distanceLine: null,
         tileLayer: null,
+        showLabels: false,
 
         init() {
             // Initialize map immediately if screen is already 'game'
@@ -93,7 +96,7 @@ export default function gameMap() {
             }
 
             // Determine style based on showLabels setting
-            const style = this.$wire.showLabels ? 'light_all' : 'light_nolabels';
+            const style = this.showLabels ? 'light_all' : 'light_nolabels';
             const tileUrl = `https://{s}.basemaps.cartocdn.com/${style}/{z}/{x}/{y}.png`;
 
             this.tileLayer = L.tileLayer(tileUrl, {
@@ -111,24 +114,93 @@ export default function gameMap() {
         },
 
         handleMapClick(latlng) {
-            // Show preview marker where user clicked
-            if (this.userMarker) {
-                this.map.removeLayer(this.userMarker);
+            if (this.$wire.hasGuessed || !this.$wire.currentPlace) {
+                return;
             }
 
-            // Add user marker preview (red pin)
-            const userIcon = L.icon({
-                iconUrl: '/pin_user.png',
-                iconSize: [16, 40],
-                iconAnchor: [10, 40],
+            // Mark as guessed immediately to prevent double-clicking
+            this.$wire.hasGuessed = true;
+
+            const place = this.$wire.currentPlace;
+            const userLat = latlng.lat;
+            const userLng = latlng.lng;
+
+            // Calculate distance using Haversine formula
+            const distance = this.calculateDistance(userLat, userLng, place.lat, place.lng);
+
+            // Calculate score using imported scoring module
+            const scoreResult = calculateScore(distance, place);
+
+            // Calculate time bonus if timer enabled
+            let timeBonus = 0;
+            if (this.$wire.timerEnabled && scoreResult.points >= 7) {
+                const timeTaken = this.$wire.roundStartTime ? (Math.floor(Date.now() / 1000) - this.$wire.roundStartTime) : 0;
+                timeBonus = this.calculateTimeBonus(timeTaken);
+            }
+
+            // Build feedback object
+            const feedback = {
+                message: scoreResult.message,
+                class: scoreResult.feedback,
+                emoji: scoreResult.emoji,
+                points: scoreResult.points,
+                timeBonus: timeBonus,
+            };
+
+            if (timeBonus > 0) {
+                feedback.message += ` +${timeBonus} snabbhetsbonus!`;
+            }
+
+            // Update UI immediately (no backend wait)
+            this.$wire.lastFeedback = feedback;
+            this.$wire.totalScore += scoreResult.points;
+            this.$wire.totalBonus += timeBonus;
+
+            // Show visual result on map
+            this.showResult({
+                userLat,
+                userLng,
+                placeLat: place.lat,
+                placeLng: place.lng,
             });
 
-            this.userMarker = L.marker([latlng.lat, latlng.lng], {
-                icon: userIcon,
-            }).addTo(this.map);
+            // Record round in backend asynchronously (non-blocking)
+            this.$wire.recordRound(userLat, userLng, scoreResult.points, timeBonus, scoreResult.distance);
+        },
 
-            // Dispatch click coordinates to Livewire
-            this.$wire.submitGuess(latlng.lat, latlng.lng);
+        calculateDistance(lat1, lng1, lat2, lng2) {
+            const earthRadius = 6371; // km
+
+            const dLat = this.deg2rad(lat2 - lat1);
+            const dLng = this.deg2rad(lng2 - lng1);
+
+            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) *
+                Math.sin(dLng / 2) * Math.sin(dLng / 2);
+
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+            return earthRadius * c;
+        },
+
+        deg2rad(deg) {
+            return deg * (Math.PI / 180);
+        },
+
+        calculateTimeBonus(timeTaken) {
+            const duration = this.$wire.timerDuration;
+
+            if (timeTaken < duration * 0.25) {
+                return 3;
+            }
+            if (timeTaken < duration * 0.5) {
+                return 2;
+            }
+            if (timeTaken < duration * 0.75) {
+                return 1;
+            }
+
+            return 0;
         },
 
         showResult(data) {

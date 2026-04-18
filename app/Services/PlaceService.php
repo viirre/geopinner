@@ -14,23 +14,48 @@ class PlaceService
      */
     public function getPlaces(string|Difficulty $difficulty, array $gameTypes): Collection
     {
-        // Convert string to enum if needed
         if (is_string($difficulty)) {
             $difficulty = Difficulty::from($difficulty);
         }
 
-        // Build query based on difficulty
-        $query = Place::query()->difficulty($difficulty);
-
-        // Filter by game types
-        // If 'mixed' is selected, include all regular types
         if (in_array(PlaceType::Mixed->value, $gameTypes)) {
             $gameTypes = PlaceType::regularTypesValues();
         }
 
-        $query->types($gameTypes);
+        $wantsCityEurope = in_array(PlaceType::CityEurope->value, $gameTypes);
+        $wantsCountryEurope = in_array(PlaceType::CountryEurope->value, $gameTypes);
 
-        // Return collection with necessary fields
+        $regularTypes = array_values(array_diff($gameTypes, [
+            PlaceType::CityEurope->value,
+            PlaceType::CountryEurope->value,
+        ]));
+
+        $query = Place::query()->difficulty($difficulty);
+
+        $query->where(function ($q) use ($regularTypes, $wantsCityEurope, $wantsCountryEurope) {
+            if (! empty($regularTypes)) {
+                $q->orWhereIn('type', $regularTypes);
+            }
+
+            if ($wantsCityEurope) {
+                $q->orWhere(fn ($inner) => $inner
+                    ->whereIn('type', [PlaceType::City->value, PlaceType::Capital->value])
+                    ->where(function ($names) {
+                        foreach (PlaceType::europeanCountries() as $country) {
+                            $names->orWhere('name', 'like', '%, '.$country);
+                        }
+                    })
+                );
+            }
+
+            if ($wantsCountryEurope) {
+                $q->orWhere(fn ($inner) => $inner
+                    ->where('type', PlaceType::Country->value)
+                    ->whereIn('name', PlaceType::europeanCountries())
+                );
+            }
+        });
+
         return $query->get(['name', 'lat', 'lng', 'type', 'size']);
     }
 

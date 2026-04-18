@@ -88,6 +88,16 @@
                                     </button>
                                 @endforeach
 
+                                {{-- Europe Types --}}
+                                @foreach(\App\Enums\PlaceType::europeTypes() as $europeType)
+                                    <button
+                                        wire:click="toggleGameType('{{ $europeType->value }}')"
+                                        class="px-4 py-2 rounded-full text-sm font-medium border transition-all {{ in_array($europeType->value, $gameTypes) ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-400 hover:bg-emerald-500 hover:text-white' : 'bg-slate-800 border-slate-700 text-slate-300 hover:border-slate-500' }}"
+                                    >
+                                        {{ $europeType->label() }}
+                                    </button>
+                                @endforeach
+
                                 {{-- Wine Button (toggles submenu) --}}
                                 <button
                                     x-on:click="$dispatch('toggle-wine-menu')"
@@ -226,7 +236,7 @@
                 {{-- Map Controls (Show Labels) --}}
                 <div class="absolute bottom-24 left-4 z-10 pointer-events-auto bg-slate-800/90 backdrop-blur px-3 py-2 rounded-lg border border-slate-700">
                     <label class="flex items-center gap-2 cursor-pointer">
-                        <input type="checkbox" wire:model.live="showLabels" x-on:change="toggleLabels()" class="rounded accent-emerald-500">
+                        <input type="checkbox" x-model="showLabels" x-on:change="toggleLabels()" class="rounded accent-emerald-500">
                         <span class="text-white text-sm">Visa etiketter</span>
                     </label>
                 </div>

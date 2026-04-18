@@ -74,3 +74,93 @@ test('it can fetch mixed types including capitals', function () {
     expect($types)->toContain('city');
     expect($types)->toContain('country');
 });
+
+test('it can fetch only european countries', function () {
+    $placeService = app(PlaceService::class);
+
+    $places = $placeService->getPlaces(Difficulty::Medium, ['country_europe']);
+
+    expect($places->count())->toBeGreaterThan(0, 'Should find European countries');
+
+    $european = \App\Enums\PlaceType::europeanCountries();
+
+    foreach ($places as $place) {
+        expect($place->type)->toBe('country');
+        expect(in_array($place->name, $european, true))
+            ->toBeTrue("'{$place->name}' should be a European country");
+    }
+});
+
+test('it can fetch only european cities including capitals', function () {
+    $placeService = app(PlaceService::class);
+
+    $places = $placeService->getPlaces(Difficulty::Easy, ['city_europe']);
+
+    expect($places->count())->toBeGreaterThan(0, 'Should find European cities');
+
+    $european = \App\Enums\PlaceType::europeanCountries();
+
+    $hasCity = false;
+    $hasCapital = false;
+
+    foreach ($places as $place) {
+        expect(['city', 'capital'])->toContain($place->type);
+
+        if ($place->type === 'city') {
+            $hasCity = true;
+        }
+
+        if ($place->type === 'capital') {
+            $hasCapital = true;
+        }
+
+        $matched = false;
+        foreach ($european as $country) {
+            if (str_ends_with($place->name, ', '.$country)) {
+                $matched = true;
+                break;
+            }
+        }
+
+        expect($matched)->toBeTrue("'{$place->name}' should belong to a European country");
+    }
+
+    expect($hasCity)->toBeTrue('European cities selection should contain non-capital cities');
+    expect($hasCapital)->toBeTrue('European cities selection should contain capitals');
+});
+
+test('european country filter excludes non-european countries', function () {
+    $placeService = app(PlaceService::class);
+
+    $places = $placeService->getPlaces(Difficulty::Medium, ['country_europe']);
+
+    $names = $places->pluck('name')->all();
+
+    expect($names)->not->toContain('Japan');
+    expect($names)->not->toContain('Brasilien');
+    expect($names)->not->toContain('USA');
+});
+
+test('it can combine european filter with regular types', function () {
+    $placeService = app(PlaceService::class);
+
+    $places = $placeService->getPlaces(Difficulty::Easy, ['country_europe', 'island']);
+
+    expect($places->count())->toBeGreaterThan(0);
+
+    $types = $places->pluck('type')->unique()->values()->all();
+
+    expect($types)->toContain('country');
+    expect($types)->toContain('island');
+});
+
+test('mixed selection does not include europe types', function () {
+    $placeService = app(PlaceService::class);
+
+    $places = $placeService->getPlaces(Difficulty::Easy, ['mixed']);
+
+    $types = $places->pluck('type')->unique()->values()->all();
+
+    expect($types)->not->toContain('city_europe');
+    expect($types)->not->toContain('country_europe');
+});

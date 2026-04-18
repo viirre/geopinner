@@ -23,8 +23,6 @@ class Game extends Component
 
     public int $timerDuration = 10;
 
-    public bool $showLabels = false;
-
     // Game state
     public string $screen = 'setup'; // setup, game, result
 
@@ -150,7 +148,7 @@ class Game extends Component
         // Time bonus calculation
         $timeBonus = 0;
         if ($this->timerEnabled && $scoreResult['points'] >= 7) {
-            $timeBonus = $this->calculateTimeBonus($timeTaken, $scoreResult['points']);
+            $timeBonus = $this->calculateTimeBonus($timeTaken);
         }
 
         // Update state
@@ -178,14 +176,29 @@ class Game extends Component
             'timeTaken' => $timeTaken,
         ];
 
-        // Dispatch event to Alpine for visual feedback
-        $this->dispatch('show-result',
-            userLat: $lat,
-            userLng: $lng,
-            placeLat: $this->currentPlace['lat'],
-            placeLng: $this->currentPlace['lng']
-        );
+        // Dispatch round-complete event
+        $this->dispatch('round-complete');
+    }
 
+    public function recordRound(float $lat, float $lng, int $points, int $timeBonus, string $distance): void
+    {
+        if (! $this->currentPlace) {
+            return;
+        }
+
+        // Calculate time taken for history
+        $timeTaken = $this->roundStartTime ? (time() - $this->roundStartTime) : 0;
+
+        // Store in round history
+        $this->roundHistory[] = [
+            'place' => $this->currentPlace['name'],
+            'points' => $points,
+            'timeBonus' => $timeBonus,
+            'distance' => $distance,
+            'timeTaken' => $timeTaken,
+        ];
+
+        // Dispatch round-complete event
         $this->dispatch('round-complete');
     }
 
@@ -195,7 +208,6 @@ class Game extends Component
             return;
         }
 
-        // Submit with 0 points
         $this->hasGuessed = true;
 
         $this->lastFeedback = [
@@ -214,12 +226,26 @@ class Game extends Component
             'timeTaken' => $this->timerDuration,
         ];
 
-        // Show correct location
-        $this->dispatch('show-timeout-result',
-            placeLat: $this->currentPlace['lat'],
-            placeLng: $this->currentPlace['lng']
-        );
+        // Dispatch round-complete event
+        $this->dispatch('round-complete');
+    }
 
+    public function recordTimeout(): void
+    {
+        if (! $this->currentPlace) {
+            return;
+        }
+
+        // Store timeout in round history
+        $this->roundHistory[] = [
+            'place' => $this->currentPlace['name'],
+            'points' => 0,
+            'timeBonus' => 0,
+            'distance' => '∞',
+            'timeTaken' => $this->timerDuration,
+        ];
+
+        // Dispatch round-complete event
         $this->dispatch('round-complete');
     }
 
@@ -270,7 +296,7 @@ class Game extends Component
         return $earthRadius * $c;
     }
 
-    private function calculateTimeBonus(int $timeTaken, int $basePoints): int
+    private function calculateTimeBonus(int $timeTaken): int
     {
         $duration = $this->timerDuration;
 
