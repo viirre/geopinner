@@ -149,7 +149,9 @@
                             @endif
 
                             {{-- Availability hint --}}
-                            @php($availableCount = $this->availablePlaceCount)
+                            @php
+                                $availableCount = $this->availablePlaceCount;
+                            @endphp
                             @if($availableCount < $rounds)
                                 <p class="text-xs text-amber-400 font-medium">
                                     Endast {{ $availableCount }} {{ $availableCount === 1 ? 'plats' : 'platser' }} tillgängliga, välj färre rundor eller byt inställningar.

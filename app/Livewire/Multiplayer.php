@@ -5,7 +5,6 @@ namespace App\Livewire;
 use App\Enums\Difficulty;
 use App\Enums\NumRound;
 use App\Enums\PlaceType;
-use App\Enums\TimeDuration;
 use App\Events\GameStarted;
 use App\Events\PlayerJoined;
 use App\Events\RoundStarted;
@@ -25,7 +24,11 @@ class Multiplayer extends Component
 
     public string $difficulty = 'medium';
 
+    public string $region = 'world'; // 'world' | 'europe'
+
     public array $gameTypes = ['mixed'];
+
+    public ?string $setupError = null;
 
     public int $rounds = 10;
 
@@ -75,8 +78,15 @@ class Multiplayer extends Component
         }
     }
 
+    public function updated(string $property): void
+    {
+        $this->setupError = null;
+    }
+
     public function toggleGameType(string $type): void
     {
+        $this->setupError = null;
+
         // Same logic as Game component
         if ($type === PlaceType::Mixed->value) {
             $this->gameTypes = [PlaceType::Mixed->value];
@@ -97,6 +107,57 @@ class Multiplayer extends Component
         }
     }
 
+    public function setRegion(string $region): void
+    {
+        if (! in_array($region, ['world', 'europe'], true)) {
+            return;
+        }
+
+        if ($this->region === $region) {
+            return;
+        }
+
+        $this->setupError = null;
+        $this->region = $region;
+        $this->gameTypes = [PlaceType::Mixed->value];
+    }
+
+    public function getAvailablePlaceCountProperty(): int
+    {
+        return app(PlaceService::class)->getPlaceCount(
+            $this->difficulty,
+            $this->resolvedGameTypes()
+        );
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function resolvedGameTypes(): array
+    {
+        if ($this->region !== 'europe') {
+            return $this->gameTypes;
+        }
+
+        $europeMap = [
+            PlaceType::Mixed->value => [
+                PlaceType::CountryEurope->value,
+                PlaceType::CapitalEurope->value,
+                PlaceType::CityEurope->value,
+            ],
+            PlaceType::Country->value => [PlaceType::CountryEurope->value],
+            PlaceType::Capital->value => [PlaceType::CapitalEurope->value],
+            PlaceType::City->value => [PlaceType::CityEurope->value],
+        ];
+
+        $resolved = [];
+        foreach ($this->gameTypes as $type) {
+            $resolved = array_merge($resolved, $europeMap[$type] ?? []);
+        }
+
+        return array_values(array_unique($resolved));
+    }
+
     public function createGame(): void
     {
         $this->validate([
@@ -107,6 +168,22 @@ class Multiplayer extends Component
             'timerDuration' => ['required', 'integer', 'int', 'min:5', 'max:60'],
         ]);
 
+        $resolvedTypes = $this->resolvedGameTypes();
+
+        $availableCount = app(PlaceService::class)->getPlaceCount($this->difficulty, $resolvedTypes);
+
+        if ($availableCount === 0) {
+            $this->setupError = 'Inga platser hittades för denna kombination. Välj andra inställningar.';
+
+            return;
+        }
+
+        if ($availableCount < $this->rounds) {
+            $this->setupError = 'Det finns bara '.$availableCount.' platser i denna kombination. Välj färre rundor eller byt speltyp/svårighetsgrad.';
+
+            return;
+        }
+
         // Generate unique game code
         $code = \App\Models\Game::generateUniqueCode();
 
@@ -116,7 +193,7 @@ class Multiplayer extends Component
             'settings' => [
                 'difficulty' => $this->difficulty,
                 'rounds' => $this->rounds,
-                'gameTypes' => $this->gameTypes,
+                'gameTypes' => $resolvedTypes,
                 'timerEnabled' => true,
                 'timerDuration' => $this->timerDuration,
                 'showLabels' => $this->showLabels,

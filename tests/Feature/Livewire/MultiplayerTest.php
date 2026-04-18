@@ -11,6 +11,9 @@ use function Pest\Laravel\assertDatabaseHas;
 beforeEach(function () {
     // Fake broadcasting events to avoid Pusher dependency in tests
     Event::fake();
+
+    // Seed places so createGame can satisfy its availability check
+    $this->artisan('db:seed', ['--class' => 'PlacesSeeder']);
 });
 
 it('can create a multiplayer game', function () {
@@ -256,4 +259,82 @@ it('prevents timeout if already guessed', function () {
     $component->call('handleTimeout')
         ->assertSet('hasGuessed', true)
         ->assertNotDispatched('submit-mp-timeout');
+});
+
+it('defaults region to world', function () {
+    Livewire::test(Multiplayer::class)->assertSet('region', 'world');
+});
+
+it('switches region and resets game types to mixed', function () {
+    $component = Livewire::test(Multiplayer::class)
+        ->call('toggleGameType', \App\Enums\PlaceType::City->value);
+
+    expect($component->get('gameTypes'))->toBe([\App\Enums\PlaceType::City->value]);
+
+    $component->call('setRegion', 'europe');
+
+    expect($component->get('region'))->toBe('europe');
+    expect($component->get('gameTypes'))->toBe([\App\Enums\PlaceType::Mixed->value]);
+});
+
+it('creates a multiplayer game with europe region using resolved place types', function () {
+    $component = Livewire::test(Multiplayer::class)
+        ->set('hostName', 'Host Player')
+        ->set('difficulty', 'medium')
+        ->set('rounds', 5)
+        ->set('timerDuration', 30)
+        ->call('setRegion', 'europe')
+        ->call('toggleGameType', \App\Enums\PlaceType::Country->value)
+        ->call('createGame')
+        ->assertHasNoErrors()
+        ->assertSet('screen', 'waiting');
+
+    $game = Game::where('code', $component->get('sessionGameCode'))->first();
+
+    expect($game->settings['gameTypes'])->toBe([\App\Enums\PlaceType::CountryEurope->value]);
+});
+
+it('creates a multiplayer game with europe region and mixed type expands to all europe variants', function () {
+    $component = Livewire::test(Multiplayer::class)
+        ->set('hostName', 'Host Player')
+        ->set('difficulty', 'easy')
+        ->set('rounds', 5)
+        ->set('timerDuration', 30)
+        ->call('setRegion', 'europe')
+        ->call('createGame')
+        ->assertHasNoErrors();
+
+    $game = Game::where('code', $component->get('sessionGameCode'))->first();
+
+    expect($game->settings['gameTypes'])->toEqualCanonicalizing([
+        \App\Enums\PlaceType::CountryEurope->value,
+        \App\Enums\PlaceType::CapitalEurope->value,
+        \App\Enums\PlaceType::CityEurope->value,
+    ]);
+});
+
+it('exposes a setup error when not enough european places match settings', function () {
+    $component = Livewire::test(Multiplayer::class)
+        ->set('hostName', 'Host Player')
+        ->set('difficulty', 'hard')
+        ->set('rounds', 10)
+        ->set('timerDuration', 30)
+        ->call('setRegion', 'europe')
+        ->call('toggleGameType', \App\Enums\PlaceType::Capital->value)
+        ->call('createGame');
+
+    expect($component->get('setupError'))->toBeString()->not->toBeEmpty();
+    expect($component->get('screen'))->toBe('lobby');
+});
+
+it('clears setup error when changing region or toggling type', function () {
+    $component = Livewire::test(Multiplayer::class)
+        ->set('setupError', 'något gick fel');
+
+    $component->call('setRegion', 'europe');
+    expect($component->get('setupError'))->toBeNull();
+
+    $component->set('setupError', 'något annat');
+    $component->call('toggleGameType', \App\Enums\PlaceType::Country->value);
+    expect($component->get('setupError'))->toBeNull();
 });

@@ -91,7 +91,7 @@
                                 <div class="grid grid-cols-2 gap-4">
                                     <div class="space-y-1">
                                         <label class="text-xs text-slate-400 font-bold uppercase">Rundor</label>
-                                        <select wire:model="rounds" class="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm">
+                                        <select wire:model.live="rounds" class="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm">
                                             @foreach(\App\Enums\NumRound::cases() as $num)
                                                 <option value="{{ $num->value }}">{{ $num->value }} Rundor</option>
                                             @endforeach
@@ -99,7 +99,7 @@
                                     </div>
                                     <div class="space-y-1">
                                         <label class="text-xs text-slate-400 font-bold uppercase">Svårighet</label>
-                                        <select wire:model="difficulty" class="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm">
+                                        <select wire:model.live="difficulty" class="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm">
                                             @foreach(\App\Enums\Difficulty::cases() as $diff)
                                                 <option value="{{ $diff->value }}">{{ $diff->label() }}</option>
                                             @endforeach
@@ -115,9 +115,39 @@
                                     </div>
                                 </div>
 
-                                <div class="space-y-1">
+                                <div class="space-y-2">
                                     <label class="text-xs text-slate-400 font-bold uppercase">Typ av platser</label>
-                                    <div class="flex flex-wrap gap-2">
+
+                                    {{-- Region segmented control --}}
+                                    <div class="flex p-1 bg-slate-900/50 rounded-lg">
+                                        <button
+                                            type="button"
+                                            wire:click="setRegion('world')"
+                                            class="flex-1 py-1.5 text-xs font-medium rounded-md transition-colors {{ $region === 'world' ? 'bg-blue-500 text-white shadow-lg font-bold' : 'text-slate-400 hover:text-white' }}"
+                                        >
+                                            Hela världen
+                                        </button>
+                                        <button
+                                            type="button"
+                                            wire:click="setRegion('europe')"
+                                            class="flex-1 py-1.5 text-xs font-medium rounded-md transition-colors {{ $region === 'europe' ? 'bg-blue-500 text-white shadow-lg font-bold' : 'text-slate-400 hover:text-white' }}"
+                                        >
+                                            Europa
+                                        </button>
+                                    </div>
+
+                                    @php
+                                        $europeSupportedTypes = [
+                                            \App\Enums\PlaceType::Country,
+                                            \App\Enums\PlaceType::Capital,
+                                            \App\Enums\PlaceType::City,
+                                        ];
+                                        $visibleTypes = $region === 'europe'
+                                            ? $europeSupportedTypes
+                                            : \App\Enums\PlaceType::regularTypes();
+                                    @endphp
+
+                                    <div class="flex flex-wrap gap-2 pt-1">
                                         {{-- Mixed --}}
                                         <button
                                             type="button"
@@ -127,10 +157,10 @@
                                             {{ \App\Enums\PlaceType::Mixed->label() }}
                                         </button>
 
-                                        {{-- Regular Types --}}
-                                        @foreach(\App\Enums\PlaceType::regularTypes() as $placeType)
+                                        @foreach($visibleTypes as $placeType)
                                             <button
                                                 type="button"
+                                                wire:key="mp-type-{{ $region }}-{{ $placeType->value }}"
                                                 wire:click="toggleGameType('{{ $placeType->value }}')"
                                                 class="px-3 py-1 rounded-md text-xs font-medium border transition-all {{ in_array($placeType->value, $gameTypes) ? 'bg-blue-500/20 border-blue-500/50 text-blue-400 hover:bg-blue-500 hover:text-white' : 'bg-slate-800 border-slate-700 text-slate-300 hover:border-slate-500' }}"
                                             >
@@ -138,35 +168,65 @@
                                             </button>
                                         @endforeach
 
-                                        {{-- Wine Button (toggles submenu) --}}
-                                        <button
-                                            type="button"
-                                            x-on:click="$dispatch('toggle-wine-menu')"
-                                            class="px-3 py-1 bg-slate-800 border border-slate-700 text-slate-300 rounded-md text-xs hover:border-slate-500 transition-all"
-                                        >
-                                            Viner
-                                        </button>
-                                    </div>
-
-                                    {{-- Wine Submenu --}}
-                                    <div
-                                        x-data="{ showWine: false }"
-                                        x-on:toggle-wine-menu.window="showWine = !showWine"
-                                        x-show="showWine"
-                                        x-cloak
-                                        class="flex flex-wrap gap-2 mt-2 pl-4 border-l-2 border-slate-700"
-                                    >
-                                        @foreach(\App\Enums\PlaceType::wineTypes() as $wineType)
+                                        @if($region === 'world')
+                                            {{-- Wine Button (toggles submenu) --}}
                                             <button
                                                 type="button"
-                                                wire:click="toggleGameType('{{ $wineType->value }}')"
-                                                class="px-2 py-1 rounded text-xs font-medium border transition-all {{ in_array($wineType->value, $gameTypes) ? 'bg-blue-500/20 border-blue-500/50 text-blue-400' : 'bg-slate-800 border-slate-700 text-slate-300 hover:border-slate-500' }}"
+                                                x-on:click="$dispatch('toggle-wine-menu')"
+                                                class="px-3 py-1 bg-slate-800 border border-slate-700 text-slate-300 rounded-md text-xs hover:border-slate-500 transition-all"
                                             >
-                                                {{ $wineType->label() }}
+                                                Viner
                                             </button>
-                                        @endforeach
+                                        @endif
                                     </div>
+
+                                    @if($region === 'world')
+                                        {{-- Wine Submenu --}}
+                                        <div
+                                            x-data="{ showWine: false }"
+                                            x-on:toggle-wine-menu.window="showWine = !showWine"
+                                            x-show="showWine"
+                                            x-cloak
+                                            class="flex flex-wrap gap-2 mt-2 pl-4 border-l-2 border-slate-700"
+                                        >
+                                            @foreach(\App\Enums\PlaceType::wineTypes() as $wineType)
+                                                <button
+                                                    type="button"
+                                                    wire:click="toggleGameType('{{ $wineType->value }}')"
+                                                    class="px-2 py-1 rounded text-xs font-medium border transition-all {{ in_array($wineType->value, $gameTypes) ? 'bg-blue-500/20 border-blue-500/50 text-blue-400' : 'bg-slate-800 border-slate-700 text-slate-300 hover:border-slate-500' }}"
+                                                >
+                                                    {{ $wineType->label() }}
+                                                </button>
+                                            @endforeach
+                                        </div>
+                                    @endif
+
+                                    @php
+                                        $availableCount = $this->availablePlaceCount;
+                                    @endphp
+                                    @if($availableCount < $rounds)
+                                        <p class="text-xs text-amber-400 font-medium">
+                                            Endast {{ $availableCount }} {{ $availableCount === 1 ? 'plats' : 'platser' }} tillgängliga, välj färre rundor eller byt inställningar.
+                                        </p>
+                                    @else
+                                        <p class="text-xs text-slate-500">
+                                            {{ $availableCount }} platser tillgängliga
+                                        </p>
+                                    @endif
                                 </div>
+
+                                @if($setupError)
+                                    <div
+                                        wire:key="mp-setup-error"
+                                        role="alert"
+                                        class="flex items-start gap-3 rounded-lg border border-rose-500/40 bg-rose-500/10 px-4 py-3 text-sm text-rose-200"
+                                    >
+                                        <svg class="mt-0.5 h-5 w-5 shrink-0 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"></path>
+                                        </svg>
+                                        <span>{{ $setupError }}</span>
+                                    </div>
+                                @endif
 
                                 <x-glass-button variant="primary-blue" class="w-full mt-6" type="submit">
                                     Skapa Spel

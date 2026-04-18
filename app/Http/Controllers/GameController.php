@@ -505,52 +505,23 @@ class GameController extends Controller
     private function getNextPlace(int $roundNumber, Game $game): array
     {
         $settings = $game->settings;
-        $difficulty = $settings['difficulty'] ?? 'medium';
-        $gameTypes = $settings['gameTypes'] ?? ['blandat'];
+        $difficulty = $settings['difficulty'] ?? Difficulty::Medium->value;
+        $gameTypes = $settings['gameTypes'] ?? [PlaceType::Mixed->value];
 
-        // Build query based on game settings
-        $query = Place::query()->difficulty($difficulty);
-
-        // Filter by game types
-        // If 'blandat' is selected, include all types
-        if (! in_array('blandat', $gameTypes)) {
-            // Map game types to place types
-            $placeTypes = [];
-            foreach ($gameTypes as $gameType) {
-                match ($gameType) {
-                    'land' => $placeTypes[] = 'land',
-                    'stad' => $placeTypes[] = 'stad',
-                    default => null,
-                };
-            }
-
-            if (! empty($placeTypes)) {
-                $query->types($placeTypes);
-            }
-        }
-
-        // Get all matching places
-        $places = $query->get();
+        $places = app(\App\Services\PlaceService::class)->getPlaces($difficulty, $gameTypes);
 
         if ($places->isEmpty()) {
-            // Fallback to any place if no matches
-            $places = Place::query()->limit(50)->get();
+            $places = Place::query()->limit(50)->get(['name', 'lat', 'lng', 'type', 'size']);
         }
 
-        // Convert to array for shuffling
-        $placesArray = $places->toArray();
+        $selectedPlace = $places->random();
 
-        // Shuffle and pick one
-        shuffle($placesArray);
-        $selectedPlace = $placesArray[0];
-
-        // Return in the format expected by the round
         return [
-            'name' => $selectedPlace['name'],
-            'lat' => (float) $selectedPlace['lat'],
-            'lng' => (float) $selectedPlace['lng'],
-            'type' => $selectedPlace['type'],
-            'size' => (int) $selectedPlace['size'],
+            'name' => $selectedPlace->name,
+            'lat' => (float) $selectedPlace->lat,
+            'lng' => (float) $selectedPlace->lng,
+            'type' => $selectedPlace->type,
+            'size' => (int) $selectedPlace->size,
         ];
     }
 }
