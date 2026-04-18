@@ -11,6 +11,7 @@ enum PlaceType: string
     case Capital = 'capital';
     case Country = 'country';
     case CityEurope = 'city_europe';
+    case CapitalEurope = 'capital_europe';
     case CountryEurope = 'country_europe';
     case WineRegion = 'wine_region';
     case DOCG = 'docg';
@@ -26,6 +27,7 @@ enum PlaceType: string
             self::Capital => 'Huvudstäder',
             self::Country => 'Länder',
             self::CityEurope => 'Städer i Europa',
+            self::CapitalEurope => 'Huvudstäder i Europa',
             self::CountryEurope => 'Länder i Europa',
             self::WineRegion => 'Vinregioner',
             self::DOCG => 'DOCG',
@@ -52,8 +54,9 @@ enum PlaceType: string
     public static function europeTypes(): array
     {
         return [
-            self::CityEurope,
             self::CountryEurope,
+            self::CapitalEurope,
+            self::CityEurope,
         ];
     }
 

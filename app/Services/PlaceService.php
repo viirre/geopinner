@@ -23,23 +23,36 @@ class PlaceService
         }
 
         $wantsCityEurope = in_array(PlaceType::CityEurope->value, $gameTypes);
+        $wantsCapitalEurope = in_array(PlaceType::CapitalEurope->value, $gameTypes);
         $wantsCountryEurope = in_array(PlaceType::CountryEurope->value, $gameTypes);
 
         $regularTypes = array_values(array_diff($gameTypes, [
             PlaceType::CityEurope->value,
+            PlaceType::CapitalEurope->value,
             PlaceType::CountryEurope->value,
         ]));
 
         $query = Place::query()->difficulty($difficulty);
 
-        $query->where(function ($q) use ($regularTypes, $wantsCityEurope, $wantsCountryEurope) {
+        $query->where(function ($q) use ($regularTypes, $wantsCityEurope, $wantsCapitalEurope, $wantsCountryEurope) {
             if (! empty($regularTypes)) {
                 $q->orWhereIn('type', $regularTypes);
             }
 
             if ($wantsCityEurope) {
                 $q->orWhere(fn ($inner) => $inner
-                    ->whereIn('type', [PlaceType::City->value, PlaceType::Capital->value])
+                    ->where('type', PlaceType::City->value)
+                    ->where(function ($names) {
+                        foreach (PlaceType::europeanCountries() as $country) {
+                            $names->orWhere('name', 'like', '%, '.$country);
+                        }
+                    })
+                );
+            }
+
+            if ($wantsCapitalEurope) {
+                $q->orWhere(fn ($inner) => $inner
+                    ->where('type', PlaceType::Capital->value)
                     ->where(function ($names) {
                         foreach (PlaceType::europeanCountries() as $country) {
                             $names->orWhere('name', 'like', '%, '.$country);

@@ -91,28 +91,17 @@ test('it can fetch only european countries', function () {
     }
 });
 
-test('it can fetch only european cities including capitals', function () {
+test('it can fetch only european cities', function () {
     $placeService = app(PlaceService::class);
 
-    $places = $placeService->getPlaces(Difficulty::Easy, ['city_europe']);
+    $places = $placeService->getPlaces(Difficulty::Medium, ['city_europe']);
 
     expect($places->count())->toBeGreaterThan(0, 'Should find European cities');
 
     $european = \App\Enums\PlaceType::europeanCountries();
 
-    $hasCity = false;
-    $hasCapital = false;
-
     foreach ($places as $place) {
-        expect(['city', 'capital'])->toContain($place->type);
-
-        if ($place->type === 'city') {
-            $hasCity = true;
-        }
-
-        if ($place->type === 'capital') {
-            $hasCapital = true;
-        }
+        expect($place->type)->toBe('city');
 
         $matched = false;
         foreach ($european as $country) {
@@ -124,9 +113,51 @@ test('it can fetch only european cities including capitals', function () {
 
         expect($matched)->toBeTrue("'{$place->name}' should belong to a European country");
     }
+});
 
-    expect($hasCity)->toBeTrue('European cities selection should contain non-capital cities');
-    expect($hasCapital)->toBeTrue('European cities selection should contain capitals');
+test('it can fetch only european capitals', function () {
+    $placeService = app(PlaceService::class);
+
+    $places = $placeService->getPlaces(Difficulty::Easy, ['capital_europe']);
+
+    expect($places->count())->toBeGreaterThan(0, 'Should find European capitals');
+
+    $european = \App\Enums\PlaceType::europeanCountries();
+
+    foreach ($places as $place) {
+        expect($place->type)->toBe('capital');
+
+        $matched = false;
+        foreach ($european as $country) {
+            if (str_ends_with($place->name, ', '.$country)) {
+                $matched = true;
+                break;
+            }
+        }
+
+        expect($matched)->toBeTrue("'{$place->name}' should belong to a European country");
+    }
+});
+
+test('european capital filter excludes non-european capitals', function () {
+    $placeService = app(PlaceService::class);
+
+    $places = $placeService->getPlaces(Difficulty::Easy, ['capital_europe']);
+
+    $names = $places->pluck('name')->all();
+
+    expect($names)->not->toContain('Tokyo, Japan');
+    expect($names)->not->toContain('Washington D.C., USA');
+});
+
+test('european city filter excludes capitals', function () {
+    $placeService = app(PlaceService::class);
+
+    $places = $placeService->getPlaces(Difficulty::Easy, ['city_europe']);
+
+    foreach ($places as $place) {
+        expect($place->type)->not->toBe('capital');
+    }
 });
 
 test('european country filter excludes non-european countries', function () {
