@@ -3,6 +3,7 @@
  * Handles map initialization, markers, and click events
  */
 import { calculateScore } from '../game/scoring.js';
+import { withCartoKey } from '../map/cartoKey.js';
 
 export default function gameMap() {
     return {
@@ -97,7 +98,7 @@ export default function gameMap() {
 
             // Determine style based on showLabels setting
             const style = this.showLabels ? 'light_all' : 'light_nolabels';
-            const tileUrl = `https://{s}.basemaps.cartocdn.com/${style}/{z}/{x}/{y}.png`;
+            const tileUrl = withCartoKey(`https://{s}.basemaps.cartocdn.com/${style}/{z}/{x}/{y}.png`);
 
             this.tileLayer = L.tileLayer(tileUrl, {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',

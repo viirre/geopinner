@@ -1,6 +1,8 @@
 /**
  * Alpine.js component for multiplayer Leaflet map
  */
+import { withCartoKey } from '../map/cartoKey.js';
+
 export default function multiplayerMap() {
     return {
         map: null,
@@ -70,7 +72,7 @@ export default function multiplayerMap() {
             }
 
             const style = this.$wire.showLabels ? 'light_all' : 'light_nolabels';
-            const tileUrl = `https://{s}.basemaps.cartocdn.com/${style}/{z}/{x}/{y}.png`;
+            const tileUrl = withCartoKey(`https://{s}.basemaps.cartocdn.com/${style}/{z}/{x}/{y}.png`);
 
             this.tileLayer = L.tileLayer(tileUrl, {
                 attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
