@@ -1,6 +1,6 @@
 /**
  * Scoring module for Geopinner
- * Handles distance-based scoring with different thresholds for wine regions vs other places
+ * Handles distance-based scoring, scaled per place type so close-together places (wine regions, Swedish provinces) are harder
  */
 
 // Scoring thresholds for standard places (cities, countries, etc.)
@@ -17,46 +17,61 @@ const STANDARD_THRESHOLDS = [
     { max: Infinity, points: 1, emoji: '🌍', text: 'Wow, det var riktigt långt!', class: 'poor' }
 ];
 
-// Wine regions have 2x stricter scoring (50% of normal distances)
-const WINE_THRESHOLDS = [
-    { max: 25, points: 10, emoji: '🎯', text: 'Perfekt!', class: 'excellent' },
-    { max: 100, points: 9, emoji: '⭐', text: 'Fantastiskt!', class: 'excellent' },
-    { max: 200, points: 8, emoji: '🌟', text: 'Jättebra!', class: 'excellent' },
-    { max: 350, points: 7, emoji: '👏', text: 'Riktigt bra!', class: 'good' },
-    { max: 550, points: 6, emoji: '👍', text: 'Bra!', class: 'good' },
-    { max: 800, points: 5, emoji: '😊', text: 'Helt okej!', class: 'okay' },
-    { max: 1100, points: 4, emoji: '🙂', text: 'Inte så illa!', class: 'okay' },
-    { max: 1500, points: 3, emoji: '🤔', text: 'Fortsätt öva!', class: 'okay' },
-    { max: 2250, points: 2, emoji: '💪', text: 'Det var långt!', class: 'poor' },
-    { max: Infinity, points: 1, emoji: '🌍', text: 'Wow, det var riktigt långt!', class: 'poor' }
-];
+// Guess distances are multiplied by this before scoring, so 2 halves every threshold.
+// Must match PlaceType::scoringDifficultyFactor() in PHP.
+const DIFFICULTY_FACTORS = {
+    wine_region: 2,
+    docg: 2,
+    aoc: 2,
+    swedish_province: 8,
+};
+
+// A guess outside the place's outline can never score better than this.
+// Must match ScoringService::MAX_POINTS_OUTSIDE_BORDER in PHP.
+const MAX_POINTS_OUTSIDE_BORDER = 7;
 
 /**
  * Calculate score based on distance to target
  * @param {number} kmDistance - Distance in kilometers
  * @param {Object} place - Place object with type and size
+ * @param {number|null} kmOutsideBorder - How far outside the place's outline the guess is (0 inside), or null without an outline
  * @returns {Object} Scoring result with points, feedback, message, and class
  */
-export function calculateScore(kmDistance, place) {
-    // Adjust for the place's size - subtract the place's radius from the distance
-    // If you click within the place's "area" you get full points
-    const adjustedDistance = Math.max(0, kmDistance - place.size);
+export function calculateScore(kmDistance, place, kmOutsideBorder = null) {
+    const difficultyFactor = DIFFICULTY_FACTORS[place.type] ?? 1;
+    const isOutsideBorder = kmOutsideBorder > 0;
 
-    // Wine regions (vin, docg, aoc) have stricter scoring - 2x harder to get points
-    const isWineRegion = ['vin', 'docg', 'aoc'].includes(place.type);
-    const thresholds = isWineRegion ? WINE_THRESHOLDS : STANDARD_THRESHOLDS;
+    // Distance outside the place (its border, or else its radius), scaled for harder place types
+    const adjustedDistance = (kmOutsideBorder ?? Math.max(0, kmDistance - place.size)) * difficultyFactor;
 
     // Find matching threshold
-    for (const threshold of thresholds) {
+    for (const threshold of STANDARD_THRESHOLDS) {
+        if (isOutsideBorder && threshold.points > MAX_POINTS_OUTSIDE_BORDER) {
+            continue;
+        }
+
         if (adjustedDistance < threshold.max) {
+            if (isOutsideBorder) {
+                const milOutside = (kmOutsideBorder / 10).toFixed(1);
+
+                return {
+                    points: threshold.points,
+                    feedback: threshold.class,
+                    emoji: '❌',
+                    message: `❌ Fel landskap! Du var ${milOutside} mil från gränsen.`,
+                    distance: milOutside
+                };
+            }
+
             // Convert to Swedish miles (1 mil = 10 km)
             const milDistance = (kmDistance / 10).toFixed(1);
+            const result = kmOutsideBorder === null ? `Du var ${milDistance} mil bort!` : 'Rätt landskap!';
 
             return {
                 points: threshold.points,
                 feedback: threshold.class,
                 emoji: threshold.emoji,
-                message: `${threshold.emoji} ${threshold.text} Du var ${milDistance} mil bort!`,
+                message: `${threshold.emoji} ${threshold.text} ${result}`,
                 distance: milDistance
             };
         }

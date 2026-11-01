@@ -33,6 +33,9 @@
     }"></div>
         {{-- Setup Screen --}}
         @if($screen === 'setup')
+            @php
+                $playsWholeSwedenPart = $region === 'sweden' && $swedenPart->playsEveryProvinceOnce();
+            @endphp
             <section class="min-h-screen flex items-center justify-center pt-16 relative">
                 <x-map-background blur="true" overlay="true" />
 
@@ -52,12 +55,13 @@
                     {{-- Scrollable Content --}}
                     <div class="flex-1 overflow-y-auto p-6 md:p-8 space-y-8">
                         {{-- Difficulty --}}
-                        <div class="space-y-3">
+                        <div @class(['space-y-3', 'opacity-40' => $playsWholeSwedenPart])>
                             <label class="text-xs uppercase tracking-wider text-slate-400 font-bold">Svårighetsgrad</label>
                             <div class="flex p-1 bg-slate-900/50 rounded-xl">
                                 @foreach(\App\Enums\Difficulty::cases() as $diff)
                                     <button
                                         wire:click="$set('difficulty', '{{ $diff->value }}')"
+                                        @disabled($playsWholeSwedenPart)
                                         class="flex-1 py-2 text-sm font-medium rounded-lg transition-colors {{ $difficulty === $diff->value ? 'bg-emerald-500 text-white shadow-lg font-bold' : 'text-slate-400 hover:text-white' }}"
                                     >
                                         {{ $diff->label() }}
@@ -84,6 +88,12 @@
                                 >
                                     Europa
                                 </button>
+                                <button
+                                    wire:click="setRegion('sweden')"
+                                    class="flex-1 py-2 text-sm font-medium rounded-lg transition-colors {{ $region === 'sweden' ? 'bg-emerald-500 text-white shadow-lg font-bold' : 'text-slate-400 hover:text-white' }}"
+                                >
+                                    Sverige
+                                </button>
                             </div>
 
                             {{-- Type chips (filtered by region) --}}
@@ -99,32 +109,44 @@
                             @endphp
 
                             <div class="flex flex-wrap gap-2">
-                                {{-- Mixed --}}
-                                <button
-                                    wire:click="toggleGameType('{{ \App\Enums\PlaceType::Mixed->value }}')"
-                                    class="px-4 py-2 rounded-full text-sm font-medium border transition-all {{ in_array(\App\Enums\PlaceType::Mixed->value, $gameTypes) ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-400 hover:bg-emerald-500 hover:text-white' : 'bg-slate-800 border-slate-700 text-slate-300 hover:border-slate-500' }}"
-                                >
-                                    {{ \App\Enums\PlaceType::Mixed->label() }}
-                                </button>
-
-                                @foreach($visibleTypes as $placeType)
+                                @if($region === 'sweden')
+                                    @foreach(\App\Enums\SwedenPart::cases() as $part)
+                                        <button
+                                            wire:key="sweden-part-{{ $part->value }}"
+                                            wire:click="setSwedenPart('{{ $part->value }}')"
+                                            class="px-4 py-2 rounded-full text-sm font-medium border transition-all {{ $swedenPart === $part ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-400' : 'bg-slate-800 border-slate-700 text-slate-300 hover:border-slate-500' }}"
+                                        >
+                                            {{ $part->label() }}
+                                        </button>
+                                    @endforeach
+                                @else
+                                    {{-- Mixed --}}
                                     <button
-                                        wire:key="type-{{ $region }}-{{ $placeType->value }}"
-                                        wire:click="toggleGameType('{{ $placeType->value }}')"
-                                        class="px-4 py-2 rounded-full text-sm font-medium border transition-all {{ in_array($placeType->value, $gameTypes) ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-400 hover:bg-emerald-500 hover:text-white' : 'bg-slate-800 border-slate-700 text-slate-300 hover:border-slate-500' }}"
+                                        wire:click="toggleGameType('{{ \App\Enums\PlaceType::Mixed->value }}')"
+                                        class="px-4 py-2 rounded-full text-sm font-medium border transition-all {{ in_array(\App\Enums\PlaceType::Mixed->value, $gameTypes) ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-400 hover:bg-emerald-500 hover:text-white' : 'bg-slate-800 border-slate-700 text-slate-300 hover:border-slate-500' }}"
                                     >
-                                        {{ $placeType->label() }}
+                                        {{ \App\Enums\PlaceType::Mixed->label() }}
                                     </button>
-                                @endforeach
 
-                                {{-- Wine button (world only) --}}
-                                @if($region === 'world')
-                                    <button
-                                        x-on:click="$dispatch('toggle-wine-menu')"
-                                        class="px-4 py-2 bg-slate-800 border border-slate-700 text-slate-300 rounded-full text-sm hover:border-slate-500 transition-all"
-                                    >
-                                        Viner
-                                    </button>
+                                    @foreach($visibleTypes as $placeType)
+                                        <button
+                                            wire:key="type-{{ $region }}-{{ $placeType->value }}"
+                                            wire:click="toggleGameType('{{ $placeType->value }}')"
+                                            class="px-4 py-2 rounded-full text-sm font-medium border transition-all {{ in_array($placeType->value, $gameTypes) ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-400 hover:bg-emerald-500 hover:text-white' : 'bg-slate-800 border-slate-700 text-slate-300 hover:border-slate-500' }}"
+                                        >
+                                            {{ $placeType->label() }}
+                                        </button>
+                                    @endforeach
+
+                                    {{-- Wine button (world only) --}}
+                                    @if($region === 'world')
+                                        <button
+                                            x-on:click="$dispatch('toggle-wine-menu')"
+                                            class="px-4 py-2 bg-slate-800 border border-slate-700 text-slate-300 rounded-full text-sm hover:border-slate-500 transition-all"
+                                        >
+                                            Viner
+                                        </button>
+                                    @endif
                                 @endif
                             </div>
 
@@ -152,7 +174,11 @@
                             @php
                                 $availableCount = $this->availablePlaceCount;
                             @endphp
-                            @if($availableCount < $rounds)
+                            @if($playsWholeSwedenPart)
+                                <p class="text-xs text-slate-500">
+                                    Alla {{ $availableCount }} landskap i {{ $swedenPart->label() }}, ett per runda.
+                                </p>
+                            @elseif($availableCount < $rounds)
                                 <p class="text-xs text-amber-400 font-medium">
                                     Endast {{ $availableCount }} {{ $availableCount === 1 ? 'plats' : 'platser' }} tillgängliga, välj färre rundor eller byt inställningar.
                                 </p>
@@ -168,16 +194,18 @@
                             <div class="space-y-3">
                                 <div class="flex justify-between">
                                     <label class="text-xs uppercase tracking-wider text-slate-400 font-bold">Antal Omgångar</label>
-                                    <span class="text-emerald-400 font-bold">{{ $rounds }}</span>
+                                    <span class="text-emerald-400 font-bold">{{ $playsWholeSwedenPart ? $availableCount : $rounds }}</span>
                                 </div>
-                                <input
-                                    type="range"
-                                    wire:model.live="rounds"
-                                    min="5"
-                                    max="50"
-                                    step="5"
-                                    class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-500"
-                                >
+                                @unless($playsWholeSwedenPart)
+                                    <input
+                                        type="range"
+                                        wire:model.live="rounds"
+                                        min="5"
+                                        max="50"
+                                        step="5"
+                                        class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-500"
+                                    >
+                                @endunless
                             </div>
 
                             @if($timerEnabled)
@@ -261,7 +289,7 @@
                             </svg>
                         </a>
                         <div class="bg-slate-800/80 backdrop-blur px-3 py-2 rounded-lg border border-slate-700 text-sm font-medium text-slate-300">
-                            Runda <span class="text-white">{{ $currentRound }}</span> / {{ $rounds }}
+                            Runda <span class="text-white">{{ $currentRound }}</span> / {{ $totalRounds }}
                         </div>
                     </div>
 
@@ -284,11 +312,17 @@
                 </div>
 
                 {{-- Map Controls (Show Labels) --}}
-                <div class="absolute bottom-24 left-4 z-10 pointer-events-auto bg-slate-800/90 backdrop-blur px-3 py-2 rounded-lg border border-slate-700">
+                <div class="absolute bottom-24 left-4 z-10 pointer-events-auto bg-slate-800/90 backdrop-blur px-3 py-2 rounded-lg border border-slate-700 flex flex-col gap-2">
                     <label class="flex items-center gap-2 cursor-pointer">
                         <input type="checkbox" x-model="showLabels" x-on:change="toggleLabels()" class="rounded accent-emerald-500">
                         <span class="text-white text-sm">Visa etiketter</span>
                     </label>
+                    @if($region === 'sweden')
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" x-model="showProvinceBorders" x-on:change="syncProvinceBorders()" class="rounded accent-emerald-500">
+                            <span class="text-white text-sm">Visa landskapsgränser</span>
+                        </label>
+                    @endif
                 </div>
 
                 {{-- BOTTOM RESULT CARD (appears after guess) --}}
@@ -311,7 +345,7 @@
                             </div>
 
                             <x-glass-button variant="secondary" class="w-full" wire:click="continueToNextRound">
-                                @if($currentRound >= $rounds)
+                                @if($currentRound >= $totalRounds)
                                     Se resultat
                                 @else
                                     Nästa runda
@@ -338,7 +372,7 @@
                                 @if($totalBonus > 0)
                                     <span class="text-3xl md:text-4xl text-green-400">+{{ $totalBonus }}</span>
                                 @endif
-                                <span class="text-2xl md:text-3xl text-slate-400">/ {{ $rounds * 10 }}</span>
+                                <span class="text-2xl md:text-3xl text-slate-400">/ {{ $totalRounds * 10 }}</span>
                             </div>
                             <p class="text-lg md:text-xl text-slate-300">{{ $this->finalMessage }}</p>
                         </div>

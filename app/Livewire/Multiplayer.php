@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Enums\Difficulty;
 use App\Enums\NumRound;
 use App\Enums\PlaceType;
+use App\Enums\SwedenPart;
 use App\Events\GameStarted;
 use App\Events\PlayerJoined;
 use App\Events\RoundStarted;
@@ -24,7 +25,9 @@ class Multiplayer extends Component
 
     public string $difficulty = 'medium';
 
-    public string $region = 'world'; // 'world' | 'europe'
+    public string $region = 'world'; // 'world' | 'europe' | 'sweden'
+
+    public SwedenPart $swedenPart = SwedenPart::All;
 
     public array $gameTypes = ['mixed'];
 
@@ -35,6 +38,8 @@ class Multiplayer extends Component
     public int $timerDuration = 10;
 
     public bool $showLabels = false;
+
+    public bool $showProvinceBorders = true;
 
     // Lobby form - Join Game
     public string $playerName = '';
@@ -109,7 +114,7 @@ class Multiplayer extends Component
 
     public function setRegion(string $region): void
     {
-        if (! in_array($region, ['world', 'europe'], true)) {
+        if (! in_array($region, ['world', 'europe', 'sweden'], true)) {
             return;
         }
 
@@ -119,15 +124,38 @@ class Multiplayer extends Component
 
         $this->setupError = null;
         $this->region = $region;
-        $this->gameTypes = [PlaceType::Mixed->value];
+        $this->gameTypes = $region === 'sweden'
+            ? [PlaceType::SwedishProvince->value]
+            : [PlaceType::Mixed->value];
+    }
+
+    public function setSwedenPart(string $part): void
+    {
+        $swedenPart = SwedenPart::tryFrom($part);
+
+        if (! $swedenPart) {
+            return;
+        }
+
+        $this->setupError = null;
+        $this->swedenPart = $swedenPart;
     }
 
     public function getAvailablePlaceCountProperty(): int
     {
         return app(PlaceService::class)->getPlaceCount(
             $this->difficulty,
-            $this->resolvedGameTypes()
+            $this->resolvedGameTypes(),
+            $this->resolvedSwedenPart()
         );
+    }
+
+    /**
+     * The chosen part of Sweden, or null when not playing in the sweden region.
+     */
+    private function resolvedSwedenPart(): ?SwedenPart
+    {
+        return $this->region === 'sweden' ? $this->swedenPart : null;
     }
 
     /**
@@ -135,6 +163,10 @@ class Multiplayer extends Component
      */
     private function resolvedGameTypes(): array
     {
+        if ($this->region === 'sweden') {
+            return [PlaceType::SwedishProvince->value];
+        }
+
         if ($this->region !== 'europe') {
             return $this->gameTypes;
         }
@@ -170,7 +202,8 @@ class Multiplayer extends Component
 
         $resolvedTypes = $this->resolvedGameTypes();
 
-        $availableCount = app(PlaceService::class)->getPlaceCount($this->difficulty, $resolvedTypes);
+        $swedenPart = $this->resolvedSwedenPart();
+        $availableCount = app(PlaceService::class)->getPlaceCount($this->difficulty, $resolvedTypes, $swedenPart);
 
         if ($availableCount === 0) {
             $this->setupError = 'Inga platser hittades för denna kombination. Välj andra inställningar.';
@@ -178,7 +211,9 @@ class Multiplayer extends Component
             return;
         }
 
-        if ($availableCount < $this->rounds) {
+        $plannedRounds = $swedenPart?->playsEveryProvinceOnce() ? $availableCount : $this->rounds;
+
+        if ($availableCount < $plannedRounds) {
             $this->setupError = 'Det finns bara '.$availableCount.' platser i denna kombination. Välj färre rundor eller byt speltyp/svårighetsgrad.';
 
             return;
@@ -192,11 +227,13 @@ class Multiplayer extends Component
             'code' => $code,
             'settings' => [
                 'difficulty' => $this->difficulty,
-                'rounds' => $this->rounds,
+                'rounds' => $plannedRounds,
                 'gameTypes' => $resolvedTypes,
+                'swedenPart' => $swedenPart?->value,
                 'timerEnabled' => true,
                 'timerDuration' => $this->timerDuration,
                 'showLabels' => $this->showLabels,
+                'showProvinceBorders' => $this->region === 'sweden' && $this->showProvinceBorders,
             ],
             'status' => 'waiting',
         ]);
@@ -354,7 +391,11 @@ class Multiplayer extends Component
         // Create first round
         $placeService = app(PlaceService::class);
         $settings = $game->settings;
-        $places = $placeService->getPlaces($settings['difficulty'], $settings['gameTypes']);
+        $places = $placeService->getPlaces(
+            $settings['difficulty'],
+            $settings['gameTypes'],
+            $game->swedenPart()
+        );
         $shuffled = $places->shuffle();
         $placeModel = $shuffled->first();
 
@@ -386,6 +427,8 @@ class Multiplayer extends Component
         $this->totalRounds = $gameData['total_rounds'];
         $this->timerDuration = $gameData['timer_duration'] ?? 30;
         $this->showLabels = $gameData['show_labels'] ?? false;
+        $this->showProvinceBorders = $gameData['show_province_borders'] ?? false;
+        $this->swedenPart = SwedenPart::tryFrom($gameData['sweden_part'] ?? '') ?? SwedenPart::All;
         $this->currentPlace = $roundData['place'];
         $this->currentPlace['round_id'] = $roundData['id']; // Add round_id for guess submission
         $this->hasGuessed = false;

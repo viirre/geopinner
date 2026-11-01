@@ -6280,5 +6280,295 @@
       "medium",
       "hard"
     ]
+  },
+  {
+    "name": "Skåne",
+    "lat": 55.95,
+    "lng": 13.55,
+    "type": "swedish_province",
+    "size": 45,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Blekinge",
+    "lat": 56.25,
+    "lng": 15.15,
+    "type": "swedish_province",
+    "size": 22,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Halland",
+    "lat": 56.85,
+    "lng": 12.8,
+    "type": "swedish_province",
+    "size": 25,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Småland",
+    "lat": 57.15,
+    "lng": 15,
+    "type": "swedish_province",
+    "size": 75,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Öland",
+    "lat": 56.7,
+    "lng": 16.6,
+    "type": "swedish_province",
+    "size": 15,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Gotland",
+    "lat": 57.5,
+    "lng": 18.55,
+    "type": "swedish_province",
+    "size": 30,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Östergötland",
+    "lat": 58.35,
+    "lng": 15.6,
+    "type": "swedish_province",
+    "size": 45,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Västergötland",
+    "lat": 58.05,
+    "lng": 13.25,
+    "type": "swedish_province",
+    "size": 55,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Bohuslän",
+    "lat": 58.4,
+    "lng": 11.65,
+    "type": "swedish_province",
+    "size": 22,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Dalsland",
+    "lat": 58.9,
+    "lng": 12.3,
+    "type": "swedish_province",
+    "size": 25,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Värmland",
+    "lat": 59.9,
+    "lng": 13.1,
+    "type": "swedish_province",
+    "size": 60,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Närke",
+    "lat": 59.2,
+    "lng": 15.05,
+    "type": "swedish_province",
+    "size": 28,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Södermanland",
+    "lat": 59.1,
+    "lng": 16.7,
+    "type": "swedish_province",
+    "size": 32,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Västmanland",
+    "lat": 59.75,
+    "lng": 15.9,
+    "type": "swedish_province",
+    "size": 30,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Uppland",
+    "lat": 59.95,
+    "lng": 17.95,
+    "type": "swedish_province",
+    "size": 45,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Dalarna",
+    "lat": 61,
+    "lng": 14.3,
+    "type": "swedish_province",
+    "size": 75,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Gästrikland",
+    "lat": 60.7,
+    "lng": 16.65,
+    "type": "swedish_province",
+    "size": 28,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Hälsingland",
+    "lat": 61.7,
+    "lng": 16.2,
+    "type": "swedish_province",
+    "size": 50,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Härjedalen",
+    "lat": 62.35,
+    "lng": 13.6,
+    "type": "swedish_province",
+    "size": 48,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Medelpad",
+    "lat": 62.45,
+    "lng": 16.5,
+    "type": "swedish_province",
+    "size": 35,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Jämtland",
+    "lat": 63.4,
+    "lng": 14.5,
+    "type": "swedish_province",
+    "size": 80,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Ångermanland",
+    "lat": 63.4,
+    "lng": 17.7,
+    "type": "swedish_province",
+    "size": 55,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Västerbotten",
+    "lat": 64.3,
+    "lng": 20.2,
+    "type": "swedish_province",
+    "size": 50,
+    "difficulty": [
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Lappland",
+    "lat": 66.8,
+    "lng": 18.5,
+    "type": "swedish_province",
+    "size": 140,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
+  },
+  {
+    "name": "Norrbotten",
+    "lat": 66.3,
+    "lng": 22.7,
+    "type": "swedish_province",
+    "size": 60,
+    "difficulty": [
+      "easy",
+      "medium",
+      "hard"
+    ]
   }
 ]

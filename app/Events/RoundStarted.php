@@ -17,13 +17,12 @@ class RoundStarted implements ShouldBroadcastNow
     public function __construct(
         public Game $game,
         public Round $round
-    ) {
-    }
+    ) {}
 
     public function broadcastOn(): array
     {
         return [
-            new Channel('game.' . $this->game->code),
+            new Channel('game.'.$this->game->code),
         ];
     }
 
@@ -41,6 +40,8 @@ class RoundStarted implements ShouldBroadcastNow
                 'total_rounds' => $this->game->settings['rounds'] ?? 10,
                 'timer_duration' => $this->game->settings['timerDuration'] ?? 30,
                 'show_labels' => $this->game->settings['showLabels'] ?? false,
+                'show_province_borders' => $this->game->settings['showProvinceBorders'] ?? false,
+                'sweden_part' => $this->game->swedenPart()?->value,
             ],
         ];
     }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\SwedenPart;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -31,6 +32,14 @@ class Game extends Model
     public function rounds(): HasMany
     {
         return $this->hasMany(Round::class);
+    }
+
+    /**
+     * The part of Sweden this game plays, or null outside the Swedish province mode.
+     */
+    public function swedenPart(): ?SwedenPart
+    {
+        return SwedenPart::tryFrom($this->settings['swedenPart'] ?? '');
     }
 
     public function winner(): BelongsTo

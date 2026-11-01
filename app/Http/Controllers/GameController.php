@@ -17,6 +17,9 @@ use App\Models\Guess;
 use App\Models\Place;
 use App\Models\Player;
 use App\Models\Round;
+use App\Services\PlaceService;
+use App\Services\ProvinceGeometry;
+use App\Services\ScoringService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -244,7 +247,7 @@ class GameController extends Controller
         ]);
     }
 
-    public function submitGuess(Request $request): JsonResponse
+    public function submitGuess(Request $request, ScoringService $scoringService, ProvinceGeometry $provinceGeometry): JsonResponse
     {
         $validated = $request->validate([
             'round_id' => 'required|integer|exists:rounds,id',
@@ -293,8 +296,8 @@ class GameController extends Controller
                 $placeLng
             );
 
-            // Calculate score based on distance
-            $score = $this->calculateScore($distance, $placeSize);
+            $kmOutsideBorder = $provinceGeometry->kmOutsideBorder($round->place_data, $validated['lat'], $validated['lng']);
+            $score = $scoringService->calculateScore($distance, $round->place_data, $kmOutsideBorder)['points'];
         }
 
         // Log for debugging
@@ -366,34 +369,6 @@ class GameController extends Controller
         $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
 
         return $earthRadius * $c;
-    }
-
-    private function calculateScore(float $distance, float $placeSize): int
-    {
-        // Adjust distance by place size (radius)
-        $adjustedDistance = max(0, $distance - $placeSize);
-
-        // Distance thresholds in km for scoring
-        $thresholds = [
-            50 => 10,
-            200 => 9,
-            500 => 8,
-            750 => 7,
-            1000 => 6,
-            1500 => 5,
-            2000 => 4,
-            3000 => 3,
-            5000 => 2,
-            10000 => 1,
-        ];
-
-        foreach ($thresholds as $threshold => $points) {
-            if ($adjustedDistance < $threshold) {
-                return $points;
-            }
-        }
-
-        return 0;
     }
 
     public function nextRound(Request $request): JsonResponse
@@ -508,13 +483,21 @@ class GameController extends Controller
         $difficulty = $settings['difficulty'] ?? Difficulty::Medium->value;
         $gameTypes = $settings['gameTypes'] ?? [PlaceType::Mixed->value];
 
-        $places = app(\App\Services\PlaceService::class)->getPlaces($difficulty, $gameTypes);
+        $places = app(PlaceService::class)->getPlaces(
+            $difficulty,
+            $gameTypes,
+            $game->swedenPart()
+        );
 
         if ($places->isEmpty()) {
             $places = Place::query()->limit(50)->get(['name', 'lat', 'lng', 'type', 'size']);
         }
 
-        $selectedPlace = $places->random();
+        // Avoid repeating a place until every place has been played
+        $playedNames = $game->rounds->pluck('place_data.name');
+        $unplayedPlaces = $places->whereNotIn('name', $playedNames);
+
+        $selectedPlace = ($unplayedPlaces->isNotEmpty() ? $unplayedPlaces : $places)->random();
 
         return [
             'name' => $selectedPlace->name,

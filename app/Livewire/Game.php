@@ -3,8 +3,10 @@
 namespace App\Livewire;
 
 use App\Enums\PlaceType;
+use App\Enums\SwedenPart;
 use App\Models\Place;
 use App\Services\PlaceService;
+use App\Services\ProvinceGeometry;
 use App\Services\ScoringService;
 use Livewire\Component;
 
@@ -13,7 +15,9 @@ class Game extends Component
     // Settings
     public string $difficulty = 'medium';
 
-    public string $region = 'world'; // 'world' | 'europe'
+    public string $region = 'world'; // 'world' | 'europe' | 'sweden'
+
+    public SwedenPart $swedenPart = SwedenPart::All;
 
     public array $gameTypes = ['mixed'];
 
@@ -29,6 +33,8 @@ class Game extends Component
     public string $screen = 'setup'; // setup, game, result
 
     public int $currentRound = 0;
+
+    public int $totalRounds = 0;
 
     public int $totalScore = 0;
 
@@ -86,7 +92,7 @@ class Game extends Component
 
     public function setRegion(string $region): void
     {
-        if (! in_array($region, ['world', 'europe'], true)) {
+        if (! in_array($region, ['world', 'europe', 'sweden'], true)) {
             return;
         }
 
@@ -96,15 +102,38 @@ class Game extends Component
 
         $this->setupError = null;
         $this->region = $region;
-        $this->gameTypes = [PlaceType::Mixed->value];
+        $this->gameTypes = $region === 'sweden'
+            ? [PlaceType::SwedishProvince->value]
+            : [PlaceType::Mixed->value];
+    }
+
+    public function setSwedenPart(string $part): void
+    {
+        $swedenPart = SwedenPart::tryFrom($part);
+
+        if (! $swedenPart) {
+            return;
+        }
+
+        $this->setupError = null;
+        $this->swedenPart = $swedenPart;
     }
 
     public function getAvailablePlaceCountProperty(): int
     {
         return app(PlaceService::class)->getPlaceCount(
             $this->difficulty,
-            $this->resolvedGameTypes()
+            $this->resolvedGameTypes(),
+            $this->resolvedSwedenPart()
         );
+    }
+
+    /**
+     * The chosen part of Sweden, or null when not playing in the sweden region.
+     */
+    private function resolvedSwedenPart(): ?SwedenPart
+    {
+        return $this->region === 'sweden' ? $this->swedenPart : null;
     }
 
     /**
@@ -115,6 +144,10 @@ class Game extends Component
      */
     private function resolvedGameTypes(): array
     {
+        if ($this->region === 'sweden') {
+            return [PlaceType::SwedishProvince->value];
+        }
+
         if ($this->region !== 'europe') {
             return $this->gameTypes;
         }
@@ -144,7 +177,8 @@ class Game extends Component
 
         // Fetch places using PlaceService
         $placeService = app(PlaceService::class);
-        $places = $placeService->getPlaces($this->difficulty, $this->resolvedGameTypes());
+        $swedenPart = $this->resolvedSwedenPart();
+        $places = $placeService->getPlaces($this->difficulty, $this->resolvedGameTypes(), $swedenPart);
 
         // Check if we have any places
         if ($places->isEmpty()) {
@@ -153,8 +187,10 @@ class Game extends Component
             return;
         }
 
+        $plannedRounds = $swedenPart?->playsEveryProvinceOnce() ? $places->count() : $this->rounds;
+
         // Check if enough places for selected rounds
-        if ($places->count() < $this->rounds) {
+        if ($places->count() < $plannedRounds) {
             $this->setupError = 'Det finns bara '.$places->count().' platser i denna kombination. Välj färre rundor eller byt speltyp/svårighetsgrad.';
 
             return;
@@ -165,6 +201,7 @@ class Game extends Component
 
         // Reset game state
         $this->currentRound = 0;
+        $this->totalRounds = $plannedRounds;
         $this->totalScore = 0;
         $this->totalBonus = 0;
         $this->roundHistory = [];
@@ -210,7 +247,8 @@ class Game extends Component
         $distance = $this->calculateDistance($lat, $lng, $this->currentPlace['lat'], $this->currentPlace['lng']);
 
         // Score calculation
-        $scoreResult = app(ScoringService::class)->calculateScore($distance, $this->currentPlace);
+        $kmOutsideBorder = app(ProvinceGeometry::class)->kmOutsideBorder($this->currentPlace, $lat, $lng);
+        $scoreResult = app(ScoringService::class)->calculateScore($distance, $this->currentPlace, $kmOutsideBorder);
 
         // Time bonus calculation
         $timeBonus = 0;
@@ -318,7 +356,7 @@ class Game extends Component
 
     public function continueToNextRound(): void
     {
-        if ($this->currentRound >= $this->rounds) {
+        if ($this->currentRound >= $this->totalRounds) {
             $this->finishGame();
         } else {
             $this->nextRound();
@@ -395,7 +433,7 @@ class Game extends Component
 
     public function getFinalMessageProperty(): string
     {
-        $maxScore = $this->rounds * 10;
+        $maxScore = max(1, $this->totalRounds) * 10;
         $percentage = ($this->totalScore / $maxScore) * 100;
 
         if ($percentage >= 90) {

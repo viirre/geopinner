@@ -2,6 +2,8 @@
  * Alpine.js component for multiplayer Leaflet map
  */
 import { withCartoKey } from '../map/cartoKey.js';
+import { resetMapView } from '../map/mapView.js';
+import { createProvinceOutlines, isProvince } from '../map/provinceOutlines.js';
 
 export default function multiplayerMap() {
     return {
@@ -10,6 +12,7 @@ export default function multiplayerMap() {
         tileLayer: null,
         markers: [],
         lines: [],
+        provinceOutlines: null,
 
         init() {
             // Initialize map when round starts
@@ -20,6 +23,7 @@ export default function multiplayerMap() {
                     } else {
                         this.clearMap();
                         this.resetView();
+                        this.syncProvinceBorders();
                     }
                 });
             });
@@ -52,9 +56,16 @@ export default function multiplayerMap() {
 
             this.setTileLayer();
 
+            this.provinceOutlines = createProvinceOutlines(this.map);
+            if (isProvince(this.$wire.currentPlace)) {
+                this.provinceOutlines.preload();
+            }
+
             setTimeout(() => {
                 if (this.map) {
                     this.map.invalidateSize();
+                    this.resetView();
+                    this.syncProvinceBorders();
                 }
             }, 100);
 
@@ -83,6 +94,13 @@ export default function multiplayerMap() {
             this.tileLayer.addTo(this.map);
         },
 
+        syncProvinceBorders() {
+            this.provinceOutlines?.setBordersVisible(
+                this.$wire.showProvinceBorders && isProvince(this.$wire.currentPlace),
+                this.$wire.swedenPart
+            );
+        },
+
         handleMapClick(latlng) {
             // Add temporary user marker
             if (this.userMarker) {
@@ -103,7 +121,7 @@ export default function multiplayerMap() {
             this.$wire.submitGuess(latlng.lat, latlng.lng);
         },
 
-        showRoundResults(data) {
+        async showRoundResults(data) {
             const placeData = data.round.place;
 
             // Add correct location marker
@@ -155,12 +173,17 @@ export default function multiplayerMap() {
                 });
             }
 
-            // Fit bounds to show all markers
+            // Fit bounds to show all markers and the province outline
             const bounds = L.latLngBounds([
                 [placeData.lat, placeData.lng],
                 ...data.guesses.map(g => [g.lat, g.lng]),
             ]);
             this.map.fitBounds(bounds, { padding: [50, 50] });
+
+            const outline = await this.provinceOutlines?.highlight(placeData);
+            if (outline) {
+                this.map.fitBounds(bounds.extend(outline.getBounds()), { padding: [50, 50] });
+            }
         },
 
         clearMap() {
@@ -181,11 +204,13 @@ export default function multiplayerMap() {
                 this.map.removeLayer(line);
             });
             this.lines = [];
+
+            this.provinceOutlines?.clearHighlight();
         },
 
         resetView() {
             if (this.map) {
-                this.map.setView([20, 0], 2);
+                resetMapView(this.map, this.$wire.currentPlace, true, this.$wire.swedenPart);
             }
         },
 

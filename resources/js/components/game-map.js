@@ -4,6 +4,9 @@
  */
 import { calculateScore } from '../game/scoring.js';
 import { withCartoKey } from '../map/cartoKey.js';
+import { resetMapView } from '../map/mapView.js';
+import { createProvinceOutlines, findProvinceFeature, isProvince } from '../map/provinceOutlines.js';
+import { kmOutsideBorder } from '../map/provinceGeometry.js';
 
 export default function gameMap() {
     return {
@@ -13,6 +16,8 @@ export default function gameMap() {
         distanceLine: null,
         tileLayer: null,
         showLabels: false,
+        provinceOutlines: null,
+        showProvinceBorders: true,
 
         init() {
             // Initialize map immediately if screen is already 'game'
@@ -48,6 +53,7 @@ export default function gameMap() {
             this.$wire.$on('round-started', () => {
                 this.clearMarkers();
                 this.resetView();
+                this.syncProvinceBorders();
             });
         },
 
@@ -75,10 +81,17 @@ export default function gameMap() {
             // Set initial tile layer
             this.setTileLayer();
 
+            this.provinceOutlines = createProvinceOutlines(this.map);
+            if (isProvince(this.$wire.currentPlace)) {
+                this.provinceOutlines.preload();
+            }
+
             // Force map to recalculate size after a short delay
             setTimeout(() => {
                 if (this.map) {
                     this.map.invalidateSize();
+                    this.resetView();
+                    this.syncProvinceBorders();
                 }
             }, 100);
 
@@ -114,7 +127,14 @@ export default function gameMap() {
             this.setTileLayer();
         },
 
-        handleMapClick(latlng) {
+        syncProvinceBorders() {
+            this.provinceOutlines?.setBordersVisible(
+                this.showProvinceBorders && isProvince(this.$wire.currentPlace),
+                this.$wire.swedenPart
+            );
+        },
+
+        async handleMapClick(latlng) {
             if (this.$wire.hasGuessed || !this.$wire.currentPlace) {
                 return;
             }
@@ -130,7 +150,8 @@ export default function gameMap() {
             const distance = this.calculateDistance(userLat, userLng, place.lat, place.lng);
 
             // Calculate score using imported scoring module
-            const scoreResult = calculateScore(distance, place);
+            const kmOutside = await this.kmOutsideProvinceBorder(place, userLat, userLng);
+            const scoreResult = calculateScore(distance, place, kmOutside);
 
             // Calculate time bonus if timer enabled
             let timeBonus = 0;
@@ -169,6 +190,16 @@ export default function gameMap() {
             this.$wire.recordRound(userLat, userLng, scoreResult.points, timeBonus, scoreResult.distance);
         },
 
+        async kmOutsideProvinceBorder(place, lat, lng) {
+            if (!isProvince(place)) {
+                return null;
+            }
+
+            const feature = await findProvinceFeature(place.name);
+
+            return feature ? kmOutsideBorder(feature, lat, lng) : null;
+        },
+
         calculateDistance(lat1, lng1, lat2, lng2) {
             const earthRadius = 6371; // km
 
@@ -204,7 +235,7 @@ export default function gameMap() {
             return 0;
         },
 
-        showResult(data) {
+        async showResult(data) {
             const { userLat, userLng, placeLat, placeLng } = data;
 
             // Update user marker position if it exists, otherwise create it
@@ -258,18 +289,22 @@ export default function gameMap() {
                 }
             ).addTo(this.map);
 
-            // Fit bounds to show both markers
+            // Fit bounds to show both markers and the province outline
             const bounds = L.latLngBounds([
                 [userLat, userLng],
                 [placeLat, placeLng],
             ]);
-            this.map.fitBounds(bounds, {
-                padding: [80, 80],
-                maxZoom: 5
-            });
+            // Never zoom further out than the round started, e.g. when playing only Svealand
+            const fitOptions = { padding: [80, 80], maxZoom: Math.max(5, this.map.getZoom()) };
+            this.map.fitBounds(bounds, fitOptions);
+
+            const outline = await this.provinceOutlines?.highlight(this.$wire.currentPlace);
+            if (outline) {
+                this.map.fitBounds(bounds.extend(outline.getBounds()), fitOptions);
+            }
         },
 
-        showTimeoutResult(data) {
+        async showTimeoutResult(data) {
             const { placeLat, placeLng } = data;
 
             // Only show the correct location marker (no user marker on timeout)
@@ -284,7 +319,12 @@ export default function gameMap() {
             }).addTo(this.map);
 
             // Center map on the correct location
-            this.map.setView([placeLat, placeLng], 4);
+            this.map.setView([placeLat, placeLng], Math.max(4, this.map.getZoom()));
+
+            const outline = await this.provinceOutlines?.highlight(this.$wire.currentPlace);
+            if (outline) {
+                this.map.fitBounds(outline.getBounds(), { padding: [80, 80], maxZoom: Math.max(6, this.map.getZoom()) });
+            }
         },
 
         clearMarkers() {
@@ -300,11 +340,12 @@ export default function gameMap() {
                 this.map.removeLayer(this.distanceLine);
                 this.distanceLine = null;
             }
+            this.provinceOutlines?.clearHighlight();
         },
 
         resetView() {
             if (this.map) {
-                this.map.setView([20, 0], 2);
+                resetMapView(this.map, this.$wire.currentPlace, this.$wire.zoomEnabled, this.$wire.swedenPart);
             }
         },
 

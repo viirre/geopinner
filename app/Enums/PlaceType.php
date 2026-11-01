@@ -16,6 +16,7 @@ enum PlaceType: string
     case WineRegion = 'wine_region';
     case DOCG = 'docg';
     case AOC = 'aoc';
+    case SwedishProvince = 'swedish_province';
 
     public function label(): string
     {
@@ -32,6 +33,7 @@ enum PlaceType: string
             self::WineRegion => 'Vinregioner',
             self::DOCG => 'DOCG',
             self::AOC => 'AOC',
+            self::SwedishProvince => 'Landskap',
         };
     }
 
@@ -67,6 +69,20 @@ enum PlaceType: string
             self::DOCG,
             self::AOC,
         ];
+    }
+
+    /**
+     * Guess distances are multiplied by this before scoring, so 2 halves every threshold.
+     * Types whose places lie close together need a higher factor to separate right from wrong.
+     * Swedish provinces are scored on the distance to their border, which is short, hence 8.
+     */
+    public function scoringDifficultyFactor(): int
+    {
+        return match (true) {
+            $this === self::SwedishProvince => 8,
+            in_array($this, self::wineTypes(), true) => 2,
+            default => 1,
+        };
     }
 
     /**

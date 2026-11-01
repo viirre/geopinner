@@ -4,16 +4,25 @@ namespace App\Services;
 
 use App\Enums\Difficulty;
 use App\Enums\PlaceType;
+use App\Enums\SwedenPart;
 use App\Models\Place;
 use Illuminate\Support\Collection;
 
 class PlaceService
 {
     /**
-     * Fetch places based on difficulty and game types
+     * Fetch places based on difficulty and game types. A specific part of Sweden
+     * returns all of its provinces and ignores difficulty and game types.
      */
-    public function getPlaces(string|Difficulty $difficulty, array $gameTypes): Collection
+    public function getPlaces(string|Difficulty $difficulty, array $gameTypes, ?SwedenPart $swedenPart = null): Collection
     {
+        if ($swedenPart?->playsEveryProvinceOnce()) {
+            return Place::query()
+                ->where('type', PlaceType::SwedishProvince->value)
+                ->whereIn('name', $swedenPart->provinceNames())
+                ->get(['name', 'lat', 'lng', 'type', 'size']);
+        }
+
         if (is_string($difficulty)) {
             $difficulty = Difficulty::from($difficulty);
         }
@@ -85,8 +94,8 @@ class PlaceService
     /**
      * Get place count for given criteria
      */
-    public function getPlaceCount(string|Difficulty $difficulty, array $gameTypes): int
+    public function getPlaceCount(string|Difficulty $difficulty, array $gameTypes, ?SwedenPart $swedenPart = null): int
     {
-        return $this->getPlaces($difficulty, $gameTypes)->count();
+        return $this->getPlaces($difficulty, $gameTypes, $swedenPart)->count();
     }
 }
